@@ -29,6 +29,7 @@ export type SavedMenuFieldsFragment = {
 			id: string;
 			name: string;
 			imageUrl?: string | null;
+			category?: string | null;
 			calories?: number | null;
 			protein?: number | null;
 			fat?: number | null;
@@ -132,6 +133,10 @@ export const SavedMenuFieldsFragmentDoc = {
 											},
 											{
 												kind: 'Field',
+												name: { kind: 'Name', value: 'category' },
+											},
+											{
+												kind: 'Field',
 												name: { kind: 'Name', value: 'calories' },
 											},
 											{
@@ -220,6 +225,10 @@ export const SavedMenusDocument = {
 											{
 												kind: 'Field',
 												name: { kind: 'Name', value: 'imageUrl' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'category' },
 											},
 											{
 												kind: 'Field',
@@ -360,6 +369,10 @@ export const SavedMenuDocument = {
 											{
 												kind: 'Field',
 												name: { kind: 'Name', value: 'imageUrl' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'category' },
 											},
 											{
 												kind: 'Field',
@@ -568,6 +581,10 @@ export const DuplicateSavedMenuDocument = {
 											},
 											{
 												kind: 'Field',
+												name: { kind: 'Name', value: 'category' },
+											},
+											{
+												kind: 'Field',
 												name: { kind: 'Name', value: 'calories' },
 											},
 											{
@@ -757,6 +774,10 @@ export const SaveMenuPlanDocument = {
 											{
 												kind: 'Field',
 												name: { kind: 'Name', value: 'imageUrl' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'category' },
 											},
 											{
 												kind: 'Field',

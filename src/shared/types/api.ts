@@ -377,6 +377,7 @@ export type SavedMenuDish = {
 	__typename?: 'SavedMenuDish';
 	calories: Maybe<Scalars['Int']['output']>;
 	carbs: Maybe<Scalars['Float']['output']>;
+	category: Maybe<Scalars['String']['output']>;
 	fat: Maybe<Scalars['Float']['output']>;
 	id: Scalars['ID']['output'];
 	imageUrl: Maybe<Scalars['String']['output']>;

@@ -1,21 +1,18 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { useAuthContext } from '@/features/auth';
 import { CardFull } from '@/features/dishes';
 import { useDishByNameQuery } from '@/shared/api/graphql';
-import {
-	Breadcrumb,
-	Loader,
-	MetaData,
-	SchemaOrg,
-} from '@/shared/components';
+import { Breadcrumb, Loader, MetaData, SchemaOrg } from '@/shared/components';
 import { fromSlug } from '@/shared/lib/utils/slug';
 import { generateRecipeSchema } from '@/shared/lib/utils/schemaOrg';
 
 const DishDetail = () => {
 	const { isAdmin, user } = useAuthContext();
 	const { id } = useParams<{ id: string }>();
+	const location = useLocation();
 	const dishName = id ? fromSlug(id) : '';
+	const fromPath = (location.state as { from?: string })?.from;
 
 	const { data, loading, error } = useDishByNameQuery({
 		variables: { name: dishName },
@@ -52,11 +49,24 @@ const DishDetail = () => {
 		instructions: dish.instructions ?? [],
 	});
 
-	const breadcrumbItems = [
-		{ name: 'Головна', url: '/' },
-		{ name: 'Страви', url: '/dishes' },
-		{ name: dish.name, url: `/dishes/${id}` },
-	];
+	const getBreadcrumbItems = () => {
+		const items = [{ name: 'Головна', url: '/' }];
+
+		if (fromPath?.startsWith('/menus/')) {
+			const menuId = fromPath.split('/')[2];
+			items.push(
+				{ name: 'Меню', url: '/menus' },
+				{ name: 'Деталі меню', url: `/menus/${menuId}` },
+			);
+		} else {
+			items.push({ name: 'Страви', url: '/dishes' });
+		}
+
+		items.push({ name: dish.name, url: `/dish/${id}` });
+		return items;
+	};
+
+	const breadcrumbItems = getBreadcrumbItems();
 
 	return (
 		<div className="container mx-auto px-4 py-8">
