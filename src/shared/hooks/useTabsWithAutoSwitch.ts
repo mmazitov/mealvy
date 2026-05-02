@@ -12,27 +12,37 @@ interface UseTabsWithAutoSwitchProps<T extends Tab> {
 	isLoading: boolean;
 }
 
+interface UseTabsWithAutoSwitchResult {
+	activeTab: string;
+	setActiveTab: (value: string) => void;
+	isReady: boolean;
+}
+
 export const useTabsWithAutoSwitch = <T extends Tab>({
 	tabs,
 	defaultTab,
 	isLoading,
-}: UseTabsWithAutoSwitchProps<T>) => {
-	const [activeTab, setActiveTab] = useState<string>(defaultTab);
+}: UseTabsWithAutoSwitchProps<T>): UseTabsWithAutoSwitchResult => {
+	const [activeTab, _setActiveTab] = useState<string | null>(null);
+
+	const setActiveTab = (value: string) => _setActiveTab(value);
 
 	useEffect(() => {
-		if (!isLoading) {
-			const firstAvailableTab = tabs.find((tab) => !tab.disabled);
-			if (
-				firstAvailableTab &&
-				tabs.find((t) => t.value === activeTab)?.disabled
-			) {
-				setActiveTab(firstAvailableTab.value);
+		if (isLoading) return;
+
+		_setActiveTab((prev) => {
+			if (prev !== null) {
+				const current = tabs.find((t) => t.value === prev);
+				if (current && !current.disabled) return prev;
 			}
-		}
-	}, [isLoading, tabs, activeTab]);
+			const firstAvailable = tabs.find((tab) => !tab.disabled);
+			return firstAvailable?.value ?? defaultTab;
+		});
+	}, [isLoading, tabs, defaultTab]);
 
 	return {
-		activeTab,
+		activeTab: activeTab ?? defaultTab,
 		setActiveTab,
+		isReady: !isLoading && activeTab !== null,
 	};
 };

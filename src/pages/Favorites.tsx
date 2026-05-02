@@ -3,12 +3,14 @@ import { FavoriteProducts, useFavoriteProducts } from '@/features/products';
 import {
 	MetaData,
 	PageTitle,
+	SkeletonBody,
 	Tabs,
 	TabsContent,
 	TabsList,
 	TabsTrigger,
 } from '@/shared/components';
-import { PAGE_TITLE, FAVORITE_TABS } from '@/shared/constants';
+import { Skeleton } from '@/shared/components/skeleton';
+import { PAGE_TITLE, FAVORITE_TABS, ITEMS_PER_PAGE } from '@/shared/constants';
 import { useTabsWithAutoSwitch } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 
@@ -26,7 +28,7 @@ const Favorites = () => {
 				(tab.value === 'products' && products.length === 0)),
 	}));
 
-	const { activeTab, setActiveTab } = useTabsWithAutoSwitch({
+	const { activeTab, setActiveTab, isReady } = useTabsWithAutoSwitch({
 		tabs,
 		defaultTab: 'dishes',
 		isLoading,
@@ -46,25 +48,41 @@ const Favorites = () => {
 				subtitle={PAGE_TITLE.favorites.subtitle}
 				buttonVisible={false}
 			/>
-			<Tabs value={activeTab} onValueChange={setActiveTab}>
-				<TabsList className="mb-6 inline-flex">
+
+			{!isReady ? (
+				<>
+					<div className="mb-6 inline-flex h-10 items-center gap-1 rounded-md bg-muted p-1">
+						{FAVORITE_TABS.map((tab) => (
+							<SkeletonBody key={tab.value} className="h-7 w-20 rounded-sm" />
+						))}
+					</div>
+					<div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+						{Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
+							<Skeleton key={i} />
+						))}
+					</div>
+				</>
+			) : (
+				<Tabs value={activeTab} onValueChange={setActiveTab}>
+					<TabsList className="mb-6 inline-flex">
+						{tabs.map((tab) => (
+							<TabsTrigger
+								key={tab.value}
+								value={tab.value}
+								disabled={tab.disabled}
+							>
+								{tab.title}
+							</TabsTrigger>
+						))}
+					</TabsList>
 					{tabs.map((tab) => (
-						<TabsTrigger
-							key={tab.value}
-							value={tab.value}
-							disabled={tab.disabled}
-						>
-							{tab.title}
-						</TabsTrigger>
+						<TabsContent key={tab.value} value={tab.value} className="mt-0">
+							{tab.value === tabs[0].value && <FavoriteDishes />}
+							{tab.value === tabs[1].value && <FavoriteProducts />}
+						</TabsContent>
 					))}
-				</TabsList>
-				{tabs.map((tab) => (
-					<TabsContent key={tab.value} value={tab.value} className="mt-0">
-						{tab.value === tabs[0].value && <FavoriteDishes />}
-						{tab.value === tabs[1].value && <FavoriteProducts />}
-					</TabsContent>
-				))}
-			</Tabs>
+				</Tabs>
+			)}
 		</div>
 	);
 };
