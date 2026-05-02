@@ -26,11 +26,9 @@ export const useAuthState = () => {
 	}, [logoutMutation]);
 
 	useEffect(() => {
-		if (isAuthenticated) {
-			setUnauthenticatedHandler(logout);
-			return () => setUnauthenticatedHandler(null);
-		}
-	}, [isAuthenticated, logout]);
+		setUnauthenticatedHandler(logout);
+		return () => setUnauthenticatedHandler(null);
+	}, [logout]);
 
 	const login = useCallback(async () => {
 		await refetch();

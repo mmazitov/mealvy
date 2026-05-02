@@ -8,11 +8,12 @@ import { refreshAccessToken } from './refreshToken';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/graphql';
 
-// Set by useAuthState on mount to handle session expiry
 let onUnauthenticated: (() => void) | null = null;
+let refreshFailed = false;
 
 export const setUnauthenticatedHandler = (handler: (() => void) | null) => {
 	onUnauthenticated = handler;
+	if (handler) refreshFailed = false;
 };
 
 const httpLink = new HttpLink({
@@ -23,8 +24,6 @@ const httpLink = new HttpLink({
 let refreshing: Promise<boolean> | null = null;
 
 const errorLink = new ErrorLink(({ error, operation, forward }) => {
-	// Apollo Client v4: errors are consolidated into a single `error` object.
-	// CombinedGraphQLErrors.is() checks for GraphQL-level errors.
 	const isUnauth =
 		CombinedGraphQLErrors.is(error) &&
 		error.errors.some(
@@ -35,7 +34,7 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
 		);
 
 	if (isUnauth) {
-		if (!onUnauthenticated) {
+		if (!onUnauthenticated || refreshFailed) {
 			return;
 		}
 
@@ -56,7 +55,8 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
 						});
 						return () => sub.unsubscribe();
 					} else {
-						if (onUnauthenticated) onUnauthenticated();
+						refreshFailed = true;
+						onUnauthenticated?.();
 						observer.error(new Error('Session expired'));
 					}
 				})
