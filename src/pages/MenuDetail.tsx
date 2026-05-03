@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import { CardCompact } from '@/features/dishes';
-import { getWeekLabelFromNumber, useMenuDetail } from '@/features/menus';
+import { useMenuDetail } from '@/features/menus';
 import {
 	Breadcrumb,
 	Card,
@@ -14,6 +14,7 @@ import { Grid } from '@/shared/components/grid';
 import { Loader } from '@/shared/components/loader';
 import { Skeleton } from '@/shared/components/skeleton';
 import { METADATA_CONFIG } from '@/shared/lib/config';
+import { getWeekLabel } from '@/shared/lib/utils';
 
 const MenuDetail = () => {
 	const { id } = useParams<{ id: string }>();
@@ -33,7 +34,18 @@ const MenuDetail = () => {
 		return <Loader />;
 	}
 
-	if (error || !menu) {
+	if (error) {
+		console.error('[MenuDetail] Failed to load menu:', id, error.message);
+		return (
+			<div className="container mx-auto px-4 py-8">
+				<div className="rounded-lg bg-red-50 p-4 text-red-600">
+					Не вдалося завантажити меню. Спробуйте оновити сторінку.
+				</div>
+			</div>
+		);
+	}
+
+	if (!menu) {
 		return (
 			<div className="container mx-auto px-4 py-8">
 				<div className="rounded-lg bg-red-50 p-4 text-red-600">
@@ -56,7 +68,7 @@ const MenuDetail = () => {
 
 			<PageTitle
 				title={menu.name}
-				subtitle={`${getWeekLabelFromNumber(menu.weekNumber)} • ${menu.totalDishes} страв • ${menu.totalCalories.toLocaleString()} ккал`}
+				subtitle={`${getWeekLabel(menu.startDate)} • ${menu.totalDishes} страв • ${menu.totalCalories.toLocaleString()} ккал`}
 				buttonVisible={false}
 			/>
 
