@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import { CardCompact } from '@/features/dishes';
-import { useMenuDetail } from '@/features/menus';
+import { getWeekLabelFromNumber, useMenuDetail } from '@/features/menus';
 import {
 	Breadcrumb,
 	Card,
@@ -26,9 +26,8 @@ const MenuDetail = () => {
 		setSelectedDay,
 		weekDaysForFilter,
 		dishesForGrid,
-		getWeekLabelFromNumber,
 		breadcrumbItems,
-	} = useMenuDetail(id!);
+	} = useMenuDetail(id);
 
 	if (loading) {
 		return <Loader />;

@@ -52,8 +52,8 @@ const DishDetail = () => {
 	const getBreadcrumbItems = () => {
 		const items = [{ name: 'Головна', url: '/' }];
 
-		if (fromPath?.startsWith('/menus/')) {
-			const menuId = fromPath.split('/')[2];
+		const menuId = fromPath?.match(/^\/menus\/([^/]+)/)?.[1];
+		if (menuId) {
 			items.push(
 				{ name: 'Меню', url: '/menus' },
 				{ name: 'Деталі меню', url: `/menus/${menuId}` },

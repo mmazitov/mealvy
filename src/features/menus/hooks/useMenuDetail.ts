@@ -4,9 +4,15 @@ import dayjs from 'dayjs';
 import { useSavedMenuQuery } from '@/shared/api/graphql';
 import { weekDays } from '@/shared/lib/utils';
 
-export const useMenuDetail = (menuId: string) => {
+export const getWeekLabelFromNumber = (weekNum: number) => {
+	if (weekNum === 0) return 'Поточний тиждень';
+	if (weekNum > 0) return `Тиждень +${weekNum}`;
+	return `Тиждень ${weekNum}`;
+};
+
+export const useMenuDetail = (menuId: string | undefined) => {
 	const { data, loading, error } = useSavedMenuQuery({
-		variables: { id: menuId },
+		variables: { id: menuId! },
 		skip: !menuId,
 	});
 
@@ -29,6 +35,7 @@ export const useMenuDetail = (menuId: string) => {
 		});
 
 		return grouped;
+		// weekDays is a module-level constant, dayjs is a stable import — safe to omit
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [menu?.items]);
 
@@ -36,19 +43,10 @@ export const useMenuDetail = (menuId: string) => {
 		return weekDays.map((day: string) => ({
 			id: day,
 			name: day,
-			disabled: !dishesByDay[day] || dishesByDay[day].length === 0,
 		}));
-	}, [dishesByDay]);
+	}, []);
 
-	const firstAvailableDay = useMemo(() => {
-		return (
-			weekDaysForFilter.find(
-				(day: { disabled?: boolean; name: string }) => !day.disabled,
-			)?.name || weekDays[0]
-		);
-	}, [weekDaysForFilter]);
-
-	const [selectedDay, setSelectedDay] = useState(firstAvailableDay);
+	const [selectedDay, setSelectedDay] = useState<string>(weekDays[0]);
 
 	const currentDayDishes = useMemo(() => {
 		return dishesByDay[selectedDay] || [];
@@ -72,19 +70,17 @@ export const useMenuDetail = (menuId: string) => {
 		return Array.from(uniqueDishes.values());
 	}, [currentDayDishes]);
 
-	const getWeekLabelFromNumber = (weekNum: number) => {
-		if (weekNum === 0) return 'Поточний тиждень';
-		if (weekNum > 0) return `Тиждень +${weekNum}`;
-		return `Тиждень ${weekNum}`;
-	};
-
-	const breadcrumbItems = menu
-		? [
-				{ name: 'Головна', url: '/' },
-				{ name: 'Меню', url: '/menus' },
-				{ name: menu.name, url: `/menus/${menu.id}` },
-			]
-		: [];
+	const breadcrumbItems = useMemo(
+		() =>
+			menu
+				? [
+						{ name: 'Головна', url: '/' },
+						{ name: 'Меню', url: '/menus' },
+						{ name: menu.name, url: `/menus/${menu.id}` },
+					]
+				: [],
+		[menu],
+	);
 
 	return {
 		menu,
@@ -94,7 +90,6 @@ export const useMenuDetail = (menuId: string) => {
 		setSelectedDay,
 		weekDaysForFilter,
 		dishesForGrid,
-		getWeekLabelFromNumber,
 		breadcrumbItems,
 	};
 };
