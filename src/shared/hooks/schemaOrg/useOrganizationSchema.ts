@@ -5,8 +5,10 @@ import {
 	generateWebSiteSchema,
 } from '@/shared/lib/utils/schemaOrg';
 
+const ORG_SCHEMA = generateOrganizationSchema();
+const WEBSITE_SCHEMA = generateWebSiteSchema();
 
 export const useOrganizationSchema = (): void => {
-	useSchemaOrg(generateOrganizationSchema());
-	useSchemaOrg(generateWebSiteSchema());
+	useSchemaOrg(ORG_SCHEMA);
+	useSchemaOrg(WEBSITE_SCHEMA);
 };

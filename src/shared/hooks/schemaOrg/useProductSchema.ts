@@ -1,6 +1,7 @@
 import { useSchemaOrg } from './useSchemaOrg';
 
 import { type ProductFieldsFragment } from '@/shared/api/graphql';
+import { METADATA_CONFIG } from '@/shared/lib/config';
 import { generateProductSchema } from '@/shared/lib/utils/schemaOrg';
 
 
@@ -11,7 +12,7 @@ export const useProductSchema = (product: ProductFieldsFragment | null): void =>
 				description:
 					product.description ??
 					`Продукт ${product.name} з детальною поживною інформацією`,
-				image: product.imageUrl ?? 'https://mealvy.vercel.app/icon-512.png',
+				image: product.imageUrl ?? `${METADATA_CONFIG.site.url}/icon-512.png`,
 				brand: 'Mealvy',
 				calories: product.calories ?? 0,
 				protein: product.protein ?? 0,

@@ -1,6 +1,6 @@
 import { METADATA_CONFIG } from '@/shared/lib/config';
 
-const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://mealvy.vercel.app';
+const SITE_URL = METADATA_CONFIG.site.url;
 
 export interface BreadcrumbItem {
 	name: string;
@@ -144,8 +144,8 @@ export const generateBreadcrumbSchema = (breadcrumbs: BreadcrumbItem[]) => ({
 	itemListElement: breadcrumbs.map((crumb, index) => ({
 		'@type': 'ListItem',
 		position: index + 1,
-		name: crumb.name,
-		item: crumb.url,
+		name: sanitizeJsonLdString(crumb.name),
+		item: sanitizeJsonLdString(crumb.url),
 	})),
 });
 

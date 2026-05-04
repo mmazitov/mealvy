@@ -1,6 +1,7 @@
 import { useSchemaOrg } from './useSchemaOrg';
 
 import { type DishFieldsFragment } from '@/shared/api/graphql';
+import { METADATA_CONFIG } from '@/shared/lib/config';
 import { generateRecipeSchema } from '@/shared/lib/utils/schemaOrg';
 
 
@@ -9,7 +10,7 @@ export const useRecipeSchema = (dish: DishFieldsFragment | null): void => {
 		? generateRecipeSchema({
 				name: dish.name,
 				description: dish.description ?? 'Смачна страва від Mealvy',
-				image: dish.imageUrl ?? 'https://mealvy.vercel.app/icon-512.png',
+				image: dish.imageUrl ?? `${METADATA_CONFIG.site.url}/icon-512.png`,
 				prepTime: dish.prepTime ?? 0,
 				cookTime: 0,
 				servings: dish.servings ?? 1,
