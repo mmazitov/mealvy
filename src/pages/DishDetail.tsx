@@ -3,10 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useAuthContext } from '@/features/auth';
 import { CardFull } from '@/features/dishes';
 import { useDishByNameQuery } from '@/shared/api/graphql';
-import { Breadcrumb, Loader, MetaData, SchemaOrg } from '@/shared/components';
-import { useBreadcrumbs } from '@/shared/hooks';
+import { Breadcrumb, Loader, MetaData } from '@/shared/components';
+import { useBreadcrumbs, useRecipeSchema } from '@/shared/hooks';
 import { fromSlug } from '@/shared/lib/utils/slug';
-import { generateRecipeSchema } from '@/shared/lib/utils/schemaOrg';
 
 const DishDetail = () => {
 	const { isAdmin, user } = useAuthContext();
@@ -19,10 +18,10 @@ const DishDetail = () => {
 	});
 
 	const dish = data?.dishByName ?? null;
-	// Context-aware: reads location.state.from to detect menu navigation
 	const breadcrumbItems = useBreadcrumbs({
 		title: loading ? undefined : (dish?.name ?? undefined),
 	});
+	useRecipeSchema(dish);
 
 	if (loading) return <Loader />;
 
@@ -47,19 +46,6 @@ const DishDetail = () => {
 		);
 	}
 
-	const recipeSchema = generateRecipeSchema({
-		name: dish.name,
-		description: dish.description ?? 'Смачна страва від Mealvy',
-		image: dish.imageUrl ?? 'https://mealvy.vercel.app/icon-512.png',
-		prepTime: `PT${dish.prepTime ?? 0}M`,
-		cookTime: 'PT0M',
-		servings: dish.servings ?? 1,
-		calories: dish.calories ?? 0,
-		ingredients:
-			dish.ingredients?.map((ing) => `${ing.name} - ${ing.amount}`) ?? [],
-		instructions: dish.instructions ?? [],
-	});
-
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<MetaData
@@ -74,7 +60,6 @@ const DishDetail = () => {
 				]}
 				type="article"
 			/>
-			<SchemaOrg schema={recipeSchema} />
 			<Breadcrumb items={breadcrumbItems} />
 			<CardFull
 				id={dish.id}

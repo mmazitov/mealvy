@@ -12,7 +12,6 @@ export * from './loader';
 export * from './logo';
 export * from './metaData';
 export * from './modal';
-export * from './schemaOrg';
 export * from './navigation';
 export * from './pageTitle';
 export * from './pagination';

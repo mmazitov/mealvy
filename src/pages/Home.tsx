@@ -1,16 +1,10 @@
 import { FeaturedDishes } from '@/features/dishes';
-import {
-	Hero,
-	MetaData,
-	QuickActions,
-	SchemaOrg,
-	Stats,
-} from '@/shared/components';
+import { Hero, MetaData, QuickActions, Stats } from '@/shared/components';
+import { useOrganizationSchema } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
-import { generateOrganizationSchema } from '@/shared/lib/utils/schemaOrg';
 
 const Home = () => {
-	const organizationSchema = generateOrganizationSchema();
+	useOrganizationSchema();
 
 	return (
 		<>
@@ -20,7 +14,6 @@ const Home = () => {
 				keywords={METADATA_CONFIG.keywords.home}
 				type="website"
 			/>
-			<SchemaOrg schema={organizationSchema} />
 			<section
 				className="relative overflow-hidden"
 				style={{ background: 'var(--gradient-hero)' }}

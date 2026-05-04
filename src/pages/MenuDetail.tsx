@@ -13,7 +13,7 @@ import {
 import { Grid } from '@/shared/components/grid';
 import { Loader } from '@/shared/components/loader';
 import { Skeleton } from '@/shared/components/skeleton';
-import { useBreadcrumbs } from '@/shared/hooks';
+import { useBreadcrumbs, useMenuSchema } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 import { getWeekLabel } from '@/shared/lib/utils';
 
@@ -29,6 +29,8 @@ const MenuDetail = () => {
 		weekDaysForFilter,
 		dishesForGrid,
 	} = useMenuDetail(id);
+
+	useMenuSchema(menu ?? null);
 
 	const breadcrumbItems = useBreadcrumbs({
 		title: loading ? undefined : (menu?.name ?? undefined),

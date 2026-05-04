@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { SavedMenus, useSavedMenus } from '@/features/menus';
 import { MenuCardSkeleton } from '@/features/menus/ui/menuCard';
 import {
@@ -11,12 +13,24 @@ import {
 	TabsTrigger,
 } from '@/shared/components';
 import { PAGE_TITLE, MENU_TABS, ITEMS_PER_PAGE } from '@/shared/constants';
-import { useBreadcrumbs, useTabsWithAutoSwitch } from '@/shared/hooks';
+import { useBreadcrumbs, useTabsWithAutoSwitch, useItemListSchema } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
+import { type ItemListSchemaItem } from '@/shared/lib/utils';
 
 const Menus = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { menus, loading } = useSavedMenus();
+
+	const menuItems = useMemo<ItemListSchemaItem[]>(
+		() =>
+			menus.map((menu) => ({
+				name: menu.name,
+				url: `${METADATA_CONFIG.site.url}/menus/${menu.id}`,
+				description: `${menu.totalDishes} страв, ${menu.totalCalories} ккал`,
+			})),
+		[menus],
+	);
+	useItemListSchema(menuItems, 'MenuItem');
 
 	const tabs = MENU_TABS.map((tab) => ({
 		...tab,

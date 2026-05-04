@@ -28,10 +28,15 @@ export {
 	unregisterAllServiceWorkers,
 } from './pwa-utils';
 export {
+	type BreadcrumbItem,
+	type ItemListSchemaItem,
 	generateBreadcrumbSchema,
+	generateItemListSchema,
+	generateMenuSchema,
 	generateOrganizationSchema,
 	generateProductSchema,
 	generateRecipeSchema,
+	generateWebSiteSchema,
 } from './schemaOrg';
 export { createSlug, fromSlug } from './slug';
 export { formatPhone, normalizePhone, phoneValidate } from './validate';

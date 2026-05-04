@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { FavoriteDishes, useFavoriteDishes } from '@/features/dishes';
 import { FavoriteProducts, useFavoriteProducts } from '@/features/products';
 import {
@@ -12,13 +14,37 @@ import {
 } from '@/shared/components';
 import { Skeleton } from '@/shared/components/skeleton';
 import { PAGE_TITLE, FAVORITE_TABS, ITEMS_PER_PAGE } from '@/shared/constants';
-import { useBreadcrumbs, useTabsWithAutoSwitch } from '@/shared/hooks';
+import { useBreadcrumbs, useTabsWithAutoSwitch, useItemListSchema } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
+import { type ItemListSchemaItem, createSlug } from '@/shared/lib/utils';
 
 const Favorites = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { dishes, loading: dishesLoading } = useFavoriteDishes();
 	const { products, loading: productsLoading } = useFavoriteProducts();
+
+	const favDishItems = useMemo<ItemListSchemaItem[]>(
+		() =>
+			dishes.map((dish) => ({
+				name: dish.name,
+				url: `${METADATA_CONFIG.site.url}/dishes/${createSlug(dish.name)}`,
+				image: dish.imageUrl ?? undefined,
+				description: dish.description ?? undefined,
+			})),
+		[dishes],
+	);
+	const favProductItems = useMemo<ItemListSchemaItem[]>(
+		() =>
+			products.map((product) => ({
+				name: product.name,
+				url: `${METADATA_CONFIG.site.url}/products/${createSlug(product.name)}`,
+				image: product.imageUrl ?? undefined,
+				description: product.description ?? undefined,
+			})),
+		[products],
+	);
+	useItemListSchema(favDishItems, 'Recipe');
+	useItemListSchema(favProductItems, 'Product');
 
 	const isLoading = dishesLoading || productsLoading;
 
