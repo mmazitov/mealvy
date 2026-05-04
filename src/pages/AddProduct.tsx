@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ProductForm } from '@/features/products';
 import { useProductByNameQuery } from '@/shared/api/graphql';
 import {
-	BackButton,
+	Breadcrumb,
 	Card,
 	CardContent,
 	CardHeader,
@@ -12,10 +12,11 @@ import {
 	MetaData,
 } from '@/shared/components';
 import { METADATA_CONFIG } from '@/shared/lib/config';
-import { createSlug } from '@/shared/lib/utils';
 import { fromSlug } from '@/shared/lib/utils/slug';
+import { useBreadcrumbs } from '@/shared/hooks';
 
 const AddProduct = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	const { id } = useParams<{ id: string }>();
 	const isEditMode = !!id;
 	const productName = id ? fromSlug(id) : '';
@@ -47,14 +48,7 @@ const AddProduct = () => {
 				keywords={METADATA_CONFIG.keywords.products}
 				type="website"
 			/>
-			<BackButton
-				title={isEditMode ? 'До продукту' : 'До списку продуктів'}
-				href={
-					isEditMode
-						? `/product/${createSlug(product?.name || '')}`
-						: '/products'
-				}
-			/>
+			<Breadcrumb items={breadcrumbItems} />
 
 			<Card>
 				<CardHeader>

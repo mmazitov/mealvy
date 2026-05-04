@@ -2,11 +2,19 @@ import {
 	ShoppingListContent,
 	useShoppingListPage,
 } from '@/features/shoppingList';
-import { BackButton, Loader, MetaData, PageTitle } from '@/shared/components';
+import {
+	BackButton,
+	Breadcrumb,
+	Loader,
+	MetaData,
+	PageTitle,
+} from '@/shared/components';
+import { useBreadcrumbs } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 
 const ShoppingList = () => {
 	const {
+		weekDiff,
 		loading,
 		error,
 		plannerItemsData,
@@ -15,6 +23,17 @@ const ShoppingList = () => {
 		handleExport,
 		backHref,
 	} = useShoppingListPage();
+
+	const weekLabel =
+		weekDiff === 0
+			? 'Поточний тиждень'
+			: weekDiff > 0
+				? `Тиждень +${weekDiff}`
+				: `Тиждень ${weekDiff}`;
+
+	const breadcrumbItems = useBreadcrumbs({
+		parent: { name: weekLabel, url: backHref },
+	});
 
 	if (loading) {
 		return <Loader />;
@@ -33,6 +52,7 @@ const ShoppingList = () => {
 
 	return (
 		<div className="container mx-auto px-4 py-8">
+			<Breadcrumb items={breadcrumbItems} />
 			<MetaData
 				title={METADATA_CONFIG.titles.shoppingList}
 				description={METADATA_CONFIG.descriptions.shoppingList}

@@ -5,11 +5,13 @@ import {
 	ProfileStats,
 	useProfile,
 } from '@/features/profile';
-import { Button, MetaData, PageTitle } from '@/shared/components';
+import { Breadcrumb, Button, MetaData, PageTitle } from '@/shared/components';
 import { PAGE_TITLE } from '@/shared/constants';
+import { useBreadcrumbs } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 
 const Profile = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	const {
 		user,
 		formData,
@@ -23,6 +25,7 @@ const Profile = () => {
 
 	return (
 		<main className="container mx-auto px-4 py-8">
+			<Breadcrumb items={breadcrumbItems} />
 			<div className="mx-auto max-w-2xl space-y-6">
 				<MetaData
 					title={METADATA_CONFIG.titles.profile}

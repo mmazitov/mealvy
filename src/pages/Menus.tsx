@@ -1,6 +1,7 @@
 import { SavedMenus, useSavedMenus } from '@/features/menus';
 import { MenuCardSkeleton } from '@/features/menus/ui/menuCard';
 import {
+	Breadcrumb,
 	MetaData,
 	PageTitle,
 	SkeletonBody,
@@ -10,10 +11,11 @@ import {
 	TabsTrigger,
 } from '@/shared/components';
 import { PAGE_TITLE, MENU_TABS, ITEMS_PER_PAGE } from '@/shared/constants';
-import { useTabsWithAutoSwitch } from '@/shared/hooks';
+import { useBreadcrumbs, useTabsWithAutoSwitch } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 
 const Menus = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	const { menus, loading } = useSavedMenus();
 
 	const tabs = MENU_TABS.map((tab) => ({
@@ -32,6 +34,7 @@ const Menus = () => {
 
 	return (
 		<div className="container mx-auto px-4 py-8">
+			<Breadcrumb items={breadcrumbItems} />
 			<MetaData
 				title={METADATA_CONFIG.titles.menus}
 				description={METADATA_CONFIG.descriptions.menus}

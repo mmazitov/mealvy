@@ -4,15 +4,17 @@ import {
 	SecuritySettings,
 } from '@/features/settings';
 import {
+	Breadcrumb,
 	Button,
 	MetaData,
 	PageTitle,
 	PwaManagement,
 } from '@/shared/components';
-import { useSettings } from '@/shared/hooks';
+import { useBreadcrumbs, useSettings } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config/metaDataConfig';
 
 const Settings = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	const { settings, updateSetting, handleSave } = useSettings({
 		emailNotifications: false,
 		menuReminders: false,
@@ -20,6 +22,7 @@ const Settings = () => {
 
 	return (
 		<main className="container mx-auto px-4 py-8">
+			<Breadcrumb items={breadcrumbItems} />
 			<div className="mx-auto max-w-2xl space-y-6">
 				<MetaData
 					title={METADATA_CONFIG.titles.settings}

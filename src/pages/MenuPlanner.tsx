@@ -9,6 +9,7 @@ import {
 	useMenuPlanner,
 } from '@/features/schedule';
 import {
+	Breadcrumb,
 	FloatingMenu,
 	MetaData,
 	Modal,
@@ -19,10 +20,12 @@ import {
 	TabsTrigger,
 } from '@/shared/components';
 import { MODAL_TYPES, PAGE_TITLE } from '@/shared/constants';
+import { useBreadcrumbs } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 import { FloatingMenuItem } from '@/shared/types';
 
 const MenuPlanner = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	const navigate = useNavigate();
 
 	const {
@@ -67,6 +70,7 @@ const MenuPlanner = () => {
 	];
 	return (
 		<div className="container mx-auto px-4 py-8">
+			<Breadcrumb items={breadcrumbItems} />
 			<FloatingMenu
 				position="bottom-right"
 				items={menuItems}
