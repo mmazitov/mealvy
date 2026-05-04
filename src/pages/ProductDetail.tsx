@@ -9,6 +9,7 @@ import {
 	MetaData,
 	SchemaOrg,
 } from '@/shared/components';
+import { useBreadcrumbs } from '@/shared/hooks';
 import { fromSlug } from '@/shared/lib/utils/slug';
 import { generateProductSchema } from '@/shared/lib/utils/schemaOrg';
 
@@ -22,11 +23,14 @@ const ProductDetail = () => {
 		skip: !productName,
 	});
 
-	if (loading) {
-		return <Loader />;
-	}
+	const product = data?.productByName ?? null;
+	const breadcrumbItems = useBreadcrumbs({
+		title: loading ? undefined : (product?.name ?? undefined),
+	});
 
-	if (error || !data?.productByName) {
+	if (loading) return <Loader />;
+
+	if (error || !product) {
 		return (
 			<div className="container mx-auto px-4 py-8">
 				<div className="rounded-lg bg-red-50 p-4 text-red-600">
@@ -36,9 +40,6 @@ const ProductDetail = () => {
 		);
 	}
 
-	const product = data.productByName;
-
-	// Generate Product Schema.org markup
 	const productSchema = generateProductSchema({
 		name: product.name,
 		description:
@@ -51,12 +52,6 @@ const ProductDetail = () => {
 		fat: product.fat ?? 0,
 		carbs: product.carbs ?? 0,
 	});
-
-	const breadcrumbItems = [
-		{ name: 'Головна', url: '/' },
-		{ name: 'Продукти', url: '/products' },
-		{ name: product.name, url: `/products/${id}` },
-	];
 
 	return (
 		<div className="container mx-auto px-4 py-8">
@@ -74,7 +69,6 @@ const ProductDetail = () => {
 			/>
 			<SchemaOrg schema={productSchema} />
 			<Breadcrumb items={breadcrumbItems} />
-
 			<CardFull
 				id={product.id}
 				name={product.name}

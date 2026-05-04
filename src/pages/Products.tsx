@@ -3,6 +3,7 @@ import { LuPlus } from 'react-icons/lu';
 import { CardCompact } from '@/features/products';
 import { useProductsQuery } from '@/shared/api/graphql';
 import {
+	Breadcrumb,
 	Filter,
 	Grid,
 	MetaData,
@@ -16,9 +17,10 @@ import {
 	ITEMS_PER_PAGE,
 	PAGE_TITLE,
 } from '@/shared/constants';
-import { useFilter, usePagination } from '@/shared/hooks';
+import { useBreadcrumbs, useFilter, usePagination } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 const Products = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	const { data, loading, error } = useProductsQuery();
 
 	const productsData = data?.products || [];
@@ -56,6 +58,7 @@ const Products = () => {
 
 	return (
 		<div className="container mx-auto px-4 py-8">
+			<Breadcrumb items={breadcrumbItems} />
 			<MetaData
 				title={METADATA_CONFIG.titles.products}
 				description={METADATA_CONFIG.descriptions.products}

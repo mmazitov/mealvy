@@ -1,6 +1,7 @@
 import { FavoriteDishes, useFavoriteDishes } from '@/features/dishes';
 import { FavoriteProducts, useFavoriteProducts } from '@/features/products';
 import {
+	Breadcrumb,
 	MetaData,
 	PageTitle,
 	SkeletonBody,
@@ -11,10 +12,11 @@ import {
 } from '@/shared/components';
 import { Skeleton } from '@/shared/components/skeleton';
 import { PAGE_TITLE, FAVORITE_TABS, ITEMS_PER_PAGE } from '@/shared/constants';
-import { useTabsWithAutoSwitch } from '@/shared/hooks';
+import { useBreadcrumbs, useTabsWithAutoSwitch } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 
 const Favorites = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	const { dishes, loading: dishesLoading } = useFavoriteDishes();
 	const { products, loading: productsLoading } = useFavoriteProducts();
 
@@ -36,6 +38,7 @@ const Favorites = () => {
 
 	return (
 		<div className="container mx-auto px-4 py-8">
+			<Breadcrumb items={breadcrumbItems} />
 			<MetaData
 				title={METADATA_CONFIG.titles.favorites}
 				description={METADATA_CONFIG.descriptions.favorites}

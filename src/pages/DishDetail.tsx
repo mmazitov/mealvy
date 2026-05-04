@@ -1,37 +1,30 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useAuthContext } from '@/features/auth';
 import { CardFull } from '@/features/dishes';
 import { useDishByNameQuery } from '@/shared/api/graphql';
 import { Breadcrumb, Loader, MetaData, SchemaOrg } from '@/shared/components';
+import { useBreadcrumbs } from '@/shared/hooks';
 import { fromSlug } from '@/shared/lib/utils/slug';
 import { generateRecipeSchema } from '@/shared/lib/utils/schemaOrg';
-
-interface DishNavigationState {
-	from?: string;
-}
-
-function isDishNavigationState(s: unknown): s is DishNavigationState {
-	return typeof s === 'object' && s !== null;
-}
 
 const DishDetail = () => {
 	const { isAdmin, user } = useAuthContext();
 	const { id } = useParams<{ id: string }>();
-	const location = useLocation();
 	const dishName = id ? fromSlug(id) : '';
-
-	const navState = isDishNavigationState(location.state) ? location.state : null;
-	const fromPath = navState?.from;
 
 	const { data, loading, error } = useDishByNameQuery({
 		variables: { name: dishName },
 		skip: !dishName,
 	});
 
-	if (loading) {
-		return <Loader />;
-	}
+	const dish = data?.dishByName ?? null;
+	// Context-aware: reads location.state.from to detect menu navigation
+	const breadcrumbItems = useBreadcrumbs({
+		title: loading ? undefined : (dish?.name ?? undefined),
+	});
+
+	if (loading) return <Loader />;
 
 	if (error) {
 		console.error('[DishDetail] Failed to load dish:', id, error.message);
@@ -44,17 +37,15 @@ const DishDetail = () => {
 		);
 	}
 
-	if (!data?.dishByName) {
+	if (!dish) {
 		return (
 			<div className="container mx-auto px-4 py-8">
 				<div className="rounded-lg bg-red-50 p-4 text-red-600">
-					Продукт не знайдено
+					Страву не знайдено
 				</div>
 			</div>
 		);
 	}
-
-	const dish = data.dishByName;
 
 	const recipeSchema = generateRecipeSchema({
 		name: dish.name,
@@ -68,25 +59,6 @@ const DishDetail = () => {
 			dish.ingredients?.map((ing) => `${ing.name} - ${ing.amount}`) ?? [],
 		instructions: dish.instructions ?? [],
 	});
-
-	const getBreadcrumbItems = () => {
-		const items = [{ name: 'Головна', url: '/' }];
-
-		const menuId = fromPath?.match(/^\/menu\/([^/]+)/)?.[1];
-		if (menuId) {
-			items.push(
-				{ name: 'Меню', url: '/menus' },
-				{ name: 'Деталі меню', url: `/menu/${menuId}` },
-			);
-		} else {
-			items.push({ name: 'Страви', url: '/dishes' });
-		}
-
-		items.push({ name: dish.name, url: `/dish/${id}` });
-		return items;
-	};
-
-	const breadcrumbItems = getBreadcrumbItems();
 
 	return (
 		<div className="container mx-auto px-4 py-8">
@@ -104,7 +76,6 @@ const DishDetail = () => {
 			/>
 			<SchemaOrg schema={recipeSchema} />
 			<Breadcrumb items={breadcrumbItems} />
-
 			<CardFull
 				id={dish.id}
 				name={dish.name}

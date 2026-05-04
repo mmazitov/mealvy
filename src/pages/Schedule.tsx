@@ -2,6 +2,7 @@ import { BsCalendar2Month, BsCalendar2Week } from 'react-icons/bs';
 
 import { ScheduleMonth, ScheduleWeek } from '@/features/schedule';
 import {
+	Breadcrumb,
 	MetaData,
 	PageTitle,
 	Tabs,
@@ -10,11 +11,14 @@ import {
 	TabsTrigger,
 } from '@/shared/components';
 import { PAGE_TITLE } from '@/shared/constants';
+import { useBreadcrumbs } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 
 const Schedule = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	return (
 		<div className="container mx-auto px-4 py-8">
+			<Breadcrumb items={breadcrumbItems} />
 			<MetaData
 				title={METADATA_CONFIG.titles.schedule}
 				description={METADATA_CONFIG.descriptions.schedule}

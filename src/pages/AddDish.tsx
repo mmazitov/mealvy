@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { DishForm } from '@/features/dishes';
 import { useDishByNameQuery, useProductsQuery } from '@/shared/api/graphql';
 import {
-	BackButton,
+	Breadcrumb,
 	Card,
 	CardContent,
 	CardHeader,
@@ -12,10 +12,11 @@ import {
 	MetaData,
 } from '@/shared/components';
 import { METADATA_CONFIG } from '@/shared/lib/config';
-import { createSlug } from '@/shared/lib/utils';
 import { fromSlug } from '@/shared/lib/utils/slug';
+import { useBreadcrumbs } from '@/shared/hooks';
 
 const AddDish = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	const { id } = useParams<{ id: string }>();
 	const isEditMode = !!id;
 	const dishName = id ? fromSlug(id) : '';
@@ -52,10 +53,7 @@ const AddDish = () => {
 				keywords={METADATA_CONFIG.keywords.dishes}
 				type="website"
 			/>
-			<BackButton
-				title={isEditMode ? 'До страви' : 'До списку страв'}
-				href={isEditMode ? `/dish/${createSlug(dish?.name || '')}` : '/dishes'}
-			/>
+			<Breadcrumb items={breadcrumbItems} />
 
 			<Card>
 				<CardHeader>

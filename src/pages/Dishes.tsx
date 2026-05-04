@@ -3,6 +3,7 @@ import { LuPlus } from 'react-icons/lu';
 import { CardCompact } from '@/features/dishes';
 import { useDishesQuery } from '@/shared/api/graphql/dish.gen';
 import {
+	Breadcrumb,
 	Filter,
 	Grid,
 	MetaData,
@@ -16,10 +17,11 @@ import {
 	ITEMS_PER_PAGE,
 	PAGE_TITLE,
 } from '@/shared/constants';
-import { useFilter, usePagination } from '@/shared/hooks';
+import { useBreadcrumbs, useFilter, usePagination } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 
 const Dishes = () => {
+	const breadcrumbItems = useBreadcrumbs();
 	const { data, loading, error } = useDishesQuery();
 
 	const dishesData = data?.dishes || [];
@@ -57,6 +59,7 @@ const Dishes = () => {
 
 	return (
 		<div className="container mx-auto px-4 py-8">
+			<Breadcrumb items={breadcrumbItems} />
 			<MetaData
 				title={METADATA_CONFIG.titles.dishes}
 				description={METADATA_CONFIG.descriptions.dishes}

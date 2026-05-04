@@ -97,18 +97,6 @@ export const useMenuDetail = (menuId: string | undefined) => {
 		return Array.from(uniqueDishes.values());
 	}, [currentDayDishes]);
 
-	const breadcrumbItems = useMemo(
-		() =>
-			menu
-				? [
-						{ name: 'Головна', url: '/' },
-						{ name: 'Меню', url: '/menus' },
-						{ name: menu.name, url: `/menu/${menu.id}` },
-					]
-				: [],
-		[menu],
-	);
-
 	return {
 		menu,
 		loading,
@@ -117,6 +105,5 @@ export const useMenuDetail = (menuId: string | undefined) => {
 		setSelectedDay,
 		weekDaysForFilter,
 		dishesForGrid,
-		breadcrumbItems,
 	};
 };
