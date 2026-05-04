@@ -14,10 +14,10 @@ export const useProductSchema = (product: ProductFieldsFragment | null): void =>
 					`Продукт ${product.name} з детальною поживною інформацією`,
 				image: product.imageUrl ?? `${METADATA_CONFIG.site.url}/icon-512.png`,
 				brand: 'Mealvy',
-				calories: product.calories ?? 0,
-				protein: product.protein ?? 0,
-				fat: product.fat ?? 0,
-				carbs: product.carbs ?? 0,
+				calories: product.calories ?? undefined,
+				protein: product.protein ?? undefined,
+				fat: product.fat ?? undefined,
+				carbs: product.carbs ?? undefined,
 			})
 		: null;
 	useSchemaOrg(schema);

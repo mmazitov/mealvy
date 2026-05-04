@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { SavedMenus, useSavedMenus } from '@/features/menus';
 import { MenuCardSkeleton } from '@/features/menus/ui/menuCard';
 import {
@@ -19,11 +21,15 @@ const Menus = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { menus, loading } = useSavedMenus();
 
-	const menuItems: ItemListSchemaItem[] = menus.map((menu) => ({
-		name: menu.name,
-		url: `${METADATA_CONFIG.site.url}/menus/${menu.id}`,
-		description: `${menu.totalDishes} страв, ${menu.totalCalories} ккал`,
-	}));
+	const menuItems = useMemo<ItemListSchemaItem[]>(
+		() =>
+			menus.map((menu) => ({
+				name: menu.name,
+				url: `${METADATA_CONFIG.site.url}/menus/${menu.id}`,
+				description: `${menu.totalDishes} страв, ${menu.totalCalories} ккал`,
+			})),
+		[menus],
+	);
 	useItemListSchema(menuItems, 'MenuItem');
 
 	const tabs = MENU_TABS.map((tab) => ({

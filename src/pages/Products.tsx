@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { LuPlus } from 'react-icons/lu';
 
 import { CardCompact } from '@/features/products';
@@ -24,14 +25,19 @@ const Products = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { data, loading, error } = useProductsQuery();
 
-	const productsData = data?.products || [];
+	const products = data?.products;
+	const productsData = products ?? [];
 
-	const productItems: ItemListSchemaItem[] = productsData.map((product) => ({
-		name: product.name,
-		url: `${METADATA_CONFIG.site.url}/products/${createSlug(product.name)}`,
-		image: product.imageUrl ?? undefined,
-		description: product.description ?? undefined,
-	}));
+	const productItems = useMemo<ItemListSchemaItem[]>(
+		() =>
+			(products ?? []).map((product) => ({
+				name: product.name,
+				url: `${METADATA_CONFIG.site.url}/products/${createSlug(product.name)}`,
+				image: product.imageUrl ?? undefined,
+				description: product.description ?? undefined,
+			})),
+		[products],
+	);
 	useItemListSchema(productItems, 'Product');
 
 	const {

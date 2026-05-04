@@ -1,7 +1,17 @@
 import { useEffect } from 'react';
 
-export const useSchemaOrg = (schema: Record<string, unknown> | null): void => {
-	const serialized = schema ? JSON.stringify(schema) : null;
+import { type SchemaOrgNode } from '@/shared/lib/utils/schemaOrg';
+
+const trySerialize = (schema: SchemaOrgNode): string | null => {
+	try {
+		return JSON.stringify(schema);
+	} catch {
+		return null;
+	}
+};
+
+export const useSchemaOrg = (schema: SchemaOrgNode | null): void => {
+	const serialized = schema ? trySerialize(schema) : null;
 
 	useEffect(() => {
 		if (!serialized) return;

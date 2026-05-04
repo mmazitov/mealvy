@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +13,8 @@ interface BreadcrumbProps {
 }
 
 export const Breadcrumb = ({ items }: BreadcrumbProps) => {
-	useSchemaOrg(generateBreadcrumbSchema(items));
+	const schema = useMemo(() => generateBreadcrumbSchema(items), [items]);
+	useSchemaOrg(schema);
 
 	return (
 		<nav aria-label="Breadcrumb" className="mb-4">

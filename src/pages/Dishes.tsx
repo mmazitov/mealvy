@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { LuPlus } from 'react-icons/lu';
 
 import { CardCompact } from '@/features/dishes';
@@ -25,14 +26,19 @@ const Dishes = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { data, loading, error } = useDishesQuery();
 
-	const dishesData = data?.dishes || [];
+	const dishes = data?.dishes;
+	const dishesData = dishes ?? [];
 
-	const dishItems: ItemListSchemaItem[] = dishesData.map((dish) => ({
-		name: dish.name,
-		url: `${METADATA_CONFIG.site.url}/dishes/${createSlug(dish.name)}`,
-		image: dish.imageUrl ?? undefined,
-		description: dish.description ?? undefined,
-	}));
+	const dishItems = useMemo<ItemListSchemaItem[]>(
+		() =>
+			(dishes ?? []).map((dish) => ({
+				name: dish.name,
+				url: `${METADATA_CONFIG.site.url}/dishes/${createSlug(dish.name)}`,
+				image: dish.imageUrl ?? undefined,
+				description: dish.description ?? undefined,
+			})),
+		[dishes],
+	);
 	useItemListSchema(dishItems, 'Recipe');
 
 	const {

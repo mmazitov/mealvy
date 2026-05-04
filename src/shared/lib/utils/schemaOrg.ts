@@ -2,6 +2,12 @@ import { METADATA_CONFIG } from '@/shared/lib/config';
 
 const SITE_URL = METADATA_CONFIG.site.url;
 
+export interface SchemaOrgNode {
+	'@context': 'https://schema.org' | 'https://schema.org/';
+	'@type': string;
+	[key: string]: unknown;
+}
+
 export interface BreadcrumbItem {
 	name: string;
 	url: string;
@@ -31,10 +37,10 @@ interface ProductSchema {
 	description: string;
 	image: string;
 	brand: string;
-	calories: number;
-	protein: number;
-	fat: number;
-	carbs: number;
+	calories?: number;
+	protein?: number;
+	fat?: number;
+	carbs?: number;
 }
 
 interface MenuItemInput {
@@ -56,12 +62,14 @@ interface MenuSchemaInput {
  * Prevents script tag injection in JSON-LD structured data.
  * Replaces </script sequences that could break the enclosing script tag.
  */
-const sanitizeJsonLdString = (value: string): string =>
-	value.replace(/<\/script/gi, '<\\/script');
+const sanitizeJsonLdString = (value: string): string => {
+	if (typeof value !== 'string') return '';
+	return value.replace(/<\/script/gi, '<\\/script');
+};
 
 export const generateRecipeSchema = (recipe: RecipeSchema) => ({
-	'@context': 'https://schema.org/',
-	'@type': 'Recipe',
+	'@context': 'https://schema.org/' as const,
+	'@type': 'Recipe' as const,
 	name: sanitizeJsonLdString(recipe.name),
 	description: sanitizeJsonLdString(recipe.description),
 	image: recipe.image,
@@ -86,8 +94,8 @@ export const generateRecipeSchema = (recipe: RecipeSchema) => ({
 });
 
 export const generateProductSchema = (product: ProductSchema) => ({
-	'@context': 'https://schema.org/',
-	'@type': 'Product',
+	'@context': 'https://schema.org/' as const,
+	'@type': 'Product' as const,
 	name: sanitizeJsonLdString(product.name),
 	description: sanitizeJsonLdString(product.description),
 	image: product.image,
@@ -97,24 +105,24 @@ export const generateProductSchema = (product: ProductSchema) => ({
 	},
 	nutrition: {
 		'@type': 'NutritionInformation',
-		calories: `${product.calories} calories`,
-		carbohydrateContent: `${product.carbs}g`,
-		proteinContent: `${product.protein}g`,
-		fatContent: `${product.fat}g`,
+		...(product.calories != null && { calories: `${product.calories} calories` }),
+		...(product.carbs != null && { carbohydrateContent: `${product.carbs}g` }),
+		...(product.protein != null && { proteinContent: `${product.protein}g` }),
+		...(product.fat != null && { fatContent: `${product.fat}g` }),
 	},
 });
 
 export const generateOrganizationSchema = () => ({
-	'@context': 'https://schema.org',
-	'@type': 'Organization',
+	'@context': 'https://schema.org' as const,
+	'@type': 'Organization' as const,
 	name: 'Mealvy',
 	url: SITE_URL,
 	logo: `${SITE_URL}/logo.png`,
 	description: 'Your personal meal planner and recipe manager',
 	sameAs: [
-		`https://www.facebook.com/${METADATA_CONFIG.social.facebook}`,
-		`https://twitter.com/${METADATA_CONFIG.social.twitter.replace('@', '')}`,
-		`https://www.instagram.com/${METADATA_CONFIG.social.instagram.replace('@', '')}`,
+		`https://www.facebook.com/${METADATA_CONFIG.social.facebook ?? ''}`,
+		`https://twitter.com/${METADATA_CONFIG.social.twitter?.replace('@', '') ?? ''}`,
+		`https://www.instagram.com/${METADATA_CONFIG.social.instagram?.replace('@', '') ?? ''}`,
 	],
 	contactPoint: {
 		'@type': 'ContactPoint',
@@ -124,8 +132,8 @@ export const generateOrganizationSchema = () => ({
 });
 
 export const generateWebSiteSchema = () => ({
-	'@context': 'https://schema.org',
-	'@type': 'WebSite',
+	'@context': 'https://schema.org' as const,
+	'@type': 'WebSite' as const,
 	name: 'Mealvy',
 	url: SITE_URL,
 	potentialAction: {
@@ -139,8 +147,8 @@ export const generateWebSiteSchema = () => ({
 });
 
 export const generateBreadcrumbSchema = (breadcrumbs: BreadcrumbItem[]) => ({
-	'@context': 'https://schema.org',
-	'@type': 'BreadcrumbList',
+	'@context': 'https://schema.org' as const,
+	'@type': 'BreadcrumbList' as const,
 	itemListElement: breadcrumbs.map((crumb, index) => ({
 		'@type': 'ListItem',
 		position: index + 1,
@@ -153,8 +161,8 @@ export const generateItemListSchema = (
 	items: ItemListSchemaItem[],
 	type: 'Recipe' | 'Product' | 'MenuItem',
 ) => ({
-	'@context': 'https://schema.org',
-	'@type': 'ItemList',
+	'@context': 'https://schema.org' as const,
+	'@type': 'ItemList' as const,
 	itemListElement: items.map((item, index) => ({
 		'@type': 'ListItem',
 		position: index + 1,
@@ -180,8 +188,8 @@ export const generateMenuSchema = (menu: MenuSchemaInput) => {
 	);
 
 	return {
-		'@context': 'https://schema.org',
-		'@type': 'Menu',
+		'@context': 'https://schema.org' as const,
+		'@type': 'Menu' as const,
 		name: sanitizeJsonLdString(menu.name),
 		description: sanitizeJsonLdString(menu.description),
 		hasMenuSection: Object.entries(sections).map(([mealTime, items]) => ({
