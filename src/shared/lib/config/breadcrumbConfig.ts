@@ -1,4 +1,3 @@
-// src/shared/lib/breadcrumbs/breadcrumbConfig.ts
 import type { BreadcrumbItem } from '@/shared/lib/utils/schemaOrg';
 
 interface BreadcrumbRouteConfig {
@@ -109,7 +108,8 @@ export function buildBreadcrumbTrail(
 	let isLeaf = true;
 
 	while (currentPattern) {
-		const config: BreadcrumbRouteConfig | undefined = BREADCRUMB_ROUTES[currentPattern];
+		const config: BreadcrumbRouteConfig | undefined =
+			BREADCRUMB_ROUTES[currentPattern];
 		if (!config) break;
 
 		const url = resolvePatternUrl(currentPattern, params);
