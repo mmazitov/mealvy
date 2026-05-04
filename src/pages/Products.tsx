@@ -17,13 +17,22 @@ import {
 	ITEMS_PER_PAGE,
 	PAGE_TITLE,
 } from '@/shared/constants';
-import { useBreadcrumbs, useFilter, usePagination } from '@/shared/hooks';
+import { useBreadcrumbs, useFilter, usePagination, useItemListSchema } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
+import { type ItemListSchemaItem, createSlug } from '@/shared/lib/utils';
 const Products = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { data, loading, error } = useProductsQuery();
 
 	const productsData = data?.products || [];
+
+	const productItems: ItemListSchemaItem[] = productsData.map((product) => ({
+		name: product.name,
+		url: `${METADATA_CONFIG.site.url}/products/${createSlug(product.name)}`,
+		image: product.imageUrl ?? undefined,
+		description: product.description ?? undefined,
+	}));
+	useItemListSchema(productItems, 'Product');
 
 	const {
 		searchQuery,

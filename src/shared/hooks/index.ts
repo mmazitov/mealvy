@@ -21,3 +21,4 @@ export * from './useToggle';
 export * from './useFavorite';
 export * from './useTabsWithAutoSwitch';
 export * from './useBreadcrumbs';
+export * from './schemaOrg';

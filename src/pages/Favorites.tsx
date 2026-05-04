@@ -12,13 +12,29 @@ import {
 } from '@/shared/components';
 import { Skeleton } from '@/shared/components/skeleton';
 import { PAGE_TITLE, FAVORITE_TABS, ITEMS_PER_PAGE } from '@/shared/constants';
-import { useBreadcrumbs, useTabsWithAutoSwitch } from '@/shared/hooks';
+import { useBreadcrumbs, useTabsWithAutoSwitch, useItemListSchema } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
+import { type ItemListSchemaItem, createSlug } from '@/shared/lib/utils';
 
 const Favorites = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { dishes, loading: dishesLoading } = useFavoriteDishes();
 	const { products, loading: productsLoading } = useFavoriteProducts();
+
+	const favDishItems: ItemListSchemaItem[] = dishes.map((dish) => ({
+		name: dish.name,
+		url: `${METADATA_CONFIG.site.url}/dishes/${createSlug(dish.name)}`,
+		image: dish.imageUrl ?? undefined,
+		description: dish.description ?? undefined,
+	}));
+	const favProductItems: ItemListSchemaItem[] = products.map((product) => ({
+		name: product.name,
+		url: `${METADATA_CONFIG.site.url}/products/${createSlug(product.name)}`,
+		image: product.imageUrl ?? undefined,
+		description: product.description ?? undefined,
+	}));
+	useItemListSchema(favDishItems, 'Recipe');
+	useItemListSchema(favProductItems, 'Product');
 
 	const isLoading = dishesLoading || productsLoading;
 

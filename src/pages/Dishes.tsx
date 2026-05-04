@@ -17,14 +17,23 @@ import {
 	ITEMS_PER_PAGE,
 	PAGE_TITLE,
 } from '@/shared/constants';
-import { useBreadcrumbs, useFilter, usePagination } from '@/shared/hooks';
+import { useBreadcrumbs, useFilter, usePagination, useItemListSchema } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
+import { type ItemListSchemaItem, createSlug } from '@/shared/lib/utils';
 
 const Dishes = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { data, loading, error } = useDishesQuery();
 
 	const dishesData = data?.dishes || [];
+
+	const dishItems: ItemListSchemaItem[] = dishesData.map((dish) => ({
+		name: dish.name,
+		url: `${METADATA_CONFIG.site.url}/dishes/${createSlug(dish.name)}`,
+		image: dish.imageUrl ?? undefined,
+		description: dish.description ?? undefined,
+	}));
+	useItemListSchema(dishItems, 'Recipe');
 
 	const {
 		searchQuery,

@@ -1,7 +1,7 @@
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import { SchemaOrg } from '@/shared/components';
+import { useSchemaOrg } from '@/shared/hooks';
 import {
 	type BreadcrumbItem,
 	generateBreadcrumbSchema,
@@ -12,30 +12,27 @@ interface BreadcrumbProps {
 }
 
 export const Breadcrumb = ({ items }: BreadcrumbProps) => {
-	const schema = generateBreadcrumbSchema(items);
+	useSchemaOrg(generateBreadcrumbSchema(items));
 
 	return (
-		<>
-			<SchemaOrg schema={schema} />
-			<nav aria-label="Breadcrumb" className="mb-4">
-				<ul className="text-muted-foreground flex items-center gap-2 text-sm">
-					{items.map((item, index) => (
-						<li key={item.url} className="flex items-center gap-2">
-							{index > 0 && <ChevronRight className="h-4 w-4" />}
-							{index === items.length - 1 ? (
-								<span className="text-foreground font-medium">{item.name}</span>
-							) : (
-								<Link
-									to={item.url}
-									className="hover:text-foreground transition-colors"
-								>
-									{item.name}
-								</Link>
-							)}
-						</li>
-					))}
-				</ul>
-			</nav>
-		</>
+		<nav aria-label="Breadcrumb" className="mb-4">
+			<ul className="text-muted-foreground flex items-center gap-2 text-sm">
+				{items.map((item, index) => (
+					<li key={item.url} className="flex items-center gap-2">
+						{index > 0 && <ChevronRight className="h-4 w-4" />}
+						{index === items.length - 1 ? (
+							<span className="text-foreground font-medium">{item.name}</span>
+						) : (
+							<Link
+								to={item.url}
+								className="hover:text-foreground transition-colors"
+							>
+								{item.name}
+							</Link>
+						)}
+					</li>
+				))}
+			</ul>
+		</nav>
 	);
 };
