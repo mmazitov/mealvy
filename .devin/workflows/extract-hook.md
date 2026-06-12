@@ -1,0 +1,1 @@
+../../.ai/commands/extract-hook.md
