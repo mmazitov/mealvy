@@ -10,3 +10,7 @@ const CACHES = {
 	IMAGES: `images-${DATA_VERSION}`,
 	QUEUE: `offline-queue-${DATA_VERSION}`,
 };
+
+// IMAGES is the only unbounded cache-first bucket — cap it so Cache Storage
+// doesn't grow forever
+const MAX_IMAGE_CACHE_ENTRIES = 100;

@@ -14,7 +14,11 @@ import {
 } from '@/shared/components';
 import { Skeleton } from '@/shared/components/skeleton';
 import { PAGE_TITLE, FAVORITE_TABS, ITEMS_PER_PAGE } from '@/shared/constants';
-import { useBreadcrumbs, useTabsWithAutoSwitch, useItemListSchema } from '@/shared/hooks';
+import {
+	useBreadcrumbs,
+	useTabsWithAutoSwitch,
+	useItemListSchema,
+} from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 import { type ItemListSchemaItem, createSlug } from '@/shared/lib/utils';
 
@@ -66,6 +70,7 @@ const Favorites = () => {
 		<div className="container mx-auto px-4 py-8">
 			<Breadcrumb items={breadcrumbItems} />
 			<MetaData
+				noindex
 				title={METADATA_CONFIG.titles.favorites}
 				description={METADATA_CONFIG.descriptions.favorites}
 				keywords={METADATA_CONFIG.keywords.favorites}
@@ -80,7 +85,7 @@ const Favorites = () => {
 
 			{!isReady ? (
 				<>
-					<div className="mb-6 inline-flex h-10 items-center gap-1 rounded-md bg-muted p-1">
+					<div className="bg-muted mb-6 inline-flex h-10 items-center gap-1 rounded-md p-1">
 						{FAVORITE_TABS.map((tab) => (
 							<SkeletonBody key={tab.value} className="h-7 w-20 rounded-sm" />
 						))}

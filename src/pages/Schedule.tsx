@@ -1,4 +1,7 @@
-import { BsCalendar2Month, BsCalendar2Week } from 'react-icons/bs';
+import {
+	PiCalendarBold as CalendarDays,
+	PiCalendarDotsBold as CalendarRange,
+} from 'react-icons/pi';
 
 import { ScheduleMonth, ScheduleWeek } from '@/features/schedule';
 import {
@@ -34,11 +37,11 @@ const Schedule = () => {
 			<Tabs defaultValue="week" className="space-y-6">
 				<TabsList className="grid w-full max-w-md grid-cols-2">
 					<TabsTrigger value="week" className="flex gap-1">
-						<BsCalendar2Week className="h-4 w-4" />
+						<CalendarRange className="h-4 w-4" />
 						Тиждень
 					</TabsTrigger>
 					<TabsTrigger value="month" className="flex gap-1">
-						<BsCalendar2Month className="h-4 w-4" />
+						<CalendarDays className="h-4 w-4" />
 						Місяць
 					</TabsTrigger>
 				</TabsList>

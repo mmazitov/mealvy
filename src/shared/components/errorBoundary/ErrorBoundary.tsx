@@ -28,9 +28,7 @@ class ErrorBoundary extends Component<Props, State> {
 				this.props.fallback ?? (
 					<div className="flex min-h-screen items-center justify-center p-8 text-center">
 						<div>
-							<h2 className="mb-2 text-xl font-semibold">
-								Щось пішло не так
-							</h2>
+							<h2 className="mb-2 text-xl font-semibold">Щось пішло не так</h2>
 							<p className="text-muted-foreground mb-4 text-sm">
 								Сторінку не вдалося завантажити. Спробуйте оновити.
 							</p>

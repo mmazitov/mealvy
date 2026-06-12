@@ -1,5 +1,10 @@
-import { LuCopy, LuEye, LuPencil, LuTrash2 } from 'react-icons/lu';
-import { MdMoreVert } from 'react-icons/md';
+import {
+	PiCopyBold as Copy,
+	PiDotsThreeVerticalBold as EllipsisVertical,
+	PiEyeBold as Eye,
+	PiPencilSimpleBold as Pencil,
+	PiTrashBold as Trash2,
+} from 'react-icons/pi';
 
 import {
 	Button,
@@ -41,7 +46,7 @@ const Actions = ({
 					}}
 					aria-label="Переглянути меню"
 				>
-					<LuEye className="mr-1 h-4 w-4" />
+					<Eye className="mr-1 h-4 w-4" />
 					Переглянути
 				</Button>
 				<FavoriteButton
@@ -53,7 +58,7 @@ const Actions = ({
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button variant="ghost" size="sm" aria-label="Більше дій">
-						<MdMoreVert className="h-4 w-4" />
+						<EllipsisVertical className="h-4 w-4" />
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
@@ -63,7 +68,7 @@ const Actions = ({
 							onEdit();
 						}}
 					>
-						<LuPencil className="mr-2 h-4 w-4" />
+						<Pencil className="mr-2 h-4 w-4" />
 						Редагувати
 					</DropdownMenuItem>
 					<DropdownMenuItem
@@ -72,7 +77,7 @@ const Actions = ({
 							onDuplicate();
 						}}
 					>
-						<LuCopy className="mr-2 h-4 w-4" />
+						<Copy className="mr-2 h-4 w-4" />
 						Дублювати
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
@@ -83,7 +88,7 @@ const Actions = ({
 						}}
 						className="text-destructive hover:text-(--color-destructive-foreground)"
 					>
-						<LuTrash2 className="mr-2 h-4 w-4" />
+						<Trash2 className="mr-2 h-4 w-4" />
 						Видалити
 					</DropdownMenuItem>
 				</DropdownMenuContent>

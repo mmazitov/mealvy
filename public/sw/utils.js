@@ -11,6 +11,17 @@ async function cleanupOldCaches(allowedCaches) {
 	);
 }
 
+// Cache API has no eviction policy — keys() preserves insertion order,
+// so dropping from the front removes the oldest entries
+async function trimCache(cacheName, maxEntries) {
+	const cache = await caches.open(cacheName);
+	const keys = await cache.keys();
+	if (keys.length <= maxEntries) return;
+	await Promise.all(
+		keys.slice(0, keys.length - maxEntries).map((key) => cache.delete(key)),
+	);
+}
+
 function isApiRequest(request) {
 	return request.url.includes('/api/');
 }

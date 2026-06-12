@@ -1,4 +1,4 @@
-import { LuHeart } from 'react-icons/lu';
+import { PiHeartBold as Heart } from 'react-icons/pi';
 
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/lib/utils';
@@ -34,7 +34,7 @@ const FavoriteButton = ({
 			}}
 			aria-label={isFavorite ? 'Видалити з обраного' : 'Додати до обраного'}
 		>
-			<LuHeart
+			<Heart
 				className={cn(
 					variant === 'inline' ? 'h-4 w-4' : 'h-5 w-5',
 					isFavorite && 'fill-current',

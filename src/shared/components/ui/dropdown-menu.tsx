@@ -1,5 +1,9 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { Check, ChevronRight, Circle } from 'lucide-react';
+import {
+	PiCheckBold as Check,
+	PiCaretRightBold as ChevronRight,
+	PiCircleBold as Circle,
+} from 'react-icons/pi';
 import * as React from 'react';
 
 import { cn } from '@/shared/lib/utils/cn';

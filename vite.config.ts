@@ -108,7 +108,7 @@ export default defineConfig({
 						'@radix-ui/react-dropdown-menu',
 						'@radix-ui/react-tooltip',
 					],
-					'vendor-icons': ['lucide-react'],
+					'vendor-icons': ['react-icons'],
 				},
 			},
 		},

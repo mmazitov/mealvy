@@ -11,6 +11,11 @@ async function cacheFirst(request, cacheName) {
 		const response = await fetch(request);
 		if (response && response.status === 200) {
 			cache.put(request, response.clone());
+			if (cacheName === CACHES.IMAGES) {
+				trimCache(cacheName, MAX_IMAGE_CACHE_ENTRIES).catch((err) =>
+					error('[Strategy] Failed to trim image cache:', err),
+				);
+			}
 		}
 		return response;
 	} catch (err) {

@@ -1,4 +1,4 @@
-import { LuPlus, LuX } from 'react-icons/lu';
+import { PiPlusBold as Plus, PiXBold as X } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
 import {
@@ -93,7 +93,7 @@ const DishItem = ({
 					)}
 					onClick={() => onRemove(meal, dish.id)}
 				>
-					<LuX className="h-3.5 w-3.5" />
+					<X className="h-3.5 w-3.5" />
 				</Button>
 			)}
 		</div>
@@ -109,7 +109,7 @@ const AddDishButton = ({ isCompact, meal, onAdd }: AddDishButtonProps) => {
 				onClick={() => onAdd(meal)}
 				className="text-muted-foreground/20 hover:text-primary/40 hover:bg-primary/5 flex w-full items-center justify-center rounded-lg border border-dashed py-3 transition-all"
 			>
-				<LuPlus className="h-4 w-4" />
+				<Plus className="h-4 w-4" />
 			</button>
 		);
 	}
@@ -121,7 +121,7 @@ const AddDishButton = ({ isCompact, meal, onAdd }: AddDishButtonProps) => {
 			onClick={() => onAdd(meal)}
 		>
 			<div className="bg-primary/10 group-hover/btn:bg-primary/20 flex h-8 w-8 items-center justify-center rounded-full transition-colors">
-				<LuPlus className="text-primary h-5 w-5" />
+				<Plus className="text-primary h-5 w-5" />
 			</div>
 			<span className="font-medium">Додати страву</span>
 		</Button>

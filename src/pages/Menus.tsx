@@ -13,7 +13,11 @@ import {
 	TabsTrigger,
 } from '@/shared/components';
 import { PAGE_TITLE, MENU_TABS, ITEMS_PER_PAGE } from '@/shared/constants';
-import { useBreadcrumbs, useTabsWithAutoSwitch, useItemListSchema } from '@/shared/hooks';
+import {
+	useBreadcrumbs,
+	useTabsWithAutoSwitch,
+	useItemListSchema,
+} from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 import { type ItemListSchemaItem } from '@/shared/lib/utils';
 
@@ -36,8 +40,7 @@ const Menus = () => {
 		...tab,
 		disabled:
 			!loading &&
-			((tab.value === 'my' && menus.length === 0) ||
-				tab.value === 'shared'), // TODO: shared menus not yet implemented
+			((tab.value === 'my' && menus.length === 0) || tab.value === 'shared'), // TODO: shared menus not yet implemented
 	}));
 
 	const { activeTab, setActiveTab, isReady } = useTabsWithAutoSwitch({
@@ -50,6 +53,7 @@ const Menus = () => {
 		<div className="container mx-auto px-4 py-8">
 			<Breadcrumb items={breadcrumbItems} />
 			<MetaData
+				noindex
 				title={METADATA_CONFIG.titles.menus}
 				description={METADATA_CONFIG.descriptions.menus}
 				keywords={METADATA_CONFIG.keywords.menus}
@@ -64,7 +68,7 @@ const Menus = () => {
 
 			{!isReady ? (
 				<>
-					<div className="mb-6 inline-flex h-10 items-center gap-1 rounded-md bg-muted p-1">
+					<div className="bg-muted mb-6 inline-flex h-10 items-center gap-1 rounded-md p-1">
 						{MENU_TABS.map((tab) => (
 							<SkeletonBody key={tab.value} className="h-7 w-24 rounded-sm" />
 						))}

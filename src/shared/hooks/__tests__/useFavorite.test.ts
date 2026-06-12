@@ -200,7 +200,9 @@ describe('useFavorite', () => {
 	});
 
 	it('should handle mutation errors gracefully', async () => {
-		const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+		const consoleErrorSpy = vi
+			.spyOn(console, 'error')
+			.mockImplementation(() => {});
 		mockAddMutation.mockRejectedValueOnce(new Error('Network error'));
 
 		const { result } = renderHook(() =>

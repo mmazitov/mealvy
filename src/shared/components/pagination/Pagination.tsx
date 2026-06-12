@@ -1,10 +1,10 @@
 import { JSX } from 'react';
 import {
-	LuChevronLeft,
-	LuChevronRight,
-	LuChevronsLeft,
-	LuChevronsRight,
-} from 'react-icons/lu';
+	PiCaretLeftBold as ChevronLeft,
+	PiCaretRightBold as ChevronRight,
+	PiCaretDoubleLeftBold as ChevronsLeft,
+	PiCaretDoubleRightBold as ChevronsRight,
+} from 'react-icons/pi';
 
 import { Button } from '@/shared/components/ui';
 import { cn } from '@/shared/lib/utils/cn';
@@ -83,7 +83,7 @@ const Pagination = ({
 					aria-label="Перша сторінка"
 					className="hidden sm:inline-flex"
 				>
-					<LuChevronsLeft />
+					<ChevronsLeft />
 				</Button>
 
 				<Button
@@ -93,7 +93,7 @@ const Pagination = ({
 					disabled={currentPage === 1}
 					aria-label="Попередня сторінка"
 				>
-					<LuChevronLeft />
+					<ChevronLeft />
 				</Button>
 
 				<div className="flex items-center gap-1">
@@ -133,7 +133,7 @@ const Pagination = ({
 					disabled={currentPage === totalPages}
 					aria-label="Наступна сторінка"
 				>
-					<LuChevronRight />
+					<ChevronRight />
 				</Button>
 
 				<Button
@@ -144,7 +144,7 @@ const Pagination = ({
 					aria-label="Остання сторінка"
 					className="hidden sm:inline-flex"
 				>
-					<LuChevronsRight />
+					<ChevronsRight />
 				</Button>
 			</div>
 		</div>

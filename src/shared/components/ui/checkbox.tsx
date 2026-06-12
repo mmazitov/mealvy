@@ -1,7 +1,7 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import clsx from 'clsx';
 import * as React from 'react';
-import { LuCheck } from 'react-icons/lu';
+import { PiCheckBold as Check } from 'react-icons/pi';
 
 import { Label } from './label';
 
@@ -32,7 +32,7 @@ const Checkbox = ({ label, subLabel, className, ...props }: Props) => {
 				{...props}
 			>
 				<CheckboxPrimitive.Indicator className="flex items-center justify-center text-white">
-					<LuCheck size={16} strokeWidth={3} />
+					<Check size={16} strokeWidth={3} />
 				</CheckboxPrimitive.Indicator>
 			</CheckboxPrimitive.Root>
 		</label>

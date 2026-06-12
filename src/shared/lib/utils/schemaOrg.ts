@@ -105,7 +105,9 @@ export const generateProductSchema = (product: ProductSchema) => ({
 	},
 	nutrition: {
 		'@type': 'NutritionInformation',
-		...(product.calories != null && { calories: `${product.calories} calories` }),
+		...(product.calories != null && {
+			calories: `${product.calories} calories`,
+		}),
 		...(product.carbs != null && { carbohydrateContent: `${product.carbs}g` }),
 		...(product.protein != null && { proteinContent: `${product.protein}g` }),
 		...(product.fat != null && { fatContent: `${product.fat}g` }),

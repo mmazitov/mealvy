@@ -1,5 +1,11 @@
-import { LogOut, Settings, User, UserCircle, Heart } from 'lucide-react';
-import { LuNotebookPen } from 'react-icons/lu';
+import {
+	PiSignOutBold as LogOut,
+	PiGearSixBold as Settings,
+	PiUserBold as User,
+	PiUserCircleBold as UserCircle,
+	PiHeartBold as Heart,
+} from 'react-icons/pi';
+import { PiNotePencilBold as NotebookPen } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -80,7 +86,7 @@ const UserMenu = ({
 					onClick={() => navigate('/menus')}
 					className="cursor-pointer"
 				>
-					<LuNotebookPen className="mr-2 h-4 w-4" />
+					<NotebookPen className="mr-2 h-4 w-4" />
 					Меню
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />

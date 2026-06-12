@@ -1,6 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { LuLock, LuMail, LuUser } from 'react-icons/lu';
+import {
+	PiLockBold as Lock,
+	PiEnvelopeSimpleBold as Mail,
+	PiUserBold as User,
+} from 'react-icons/pi';
 import { z } from 'zod';
 
 import { useAuthForm } from '../hooks/useAuthForm';
@@ -50,7 +54,7 @@ const AuthForm = ({ onOpenChange, isLogin }: AuthFormProps) => {
 				<div className="space-y-2">
 					<Label htmlFor="name">Ім&aposя</Label>
 					<div className="relative">
-						<LuUser className={iconClass} aria-hidden="true" />
+						<User className={iconClass} aria-hidden="true" />
 						<Input
 							id="name"
 							type="text"
@@ -79,7 +83,7 @@ const AuthForm = ({ onOpenChange, isLogin }: AuthFormProps) => {
 			<div className="space-y-2">
 				<Label htmlFor="email">Електронна пошта</Label>
 				<div className="relative">
-					<LuMail className={iconClass} aria-hidden="true" />
+					<Mail className={iconClass} aria-hidden="true" />
 					<Input
 						id="email"
 						type="email"
@@ -105,7 +109,7 @@ const AuthForm = ({ onOpenChange, isLogin }: AuthFormProps) => {
 			<div className="space-y-2">
 				<Label htmlFor="password">Пароль</Label>
 				<div className="relative">
-					<LuLock className={iconClass} aria-hidden="true" />
+					<Lock className={iconClass} aria-hidden="true" />
 					<Input
 						id="password"
 						type="password"

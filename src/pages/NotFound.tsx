@@ -5,6 +5,7 @@ const NotFound = () => {
 	return (
 		<div className="flex min-h-screen items-center justify-center bg-gray-100">
 			<MetaData
+				noindex
 				title={METADATA_CONFIG.titles.notFound}
 				description={METADATA_CONFIG.descriptions.notFound}
 				keywords={METADATA_CONFIG.keywords.notFound}

@@ -1,4 +1,7 @@
-import { CheckCircle2, Circle } from 'lucide-react';
+import {
+	PiCheckCircleBold as CheckCircle2,
+	PiCircleBold as Circle,
+} from 'react-icons/pi';
 
 import {
 	PlannerItemData,

@@ -1,6 +1,6 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { LuMoon, LuSun } from 'react-icons/lu';
+import { PiMoonBold as Moon, PiSunBold as Sun } from 'react-icons/pi';
 
 import { Button } from '@/shared/components';
 
@@ -15,7 +15,7 @@ const ThemeToggle = () => {
 	if (!mounted) {
 		return (
 			<Button variant="ghost" size="icon" className="h-9 w-9">
-				<LuSun className="h-4 w-4" />
+				<Sun className="h-4 w-4" />
 			</Button>
 		);
 	}
@@ -28,9 +28,9 @@ const ThemeToggle = () => {
 			className="h-9 w-9"
 		>
 			{theme === 'dark' ? (
-				<LuSun className="h-4 w-4 transition-all" />
+				<Sun className="h-4 w-4 transition-all" />
 			) : (
-				<LuMoon className="h-4 w-4 transition-all" />
+				<Moon className="h-4 w-4 transition-all" />
 			)}
 			<span className="sr-only">Переключить тему</span>
 		</Button>

@@ -1,9 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CheckCircle2, XCircle } from 'lucide-react';
+import {
+	PiCheckCircleBold as CheckCircle2,
+	PiXCircleBold as XCircle,
+} from 'react-icons/pi';
 
 import { useAcceptFamilyInvitationMutation } from '@/shared/api/graphql';
-import { Button, Card, CardContent, CardHeader, CardTitle } from '@/shared/components';
+import {
+	Button,
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+} from '@/shared/components';
 import { Loader } from '@/shared/components/loader';
 
 type InvitationStatus = 'pending' | 'success' | 'error';

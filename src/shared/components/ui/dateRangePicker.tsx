@@ -1,5 +1,9 @@
 import dayjs, { type Dayjs } from 'dayjs';
-import { LuChevronLeft, LuChevronRight, LuRefreshCw } from 'react-icons/lu';
+import {
+	PiCaretLeftBold as ChevronLeft,
+	PiCaretRightBold as ChevronRight,
+	PiArrowsClockwiseBold as RefreshCw,
+} from 'react-icons/pi';
 
 import { Button } from './button';
 
@@ -50,7 +54,7 @@ export const DateRangePicker = ({
 				size="icon"
 				onClick={handlePreviousWeek}
 			>
-				<LuChevronLeft className="h-4 w-4" />
+				<ChevronLeft className="h-4 w-4" />
 			</Button>
 
 			<div className="flex items-center gap-1">
@@ -64,7 +68,7 @@ export const DateRangePicker = ({
 						onClick={handleCurrentWeek}
 						aria-label="Повернутися до поточного тижня"
 					>
-						<LuRefreshCw aria-hidden="true" />
+						<RefreshCw aria-hidden="true" />
 					</Button>
 				)}
 			</div>
@@ -75,7 +79,7 @@ export const DateRangePicker = ({
 				size="icon"
 				onClick={handleNextWeek}
 			>
-				<LuChevronRight className="h-4 w-4" />
+				<ChevronRight className="h-4 w-4" />
 			</Button>
 		</div>
 	);

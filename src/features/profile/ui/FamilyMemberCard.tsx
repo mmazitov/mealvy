@@ -1,4 +1,11 @@
-import { Calendar, Clock, Mail, Trash2, User, X } from 'lucide-react';
+import {
+	PiCalendarBlankBold as Calendar,
+	PiClockBold as Clock,
+	PiEnvelopeSimpleBold as Mail,
+	PiTrashBold as Trash2,
+	PiUserBold as User,
+	PiXBold as X,
+} from 'react-icons/pi';
 
 import { Badge, Button } from '@/shared/components';
 import { FamilyMemberStatus, FamilyMember } from '@/shared/types';

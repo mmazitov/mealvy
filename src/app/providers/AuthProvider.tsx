@@ -1,17 +1,14 @@
 import { AuthContext } from '@/features/auth/model/AuthContext';
 import { useAuthState } from '@/features/auth/hooks/useAuthState';
-import { Loader } from '@/shared/components/loader';
 
 interface AuthProviderProps {
 	children: React.ReactNode;
 }
 
+// Don't block the whole app on the initial `me` request — public pages render
+// immediately; ProtectedRoute handles the isLoading state itself
 export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const authState = useAuthState();
-
-	if (authState.isLoading) {
-		return <Loader />;
-	}
 
 	return (
 		<AuthContext.Provider

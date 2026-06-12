@@ -4,7 +4,6 @@ import { type DishFieldsFragment } from '@/shared/api/graphql';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 import { generateRecipeSchema } from '@/shared/lib/utils/schemaOrg';
 
-
 export const useRecipeSchema = (dish: DishFieldsFragment | null): void => {
 	const schema = dish
 		? generateRecipeSchema({

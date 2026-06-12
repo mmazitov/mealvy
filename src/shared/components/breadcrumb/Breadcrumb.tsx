@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { PiCaretRightBold as ChevronRight } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
 import { useSchemaOrg } from '@/shared/hooks';

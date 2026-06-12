@@ -54,7 +54,12 @@ const MenuCard = ({ menu, onDelete, onDuplicate }: MenuCardProps) => {
 
 	const handleSave = async () => {
 		if (editName.trim()) {
-			const success = await updateMenu(menu.id, editName.trim(), editStartDate, editEndDate);
+			const success = await updateMenu(
+				menu.id,
+				editName.trim(),
+				editStartDate,
+				editEndDate,
+			);
 			if (success) setIsEditing(false);
 		}
 	};

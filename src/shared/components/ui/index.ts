@@ -55,18 +55,6 @@ export { Separator } from './separator';
 export { Toaster as Sonner, toast } from './sonner';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 export { Textarea } from './textarea';
-export {
-	Toast,
-	ToastAction,
-	ToastClose,
-	ToastDescription,
-	ToastProvider,
-	ToastTitle,
-	ToastViewport,
-	type ToastActionElement,
-	type ToastProps,
-} from './toast';
-export { Toaster } from './toaster';
 export { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 
 export { Checkbox } from './checkbox';

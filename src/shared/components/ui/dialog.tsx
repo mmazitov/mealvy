@@ -1,5 +1,5 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { X } from 'lucide-react';
+import { PiXBold as X } from 'react-icons/pi';
 import * as React from 'react';
 
 import { cn } from '@/shared/lib/utils/cn';

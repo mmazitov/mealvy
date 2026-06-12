@@ -22,7 +22,7 @@ const Preview = ({ items }: PreviewProps) => {
 			{dishesWithImages.map((item, index) => (
 				<div
 					key={item.id}
-					className="relative aspect-square overflow-hidden bg-muted"
+					className="bg-muted relative aspect-square overflow-hidden"
 				>
 					<img
 						src={item.dish.imageUrl!}

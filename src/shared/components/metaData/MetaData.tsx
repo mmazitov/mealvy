@@ -1,5 +1,7 @@
 import { Link, Meta, Title } from 'react-head';
 
+import { METADATA_CONFIG } from '@/shared/lib/config';
+
 interface MetaDataProps {
 	title: string;
 	description: string;
@@ -8,6 +10,8 @@ interface MetaDataProps {
 	type?: 'website' | 'article' | 'product';
 	author?: string;
 	keywords?: string[];
+	/** Pages behind auth must not be indexed by search engines */
+	noindex?: boolean;
 }
 
 const truncateDescription = (text: string, maxLength: number = 160): string => {
@@ -16,14 +20,22 @@ const truncateDescription = (text: string, maxLength: number = 160): string => {
 	return text.substring(0, maxLength - 3).trim() + '...';
 };
 
+// Canonical must not include query params or fragments — search engines
+// would treat every filter/pagination variant as a separate page
+const defaultCanonicalUrl = (): string =>
+	typeof window !== 'undefined'
+		? window.location.origin + window.location.pathname
+		: '';
+
 export const MetaData = ({
 	title,
 	description,
-	image = 'https://mealvy.com/og-image.jpg',
-	url = typeof window !== 'undefined' ? window.location.href : '',
+	image = METADATA_CONFIG.site.image,
+	url = defaultCanonicalUrl(),
 	type = 'website',
 	author,
 	keywords = [],
+	noindex = false,
 }: MetaDataProps) => {
 	const siteTitle = 'Mealvy';
 	const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
@@ -35,7 +47,6 @@ export const MetaData = ({
 			<Meta name="description" content={truncatedDescription} />
 			<Meta name="keywords" content={keywords.join(', ')} />
 			{author && <Meta name="author" content={author} />}
-			<Meta name="viewport" content="width=device-width, initial-scale=1" />
 
 			<Meta property="og:title" content={fullTitle} />
 			<Meta property="og:description" content={truncatedDescription} />
@@ -51,9 +62,11 @@ export const MetaData = ({
 
 			<Link rel="canonical" href={url} />
 
-			<Meta name="robots" content="index, follow" />
+			<Meta
+				name="robots"
+				content={noindex ? 'noindex, nofollow' : 'index, follow'}
+			/>
 			<Meta name="language" content="Ukrainian" />
-			<Meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 		</>
 	);
 };

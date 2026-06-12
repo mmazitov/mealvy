@@ -29,7 +29,8 @@ export const usePwaManagement = () => {
 			const info = await getPwaCacheInfo();
 			setCacheInfo(info);
 		} catch (error) {
-			if (import.meta.env.DEV) console.error('Failed to load cache info:', error);
+			if (import.meta.env.DEV)
+				console.error('Failed to load cache info:', error);
 			toast.error('Не вдалося завантажити інформацію про кеш');
 		}
 	};
@@ -79,7 +80,8 @@ export const usePwaManagement = () => {
 			await checkServiceWorker();
 			toast.success('Service Worker видалено');
 		} catch (error) {
-			if (import.meta.env.DEV) console.error('Failed to unregister service worker:', error);
+			if (import.meta.env.DEV)
+				console.error('Failed to unregister service worker:', error);
 			toast.error('Не вдалося видалити Service Worker');
 		} finally {
 			setIsLoading(false);
