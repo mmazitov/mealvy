@@ -1,7 +1,7 @@
-import { X } from 'lucide-react';
+import { PiXBold as X } from 'react-icons/pi';
 import { useEffect, useMemo } from 'react';
 import { Controller } from 'react-hook-form';
-import { LuMinus, LuPlus } from 'react-icons/lu';
+import { PiMinusBold as Minus, PiPlusBold as Plus } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
 import { useAddDish, useEditDish } from '../hooks';
@@ -277,7 +277,7 @@ const DishForm = ({ dish, products, isEditMode = false }: DishFormProps) => {
 						onClick={addIngredient}
 						aria-label="Додати інгредієнт"
 					>
-						<LuPlus className="mr-1 h-4 w-4" aria-hidden="true" />
+						<Plus className="mr-1 h-4 w-4" aria-hidden="true" />
 						Додати
 					</Button>
 				</div>
@@ -343,7 +343,7 @@ const DishForm = ({ dish, products, isEditMode = false }: DishFormProps) => {
 								onClick={() => removeIngredient(index)}
 								aria-label={`Видалити інгредієнт ${index + 1}`}
 							>
-								<LuMinus className="h-4 w-4" aria-hidden="true" />
+								<Minus className="h-4 w-4" aria-hidden="true" />
 							</Button>
 						) : (
 							<div />
@@ -362,7 +362,7 @@ const DishForm = ({ dish, products, isEditMode = false }: DishFormProps) => {
 						onClick={addInstruction}
 						aria-label="Додати крок приготування"
 					>
-						<LuPlus className="mr-1 h-4 w-4" aria-hidden="true" />
+						<Plus className="mr-1 h-4 w-4" aria-hidden="true" />
 						Додати крок
 					</Button>
 				</div>

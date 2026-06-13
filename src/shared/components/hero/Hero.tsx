@@ -1,4 +1,8 @@
-import { LuCalendar, LuChefHat, LuPlus } from 'react-icons/lu';
+import {
+	PiCalendarBlankBold as Calendar,
+	PiChefHatBold as ChefHat,
+	PiPlusBold as Plus,
+} from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui';
@@ -7,13 +11,13 @@ import { today } from '@/shared/lib/utils';
 const HERO_BUTTONS = [
 	{
 		to: '/menu-planner',
-		icon: <LuPlus className="h-5 w-5" />,
+		icon: <Plus className="h-5 w-5" />,
 		label: 'Створити меню',
 		variant: 'default' as const,
 	},
 	{
 		to: '/dishes',
-		icon: <LuChefHat className="h-5 w-5" />,
+		icon: <ChefHat className="h-5 w-5" />,
 		label: 'Переглянути рецепти',
 		variant: 'outline' as const,
 	},
@@ -24,7 +28,7 @@ const Hero = () => {
 		<div className="container mx-auto px-4 py-16 md:py-24">
 			<div className="animate-fade-in max-w-3xl">
 				<div className="bg-primary/10 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm">
-					<LuCalendar className="h-4 w-4" />
+					<Calendar className="h-4 w-4" />
 					<span className="capitalize">{today}</span>
 				</div>
 

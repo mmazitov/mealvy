@@ -1,4 +1,4 @@
-import { UserPlus } from 'lucide-react';
+import { PiUserPlusBold as UserPlus } from 'react-icons/pi';
 
 import { useFamilyMembers } from '../hooks/useFamilyMembers';
 import FamilyMemberCard from './FamilyMemberCard';

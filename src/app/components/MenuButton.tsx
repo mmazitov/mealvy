@@ -1,4 +1,4 @@
-import { Menu, X } from 'lucide-react';
+import { PiListBold as Menu, PiXBold as X } from 'react-icons/pi';
 
 import { UserMenu } from '@/features/profile';
 import { Button } from '@/shared/components';

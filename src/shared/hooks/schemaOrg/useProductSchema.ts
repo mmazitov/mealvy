@@ -4,8 +4,9 @@ import { type ProductFieldsFragment } from '@/shared/api/graphql';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 import { generateProductSchema } from '@/shared/lib/utils/schemaOrg';
 
-
-export const useProductSchema = (product: ProductFieldsFragment | null): void => {
+export const useProductSchema = (
+	product: ProductFieldsFragment | null,
+): void => {
 	const schema = product
 		? generateProductSchema({
 				name: product.name,

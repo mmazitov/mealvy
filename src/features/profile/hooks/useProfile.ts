@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { toast } from 'sonner';
 
-import { useToast } from '@/shared/hooks';
 import { useMeQuery, useUpdateProfileMutation } from '@/shared/api/graphql';
 import { normalizePhone, phoneValidate } from '@/shared/lib/utils';
 import { ProfileFormData } from '@/shared/types';
@@ -8,7 +8,6 @@ import { ProfileFormData } from '@/shared/types';
 export const useProfile = () => {
 	const { data, refetch } = useMeQuery();
 	const [updateProfile, { loading: updating }] = useUpdateProfileMutation();
-	const { toast } = useToast();
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [formData, setFormData] = useState<ProfileFormData>({
 		name: '',
@@ -44,10 +43,8 @@ export const useProfile = () => {
 
 	const handleSave = async () => {
 		if (formData.phone && !phoneValidate(formData.phone)) {
-			toast({
-				title: 'Помилка валідації',
+			toast.error('Помилка валідації', {
 				description: 'Введіть коректний український номер телефону',
-				variant: 'destructive',
 			});
 			return;
 		}
@@ -85,18 +82,16 @@ export const useProfile = () => {
 
 			await refetch();
 
-			toast({
-				title: 'Профіль оновлено',
+			toast.success('Профіль оновлено', {
 				description: 'Ваші зміни успішно збережені',
 			});
 
 			setIsEditMode(false);
 		} catch (error) {
-			if (import.meta.env.DEV) console.error('Failed to update profile:', error);
-			toast({
-				title: 'Помилка',
+			if (import.meta.env.DEV)
+				console.error('Failed to update profile:', error);
+			toast.error('Помилка', {
 				description: 'Не вдалося оновити профіль',
-				variant: 'destructive',
 			});
 		}
 	};

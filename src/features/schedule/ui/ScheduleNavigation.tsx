@@ -1,4 +1,8 @@
-import { LuChevronLeft, LuChevronRight, LuRefreshCw } from 'react-icons/lu';
+import {
+	PiCaretLeftBold as ChevronLeft,
+	PiCaretRightBold as ChevronRight,
+	PiArrowsClockwiseBold as RefreshCw,
+} from 'react-icons/pi';
 
 import { Button, Card, CardContent } from '@/shared/components';
 
@@ -28,7 +32,7 @@ const ScheduleNavigation = ({
 						className="cursor-pointer"
 						aria-label="Попередній тиждень"
 					>
-						<LuChevronLeft className="h-4 w-4" aria-hidden="true" />
+						<ChevronLeft className="h-4 w-4" aria-hidden="true" />
 					</Button>
 
 					<div className="text-center">
@@ -44,7 +48,7 @@ const ScheduleNavigation = ({
 										onClick={handleReset}
 										aria-label="Повернутися до поточного тижня"
 									>
-										<LuRefreshCw aria-hidden="true" />
+										<RefreshCw aria-hidden="true" />
 									</Button>
 								</>
 							)}
@@ -59,7 +63,7 @@ const ScheduleNavigation = ({
 						className="cursor-pointer"
 						aria-label="Наступний тиждень"
 					>
-						<LuChevronRight className="h-4 w-4" aria-hidden="true" />
+						<ChevronRight className="h-4 w-4" aria-hidden="true" />
 					</Button>
 				</div>
 			</CardContent>

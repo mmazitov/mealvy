@@ -25,6 +25,7 @@ const Settings = () => {
 			<Breadcrumb items={breadcrumbItems} />
 			<div className="mx-auto max-w-2xl space-y-6">
 				<MetaData
+					noindex
 					title={METADATA_CONFIG.titles.settings}
 					description={METADATA_CONFIG.descriptions.settings}
 					keywords={METADATA_CONFIG.keywords.settings}

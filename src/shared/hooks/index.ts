@@ -16,7 +16,6 @@ export {
 } from './useServiceWorker';
 export * from './useSettings';
 export * from './useSplashScreen';
-export * from './useToast';
 export * from './useToggle';
 export * from './useFavorite';
 export * from './useTabsWithAutoSwitch';

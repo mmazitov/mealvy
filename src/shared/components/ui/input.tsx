@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { LuEye, LuEyeOff } from 'react-icons/lu';
+import { PiEyeBold as Eye, PiEyeSlashBold as EyeOff } from 'react-icons/pi';
 
 import { cn } from '@/shared/lib/utils/cn';
 
@@ -38,9 +38,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 						aria-label={showPassword ? 'Приховати пароль' : 'Показати пароль'}
 					>
 						{showPassword ? (
-							<LuEye size={20} aria-hidden="true" />
+							<Eye size={20} aria-hidden="true" />
 						) : (
-							<LuEyeOff size={20} aria-hidden="true" />
+							<EyeOff size={20} aria-hidden="true" />
 						)}
 					</button>
 				)}

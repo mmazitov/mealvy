@@ -4,7 +4,6 @@ import { type SavedMenuFieldsFragment } from '@/shared/api/graphql';
 import { mealTimeToUI } from '@/shared/lib/utils';
 import { generateMenuSchema } from '@/shared/lib/utils/schemaOrg';
 
-
 export const useMenuSchema = (menu: SavedMenuFieldsFragment | null): void => {
 	const schema = menu
 		? generateMenuSchema({

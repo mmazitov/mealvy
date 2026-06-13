@@ -27,9 +27,7 @@ const NavigationBottomBar = () => {
 							>
 								<span
 									className={`relative flex h-8 w-12 items-center justify-center rounded-xl transition-all duration-200 ${
-										active
-											? 'bg-primary/12 scale-105'
-											: 'group-hover:bg-muted'
+										active ? 'bg-primary/12 scale-105' : 'group-hover:bg-muted'
 									}`}
 								>
 									<item.icon
@@ -41,7 +39,9 @@ const NavigationBottomBar = () => {
 								</span>
 								<span
 									className={`text-[10px] leading-none font-medium transition-all duration-200 ${
-										active ? 'opacity-100' : 'opacity-70 group-hover:opacity-100'
+										active
+											? 'opacity-100'
+											: 'opacity-70 group-hover:opacity-100'
 									}`}
 								>
 									{item.name}

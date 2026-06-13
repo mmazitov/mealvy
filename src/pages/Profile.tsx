@@ -28,6 +28,7 @@ const Profile = () => {
 			<Breadcrumb items={breadcrumbItems} />
 			<div className="mx-auto max-w-2xl space-y-6">
 				<MetaData
+					noindex
 					title={METADATA_CONFIG.titles.profile}
 					description={METADATA_CONFIG.descriptions.profile}
 					keywords={METADATA_CONFIG.keywords.profile}

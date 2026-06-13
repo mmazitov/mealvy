@@ -1,7 +1,21 @@
+// Queued mutations expire: auth cookies are short-lived, so replaying a
+// day-old request can't succeed anyway — without these caps the queue
+// grows in Cache Storage forever
+const QUEUE_MAX_SIZE = 50;
+const QUEUE_TTL_MS = 24 * 60 * 60 * 1000;
+
 async function enqueueRequest(request) {
 	const cache = await caches.open(CACHES.QUEUE);
 
 	try {
+		// Keys start with Date.now(), so name order == insertion order
+		const keys = await cache.keys();
+		if (keys.length >= QUEUE_MAX_SIZE) {
+			const oldest = keys.sort((a, b) => (a.url < b.url ? -1 : 1))[0];
+			await cache.delete(oldest);
+			log('[Queue] Queue full, dropped oldest entry');
+		}
+
 		const body = await request.clone().text();
 
 		const entry = new Response(
@@ -42,6 +56,12 @@ async function replayQueue() {
 			const entry = await cache.match(key);
 			const data = await entry.json();
 
+			if (Date.now() - data.timestamp > QUEUE_TTL_MS) {
+				await cache.delete(key);
+				log('[Queue] Dropped expired entry:', data.url);
+				continue;
+			}
+
 			const response = await fetch(data.url, {
 				method: data.method,
 				headers: Object.fromEntries(data.headers),
@@ -61,10 +81,14 @@ async function replayQueue() {
 						});
 					});
 				});
+			} else if (response.status >= 400 && response.status < 500) {
+				// Client errors (expired auth, bad input) won't succeed on retry
+				await cache.delete(key);
+				log('[Queue] Dropped unreplayable entry:', data.url, response.status);
 			}
 		} catch (err) {
 			error('[Queue] Failed to replay request:', err);
-			// Leave in queue for next sync attempt
+			// Network failure — leave in queue for next sync attempt
 		}
 	}
 }

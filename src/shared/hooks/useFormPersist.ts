@@ -70,7 +70,7 @@ export const useFormPersist = <T extends FieldValues>({
 		queueMicrotask(() => {
 			isRestoring.current = false;
 		});
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {

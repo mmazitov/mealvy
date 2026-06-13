@@ -1,4 +1,4 @@
-import { Clock, Flame } from 'lucide-react';
+import { PiClockBold as Clock, PiFireBold as Flame } from 'react-icons/pi';
 
 interface CardCompactFooterProps {
 	prepTime?: number | null;

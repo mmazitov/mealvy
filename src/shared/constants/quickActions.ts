@@ -1,5 +1,10 @@
-import { IconType } from 'react-icons';
-import { LuApple, LuCalendar, LuNotebookPen, LuSoup } from 'react-icons/lu';
+import type { IconType } from 'react-icons';
+import {
+	PiCarrotBold as Apple,
+	PiCalendarBlankBold as Calendar,
+	PiNotePencilBold as NotebookPen,
+	PiBowlFoodBold as Soup,
+} from 'react-icons/pi';
 
 export interface QuickAction {
 	title: string;
@@ -13,28 +18,28 @@ export const QUICK_ACTIONS: QuickAction[] = [
 	{
 		title: 'Моє меню',
 		description: 'Плануйте харчування на тиждень',
-		icon: LuNotebookPen,
+		icon: NotebookPen,
 		link: '/menu-planner',
 		color: 'text-primary',
 	},
 	{
 		title: 'Продукти',
 		description: 'Вивчайте калорійність і КБЖУ',
-		icon: LuApple,
+		icon: Apple,
 		link: '/products',
 		color: 'text-secondary',
 	},
 	{
 		title: 'Страви',
 		description: 'Додавайте улюблені рецепти',
-		icon: LuSoup,
+		icon: Soup,
 		link: '/dishes',
 		color: 'text-accent',
 	},
 	{
 		title: 'Розклад',
 		description: 'Переглядайте план харчування',
-		icon: LuCalendar,
+		icon: Calendar,
 		link: '/schedule',
 		color: 'text-primary',
 	},

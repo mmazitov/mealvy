@@ -1,4 +1,4 @@
-import { Loader2 } from 'lucide-react';
+import { PiSpinnerBold as Loader2 } from 'react-icons/pi';
 
 import CardPlaning from './CardPlaning';
 import ScheduleNavigation from './ScheduleNavigation';

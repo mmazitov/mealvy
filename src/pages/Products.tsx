@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { LuPlus } from 'react-icons/lu';
+import { PiPlusBold as Plus } from 'react-icons/pi';
 
 import { CardCompact } from '@/features/products';
 import { useProductsQuery } from '@/shared/api/graphql';
@@ -18,7 +18,12 @@ import {
 	ITEMS_PER_PAGE,
 	PAGE_TITLE,
 } from '@/shared/constants';
-import { useBreadcrumbs, useDebounce, usePagination, useItemListSchema } from '@/shared/hooks';
+import {
+	useBreadcrumbs,
+	useDebounce,
+	usePagination,
+	useItemListSchema,
+} from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 import { type ItemListSchemaItem, createSlug } from '@/shared/lib/utils';
 
@@ -85,7 +90,7 @@ const Products = () => {
 					subtitle={PAGE_TITLE.products.subtitle}
 					buttonType="link"
 					buttonText={PAGE_TITLE.products.button}
-					buttonIcon={<LuPlus />}
+					buttonIcon={<Plus />}
 					href="/products/add"
 				/>
 

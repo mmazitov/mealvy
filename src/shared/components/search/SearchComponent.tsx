@@ -1,4 +1,7 @@
-import { LuDelete, LuSearch } from 'react-icons/lu';
+import {
+	PiBackspaceBold as Delete,
+	PiMagnifyingGlassBold as Search,
+} from 'react-icons/pi';
 
 import { Input } from '@/shared/components';
 
@@ -15,7 +18,7 @@ const SearchComponent = ({
 }: SearchComponentProps) => {
 	return (
 		<div className="relative mb-6">
-			<LuSearch
+			<Search
 				className="text-muted-foreground absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 transform"
 				aria-hidden="true"
 			/>
@@ -32,7 +35,7 @@ const SearchComponent = ({
 					onClick={() => onSearchChange('')}
 					aria-label="Clear search"
 				>
-					<LuDelete className="h-4 w-4" />
+					<Delete className="h-4 w-4" />
 				</button>
 			)}
 		</div>

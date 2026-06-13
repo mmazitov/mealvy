@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { LuTrendingUp } from 'react-icons/lu';
+import { PiTrendUpBold as TrendingUp } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
 import CardCompact from './cardCompact/CardCompact';
@@ -43,7 +43,7 @@ const FeaturedDishes = () => {
 				<Link to="/dishes">
 					<Button variant="ghost" className="gap-2">
 						Всі страви
-						<LuTrendingUp className="h-4 w-4" />
+						<TrendingUp className="h-4 w-4" />
 					</Button>
 				</Link>
 			</div>

@@ -14,7 +14,8 @@ const OUTPUT_PATH = path.join(__dirname, '../public/sitemap.xml');
 // Google will discover other pages through internal links
 const MAX_ITEMS_PER_TYPE = 100;
 
-// Static routes
+// Static routes — public pages only; pages behind auth
+// (/profile, /settings, /favorites, /menus) must not be in the sitemap
 const staticRoutes = [
 	{ loc: '/', changefreq: 'daily', priority: '1.0' },
 	{ loc: '/dishes', changefreq: 'daily', priority: '0.9' },
@@ -22,19 +23,18 @@ const staticRoutes = [
 	{ loc: '/schedule', changefreq: 'weekly', priority: '0.8' },
 	{ loc: '/menu-planner', changefreq: 'weekly', priority: '0.8' },
 	{ loc: '/shopping-list', changefreq: 'weekly', priority: '0.7' },
-	{ loc: '/favorites', changefreq: 'weekly', priority: '0.7' },
-	{ loc: '/profile', changefreq: 'monthly', priority: '0.3' },
-	{ loc: '/settings', changefreq: 'monthly', priority: '0.3' },
 ];
 
-// Helper function to convert name to slug
+// NOTE: must mirror createSlug in src/shared/lib/utils/slug.ts — DishDetail
+// and ProductDetail resolve entities from this slug (Cyrillic names included)
 function toSlug(name) {
-	return name
-		.toLowerCase()
-		.replace(/[^\w\s-]/g, '')
-		.replace(/\s+/g, '-')
-		.replace(/-+/g, '-')
-		.trim();
+	return encodeURIComponent(
+		name
+			.toLowerCase()
+			.trim()
+			.replace(/[\s_-]+/g, '-')
+			.replace(/^-+|-+$/g, ''),
+	);
 }
 
 // Fetch dishes from GraphQL API
@@ -128,7 +128,7 @@ async function generateSitemap() {
 			}
 			return `
 	<url>
-		<loc>${SITE_URL}/dishes/${slug}</loc>
+		<loc>${SITE_URL}/dish/${slug}</loc>
 		<changefreq>weekly</changefreq>
 		<priority>0.8</priority>
 		<lastmod>${lastmod}</lastmod>
@@ -149,7 +149,7 @@ async function generateSitemap() {
 			}
 			return `
 	<url>
-		<loc>${SITE_URL}/products/${slug}</loc>
+		<loc>${SITE_URL}/product/${slug}</loc>
 		<changefreq>weekly</changefreq>
 		<priority>0.8</priority>
 		<lastmod>${lastmod}</lastmod>

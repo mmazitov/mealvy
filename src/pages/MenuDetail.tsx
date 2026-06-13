@@ -61,6 +61,7 @@ const MenuDetail = () => {
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<MetaData
+				noindex
 				title={`${menu.name} | ${METADATA_CONFIG.titles.menu}`}
 				description={METADATA_CONFIG.descriptions.menu}
 				keywords={METADATA_CONFIG.keywords.menu}

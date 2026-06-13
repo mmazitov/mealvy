@@ -35,6 +35,7 @@ const AddProduct = () => {
 	return (
 		<div className="container mx-auto max-w-3xl px-4 py-8">
 			<MetaData
+				noindex
 				title={
 					isEditMode
 						? METADATA_CONFIG.titles.editProduct + ' ' + product?.name

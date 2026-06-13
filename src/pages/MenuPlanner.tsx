@@ -1,5 +1,9 @@
-import { BsCalendar2Day, BsCalendar2Week } from 'react-icons/bs';
-import { LuList, LuSave } from 'react-icons/lu';
+import {
+	PiCalendarDotBold as Calendar1,
+	PiCalendarDotsBold as CalendarRange,
+	PiListBulletsBold as List,
+	PiFloppyDiskBold as Save,
+} from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -54,13 +58,13 @@ const MenuPlanner = () => {
 
 	const menuItems: FloatingMenuItem[] = [
 		{
-			icon: <LuSave />,
+			icon: <Save />,
 			label: 'Save menu',
 			onClick: handleSave,
 			disabled: isLoading || !isDirty,
 		},
 		{
-			icon: <LuList />,
+			icon: <List />,
 			label: 'Shopping list',
 			onClick: () => navigate(`/shopping-list?week=${schedule.weekDiff}`),
 			disabled: isLoading || isDirty || !hasSavedData,
@@ -86,12 +90,12 @@ const MenuPlanner = () => {
 				subtitle={PAGE_TITLE.planer.subtitle}
 				onClick={handleSave}
 				buttonText={PAGE_TITLE.planer.button}
-				buttonIcon={<LuSave />}
+				buttonIcon={<Save />}
 				buttonDisable={isLoading || !isDirty}
 				buttonMobileVisible={false}
 				secondaryButtonVisible={true}
 				secondaryButtonText="Список продуктів"
-				secondaryButtonIcon={<LuList />}
+				secondaryButtonIcon={<List />}
 				secondaryButtonDisable={isLoading || isDirty || !hasSavedData}
 				secondaryButtonOnClick={() =>
 					navigate(`/shopping-list?week=${schedule.weekDiff}`)
@@ -101,11 +105,11 @@ const MenuPlanner = () => {
 			<Tabs defaultValue="day" className="space-y-6">
 				<TabsList className="grid w-full max-w-md grid-cols-2">
 					<TabsTrigger value="day" className="flex gap-1">
-						<BsCalendar2Day className="h-4 w-4" />
+						<Calendar1 className="h-4 w-4" />
 						День
 					</TabsTrigger>
 					<TabsTrigger value="week" className="flex gap-1">
-						<BsCalendar2Week className="h-4 w-4" />
+						<CalendarRange className="h-4 w-4" />
 						Тиждень
 					</TabsTrigger>
 				</TabsList>

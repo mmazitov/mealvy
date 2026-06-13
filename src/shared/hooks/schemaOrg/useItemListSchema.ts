@@ -5,7 +5,6 @@ import {
 	generateItemListSchema,
 } from '@/shared/lib/utils/schemaOrg';
 
-
 export const useItemListSchema = (
 	items: ItemListSchemaItem[],
 	type: 'Recipe' | 'Product' | 'MenuItem',

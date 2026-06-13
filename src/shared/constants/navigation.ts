@@ -1,11 +1,11 @@
-import { IconType } from 'react-icons';
+import type { IconType } from 'react-icons';
 import {
-	LuApple,
-	LuCalendar,
-	LuChefHat,
-	LuNotebookPen,
-	LuSoup,
-} from 'react-icons/lu';
+	PiCarrotBold as Apple,
+	PiCalendarBlankBold as Calendar,
+	PiChefHatBold as ChefHat,
+	PiNotePencilBold as NotebookPen,
+	PiBowlFoodBold as Soup,
+} from 'react-icons/pi';
 
 export interface NavigationItem {
 	name: string;
@@ -17,26 +17,26 @@ export const NAVIGATION_ITEMS: NavigationItem[] = [
 	{
 		name: 'Головна',
 		href: '/',
-		icon: LuChefHat,
+		icon: ChefHat,
 	},
 	{
 		name: 'Розклад',
 		href: '/schedule',
-		icon: LuCalendar,
+		icon: Calendar,
 	},
 	{
 		name: 'Планувальник',
 		href: '/menu-planner',
-		icon: LuNotebookPen,
+		icon: NotebookPen,
 	},
 	{
 		name: 'Страви',
 		href: '/dishes',
-		icon: LuSoup,
+		icon: Soup,
 	},
 	{
 		name: 'Продукти',
 		href: '/products',
-		icon: LuApple,
+		icon: Apple,
 	},
 ] as const;

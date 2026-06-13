@@ -1,5 +1,8 @@
 import { useMemo, useState } from 'react';
-import { LuCalendarX, LuHeart } from 'react-icons/lu';
+import {
+	PiCalendarXBold as CalendarX,
+	PiHeartBold as Heart,
+} from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 
 import { useSavedMenuActions } from '../hooks/useSavedMenuActions';
@@ -34,7 +37,7 @@ const SavedMenus = () => {
 		return (
 			<div className="flex flex-col items-center justify-center py-12 text-center">
 				<div className="bg-muted mb-4 rounded-full p-4">
-					<LuCalendarX className="text-muted-foreground h-8 w-8" />
+					<CalendarX className="text-muted-foreground h-8 w-8" />
 				</div>
 				<h3 className="mb-2 text-xl font-semibold">Немає збережених меню</h3>
 				<p className="text-muted-foreground mb-4">
@@ -53,7 +56,7 @@ const SavedMenus = () => {
 					onClick={() => setShowOnlyFavorites((prev) => !prev)}
 					className="w-40"
 				>
-					<LuHeart />
+					<Heart />
 					{showOnlyFavorites ? 'Показати всі' : 'Тільки обрані'}
 				</Button>
 			</div>
@@ -61,7 +64,7 @@ const SavedMenus = () => {
 			{filteredMenus.length === 0 ? (
 				<div className="flex flex-col items-center justify-center py-12 text-center">
 					<div className="bg-muted mb-4 rounded-full p-4">
-						<LuHeart className="text-muted-foreground h-8 w-8" />
+						<Heart className="text-muted-foreground h-8 w-8" />
 					</div>
 					<h3 className="mb-2 text-xl font-semibold">Немає обраних меню</h3>
 					<p className="text-muted-foreground mb-4">

@@ -1,4 +1,4 @@
-import { Flame } from 'lucide-react';
+import { PiFireBold as Flame } from 'react-icons/pi';
 
 interface FooterProps {
 	prepTime?: number | null;

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { LuPlus } from 'react-icons/lu';
+import { PiPlusBold as Plus } from 'react-icons/pi';
 
 import { CardCompact } from '@/features/dishes';
 import { useDishesQuery } from '@/shared/api/graphql/dish.gen';
@@ -18,7 +18,12 @@ import {
 	ITEMS_PER_PAGE,
 	PAGE_TITLE,
 } from '@/shared/constants';
-import { useBreadcrumbs, useDebounce, usePagination, useItemListSchema } from '@/shared/hooks';
+import {
+	useBreadcrumbs,
+	useDebounce,
+	usePagination,
+	useItemListSchema,
+} from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 import { type ItemListSchemaItem, createSlug } from '@/shared/lib/utils';
 
@@ -85,7 +90,7 @@ const Dishes = () => {
 					subtitle={PAGE_TITLE.dishes.subtitle}
 					buttonType="link"
 					buttonText={PAGE_TITLE.dishes.button}
-					buttonIcon={<LuPlus />}
+					buttonIcon={<Plus />}
 					href="/dishes/add"
 				/>
 
