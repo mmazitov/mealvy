@@ -4,4 +4,4 @@ export {
 } from './changePassword';
 export { DishSchema } from './dish';
 export { ProductSchema } from './product';
-export { LoginSchema, RegisterSchema } from './validate';
+export { InviteMemberSchema, LoginSchema, RegisterSchema } from './validate';

@@ -32,100 +32,105 @@ const AppRoutes = () => {
 
 	return (
 		<div className="bg-background min-h-screen pb-16 lg:pb-0">
+			<a href="#main-content" className="skip-link">
+				Перейти до вмісту
+			</a>
 			<Header />
-			<Suspense fallback={<Loader />}>
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/schedule" element={<Schedule />} />
-					<Route path="/menu-planner" element={<MenuPlanner />} />
-					<Route path="/shopping-list" element={<ShoppingList />} />
-					<Route path="/products" element={<Products />} />
-					<Route path="/product/:id" element={<ProductDetail />} />
-					<Route
-						path="/products/add"
-						element={
-							<ProtectedRoute>
-								<AddProduct />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/product/edit/:id"
-						element={
-							<ProtectedRoute>
-								<AddProduct />
-							</ProtectedRoute>
-						}
-					/>
-					<Route path="/dishes" element={<Dishes />} />
-					<Route path="/dish/:id" element={<DishDetail />} />
-					<Route
-						path="/dishes/add"
-						element={
-							<ProtectedRoute>
-								<AddDish />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/dish/edit/:id"
-						element={
-							<ProtectedRoute>
-								<AddDish />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/settings"
-						element={
-							<ProtectedRoute>
-								<Settings />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/profile"
-						element={
-							<ProtectedRoute>
-								<Profile />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/favorites"
-						element={
-							<ProtectedRoute>
-								<Favorites />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/menus"
-						element={
-							<ProtectedRoute>
-								<Menus />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/menu/:id"
-						element={
-							<ProtectedRoute>
-								<MenuDetail />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/profile/accept-invitation/:invitationId"
-						element={
-							<ProtectedRoute>
-								<AcceptInvitation />
-							</ProtectedRoute>
-						}
-					/>
-					<Route path="*" element={<NotFound />} />
-				</Routes>
-			</Suspense>
+			<main id="main-content" tabIndex={-1}>
+				<Suspense fallback={<Loader />}>
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/schedule" element={<Schedule />} />
+						<Route path="/menu-planner" element={<MenuPlanner />} />
+						<Route path="/shopping-list" element={<ShoppingList />} />
+						<Route path="/products" element={<Products />} />
+						<Route path="/product/:id" element={<ProductDetail />} />
+						<Route
+							path="/products/add"
+							element={
+								<ProtectedRoute>
+									<AddProduct />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/product/edit/:id"
+							element={
+								<ProtectedRoute>
+									<AddProduct />
+								</ProtectedRoute>
+							}
+						/>
+						<Route path="/dishes" element={<Dishes />} />
+						<Route path="/dish/:id" element={<DishDetail />} />
+						<Route
+							path="/dishes/add"
+							element={
+								<ProtectedRoute>
+									<AddDish />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/dish/edit/:id"
+							element={
+								<ProtectedRoute>
+									<AddDish />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/settings"
+							element={
+								<ProtectedRoute>
+									<Settings />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/profile"
+							element={
+								<ProtectedRoute>
+									<Profile />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/favorites"
+							element={
+								<ProtectedRoute>
+									<Favorites />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/menus"
+							element={
+								<ProtectedRoute>
+									<Menus />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/menu/:id"
+							element={
+								<ProtectedRoute>
+									<MenuDetail />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/profile/accept-invitation/:invitationId"
+							element={
+								<ProtectedRoute>
+									<AcceptInvitation />
+								</ProtectedRoute>
+							}
+						/>
+						<Route path="*" element={<NotFound />} />
+					</Routes>
+				</Suspense>
+			</main>
 		</div>
 	);
 };

@@ -9,7 +9,7 @@ import { z } from 'zod';
 
 import { useAuthForm } from '../hooks/useAuthForm';
 
-import { Button, Input, Label } from '@/shared/components';
+import { Button, FormInput } from '@/shared/components';
 import { modalsConfig } from '@/shared/lib/config';
 import { LoginSchema, RegisterSchema } from '@/shared/lib/utils/schemas/';
 
@@ -21,6 +21,8 @@ interface AuthFormProps {
 type LoginFormData = z.infer<typeof LoginSchema>;
 type RegisterFormData = z.infer<typeof RegisterSchema>;
 type AuthFormData = LoginFormData | RegisterFormData;
+
+const iconClass = 'text-muted-foreground absolute top-3 left-3 z-10 h-4 w-4';
 
 const AuthForm = ({ onOpenChange, isLogin }: AuthFormProps) => {
 	const { handleLogin, handleRegister, isLoading } = useAuthForm();
@@ -47,91 +49,49 @@ const AuthForm = ({ onOpenChange, isLogin }: AuthFormProps) => {
 
 	const handleFormSubmit = handleSubmit(onSubmit);
 
-	const iconClass = 'absolute left-3 z-10 top-3 h-4 w-4 text-muted-foreground';
 	return (
 		<form onSubmit={handleFormSubmit} className="space-y-4">
 			{!isLogin && (
-				<div className="space-y-2">
-					<Label htmlFor="name">Ім&aposя</Label>
-					<div className="relative">
-						<User className={iconClass} aria-hidden="true" />
-						<Input
-							id="name"
-							type="text"
-							{...register('name')}
-							placeholder="Введіть ваше ім'я"
-							className="pl-10"
-							aria-invalid={'name' in errors && errors.name ? 'true' : 'false'}
-							aria-describedby={
-								'name' in errors && errors.name ? 'name-error' : undefined
-							}
-							autoComplete="username"
-						/>
-						{'name' in errors && errors.name && (
-							<div
-								id="name-error"
-								role="alert"
-								className="text-destructive pt-1 text-xs"
-							>
-								{errors.name.message}
-							</div>
-						)}
-					</div>
-				</div>
+				<FormInput
+					id="name"
+					label="Ім'я"
+					error={'name' in errors ? errors.name : undefined}
+					registration={register('name')}
+					icon={<User className={iconClass} aria-hidden="true" />}
+					inputProps={{
+						type: 'text',
+						placeholder: "Введіть ваше ім'я",
+						autoComplete: 'username',
+					}}
+				/>
 			)}
 
-			<div className="space-y-2">
-				<Label htmlFor="email">Електронна пошта</Label>
-				<div className="relative">
-					<Mail className={iconClass} aria-hidden="true" />
-					<Input
-						id="email"
-						type="email"
-						{...register('email')}
-						placeholder="example@mail.com"
-						className="pl-10"
-						aria-invalid={errors.email ? 'true' : 'false'}
-						aria-describedby={errors.email ? 'email-error' : undefined}
-						autoComplete="email"
-					/>
-					{errors.email && (
-						<div
-							id="email-error"
-							role="alert"
-							className="text-destructive pt-1 text-xs"
-						>
-							{errors.email.message}
-						</div>
-					)}
-				</div>
-			</div>
+			<FormInput
+				id="email"
+				label="Електронна пошта"
+				error={errors.email}
+				registration={register('email')}
+				icon={<Mail className={iconClass} aria-hidden="true" />}
+				inputProps={{
+					type: 'email',
+					placeholder: 'example@mail.com',
+					autoComplete: 'email',
+				}}
+			/>
 
-			<div className="space-y-2">
-				<Label htmlFor="password">Пароль</Label>
-				<div className="relative">
-					<Lock className={iconClass} aria-hidden="true" />
-					<Input
-						id="password"
-						type="password"
-						{...register('password')}
-						placeholder="••••••••"
-						className="pl-10"
-						showToggle
-						aria-invalid={errors.password ? 'true' : 'false'}
-						aria-describedby={errors.password ? 'password-error' : undefined}
-						autoComplete="password"
-					/>
-					{errors.password && (
-						<div
-							id="password-error"
-							role="alert"
-							className="text-destructive pt-1 text-xs"
-						>
-							{errors.password.message}
-						</div>
-					)}
-				</div>
-			</div>
+			<FormInput
+				id="password"
+				label="Пароль"
+				error={errors.password}
+				registration={register('password')}
+				icon={<Lock className={iconClass} aria-hidden="true" />}
+				showToggle
+				inputProps={{
+					type: 'password',
+					placeholder: '••••••••',
+					autoComplete: 'current-password',
+				}}
+			/>
 
 			<Button
 				type="submit"
@@ -139,7 +99,7 @@ const AuthForm = ({ onOpenChange, isLogin }: AuthFormProps) => {
 				disabled={isSubmitting || isLoading}
 			>
 				{isSubmitting || isLoading
-					? 'Загрузка...'
+					? 'Завантаження...'
 					: isLogin
 						? modalsConfig.AUTH_MODAL.LOGIN.btnText
 						: modalsConfig.AUTH_MODAL.REGISTER.btnText}

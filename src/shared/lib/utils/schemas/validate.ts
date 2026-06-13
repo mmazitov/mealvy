@@ -14,3 +14,9 @@ export const RegisterSchema = z.object({
 		.string()
 		.min(8, { message: 'Пароль повинен містити щонайменше 8 символів' }),
 });
+
+export const InviteMemberSchema = z.object({
+	email: z
+		.string()
+		.email({ message: 'Будь ласка, введіть дійсну електронну адресу' }),
+});

@@ -27,8 +27,8 @@ const PwaManagement = () => {
 					<span
 						className={
 							isServiceWorkerActive
-								? 'font-semibold text-green-600'
-								: 'font-semibold text-gray-600'
+								? 'text-secondary font-semibold'
+								: 'text-muted-foreground font-semibold'
 						}
 					>
 						{isServiceWorkerActive ? '✓ Активний' : '✗ Неактивний'}

@@ -5,6 +5,7 @@ import { CardCompact } from '@/features/dishes';
 import { useDishesQuery } from '@/shared/api/graphql/dish.gen';
 import {
 	Breadcrumb,
+	ErrorState,
 	Filter,
 	Grid,
 	MetaData,
@@ -67,11 +68,7 @@ const Dishes = () => {
 
 	if (error) {
 		return (
-			<div className="container mx-auto px-4 py-8">
-				<div className="bg-destructive/10 text-destructive rounded-lg p-4">
-					Помилка завантаження продуктів: {error.message}
-				</div>
-			</div>
+			<ErrorState message="Не вдалося завантажити страви. Спробуйте оновити сторінку." />
 		);
 	}
 

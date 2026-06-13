@@ -62,8 +62,8 @@ const ScheduleWeek = () => {
 											className={cn(
 												'rounded-full px-2 py-0.5 text-xs font-medium',
 												dayTotalCalories > 2500
-													? 'bg-red-100 text-red-700'
-													: 'bg-emerald-100 text-emerald-700',
+													? 'bg-destructive/10 text-destructive'
+													: 'bg-secondary/10 text-secondary',
 											)}
 										>
 											{dayTotalCalories} ккал

@@ -31,7 +31,7 @@ const Checkbox = ({ label, subLabel, className, ...props }: Props) => {
 				)}
 				{...props}
 			>
-				<CheckboxPrimitive.Indicator className="flex items-center justify-center text-white">
+				<CheckboxPrimitive.Indicator className="text-primary-foreground flex items-center justify-center">
 					<Check size={16} strokeWidth={3} />
 				</CheckboxPrimitive.Indicator>
 			</CheckboxPrimitive.Root>

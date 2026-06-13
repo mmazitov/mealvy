@@ -44,7 +44,7 @@ const DietaryPreferences = ({
 							onChange={(e) => onUpdate('diet', e.target.value)}
 						/>
 					) : (
-						<h3>{user?.diet || '-'}</h3>
+						<p className="font-medium">{user?.diet || '-'}</p>
 					)}
 				</div>
 				<div className="space-y-2">
@@ -57,7 +57,9 @@ const DietaryPreferences = ({
 							onChange={(e) => onUpdate('allergy', e.target.value)}
 						/>
 					) : (
-						<h3>{user?.allergy?.length ? user.allergy.join(', ') : '-'}</h3>
+						<p className="font-medium">
+							{user?.allergy?.length ? user.allergy.join(', ') : '-'}
+						</p>
 					)}
 				</div>
 				<div className="space-y-2">
@@ -71,7 +73,9 @@ const DietaryPreferences = ({
 							onChange={(e) => onUpdate('dislike', e.target.value)}
 						/>
 					) : (
-						<h3>{user?.dislike?.length ? user.dislike.join(', ') : '-'}</h3>
+						<p className="font-medium">
+							{user?.dislike?.length ? user.dislike.join(', ') : '-'}
+						</p>
 					)}
 				</div>
 			</CardContent>

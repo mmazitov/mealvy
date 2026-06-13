@@ -81,7 +81,7 @@ const Pagination = ({
 					onClick={() => onPageChange(1)}
 					disabled={currentPage === 1}
 					aria-label="Перша сторінка"
-					className="hidden sm:inline-flex"
+					className="hidden h-11 w-11 sm:inline-flex"
 				>
 					<ChevronsLeft />
 				</Button>
@@ -92,6 +92,7 @@ const Pagination = ({
 					onClick={() => onPageChange(currentPage - 1)}
 					disabled={currentPage === 1}
 					aria-label="Попередня сторінка"
+					className="h-11 w-11"
 				>
 					<ChevronLeft />
 				</Button>
@@ -119,6 +120,7 @@ const Pagination = ({
 								onClick={() => handlePageClick(page)}
 								aria-label={`Сторінка ${page}`}
 								aria-current={isActive ? 'page' : undefined}
+								className="h-11 w-11"
 							>
 								{page}
 							</Button>
@@ -132,6 +134,7 @@ const Pagination = ({
 					onClick={() => onPageChange(currentPage + 1)}
 					disabled={currentPage === totalPages}
 					aria-label="Наступна сторінка"
+					className="h-11 w-11"
 				>
 					<ChevronRight />
 				</Button>
@@ -142,7 +145,7 @@ const Pagination = ({
 					onClick={() => onPageChange(totalPages)}
 					disabled={currentPage === totalPages}
 					aria-label="Остання сторінка"
-					className="hidden sm:inline-flex"
+					className="hidden h-11 w-11 sm:inline-flex"
 				>
 					<ChevronsRight />
 				</Button>

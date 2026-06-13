@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAuthContext } from '@/features/auth';
 import { CardFull } from '@/features/products';
 import { useProductByNameQuery } from '@/shared/api/graphql';
-import { Breadcrumb, Loader, MetaData } from '@/shared/components';
+import { Breadcrumb, ErrorState, Loader, MetaData } from '@/shared/components';
 import { useBreadcrumbs, useProductSchema } from '@/shared/hooks';
 import { fromSlug } from '@/shared/lib/utils/slug';
 
@@ -26,13 +26,7 @@ const ProductDetail = () => {
 	if (loading) return <Loader />;
 
 	if (error || !product) {
-		return (
-			<div className="container mx-auto px-4 py-8">
-				<div className="rounded-lg bg-red-50 p-4 text-red-600">
-					Продукт не знайдено
-				</div>
-			</div>
-		);
+		return <ErrorState message="Продукт не знайдено" />;
 	}
 
 	return (

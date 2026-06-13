@@ -6,7 +6,7 @@ import { normalizePhone, phoneValidate } from '@/shared/lib/utils';
 import { ProfileFormData } from '@/shared/types';
 
 export const useProfile = () => {
-	const { data, refetch } = useMeQuery();
+	const { data, refetch, error } = useMeQuery();
 	const [updateProfile, { loading: updating }] = useUpdateProfileMutation();
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [formData, setFormData] = useState<ProfileFormData>({
@@ -102,6 +102,7 @@ export const useProfile = () => {
 
 	return {
 		user,
+		error,
 		formData,
 		isEditMode,
 		updating,

@@ -5,7 +5,13 @@ import {
 	ProfileStats,
 	useProfile,
 } from '@/features/profile';
-import { Breadcrumb, Button, MetaData, PageTitle } from '@/shared/components';
+import {
+	Breadcrumb,
+	Button,
+	ErrorState,
+	MetaData,
+	PageTitle,
+} from '@/shared/components';
 import { PAGE_TITLE } from '@/shared/constants';
 import { useBreadcrumbs } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
@@ -14,6 +20,7 @@ const Profile = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const {
 		user,
+		error,
 		formData,
 		isEditMode,
 		updating,
@@ -23,8 +30,14 @@ const Profile = () => {
 		updateFormData,
 	} = useProfile();
 
+	if (error) {
+		return (
+			<ErrorState message="Не вдалося завантажити профіль. Спробуйте оновити сторінку." />
+		);
+	}
+
 	return (
-		<main className="container mx-auto px-4 py-8">
+		<div className="container mx-auto px-4 py-8">
 			<Breadcrumb items={breadcrumbItems} />
 			<div className="mx-auto max-w-2xl space-y-6">
 				<MetaData
@@ -79,7 +92,7 @@ const Profile = () => {
 					)}
 				</div>
 			</div>
-		</main>
+		</div>
 	);
 };
 

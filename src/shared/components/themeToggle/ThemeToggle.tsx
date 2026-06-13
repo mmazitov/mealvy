@@ -14,7 +14,7 @@ const ThemeToggle = () => {
 
 	if (!mounted) {
 		return (
-			<Button variant="ghost" size="icon" className="h-9 w-9">
+			<Button variant="ghost" size="icon" className="h-11 w-11">
 				<Sun className="h-4 w-4" />
 			</Button>
 		);
@@ -25,14 +25,14 @@ const ThemeToggle = () => {
 			variant="ghost"
 			size="icon"
 			onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-			className="h-9 w-9"
+			className="h-11 w-11"
 		>
 			{theme === 'dark' ? (
 				<Sun className="h-4 w-4 transition-all" />
 			) : (
 				<Moon className="h-4 w-4 transition-all" />
 			)}
-			<span className="sr-only">Переключить тему</span>
+			<span className="sr-only">Перемкнути тему</span>
 		</Button>
 	);
 };

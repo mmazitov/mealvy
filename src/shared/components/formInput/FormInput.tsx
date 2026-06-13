@@ -15,6 +15,7 @@ export interface FormInputProps extends React.HTMLAttributes<HTMLDivElement> {
 	itemType?: 'input' | 'textarea';
 	id: string;
 	showToggle?: boolean;
+	icon?: React.ReactNode;
 }
 
 const FormInput = forwardRef<HTMLDivElement, FormInputProps>(
@@ -29,10 +30,17 @@ const FormInput = forwardRef<HTMLDivElement, FormInputProps>(
 			itemType = 'input',
 			id,
 			showToggle,
+			icon,
 			...props
 		},
 		ref,
 	) => {
+		const errorId = `${id}-error`;
+		const ariaProps = {
+			'aria-invalid': error ? true : undefined,
+			'aria-describedby': error ? errorId : undefined,
+		};
+
 		return (
 			<div ref={ref} className={cn('space-y-2', className)} {...props}>
 				{label && (
@@ -46,22 +54,32 @@ const FormInput = forwardRef<HTMLDivElement, FormInputProps>(
 						className={cn(
 							error && 'border-destructive focus-visible:ring-destructive',
 						)}
+						{...ariaProps}
 						{...registration}
 						{...textareaProps}
 					/>
 				) : (
-					<Input
-						id={id}
-						className={cn(
-							error && 'border-destructive focus-visible:ring-destructive',
-						)}
-						showToggle={showToggle}
-						{...registration}
-						{...inputProps}
-					/>
+					<div className={icon ? 'relative' : undefined}>
+						{icon}
+						<Input
+							id={id}
+							className={cn(
+								icon && 'pl-10',
+								error && 'border-destructive focus-visible:ring-destructive',
+							)}
+							showToggle={showToggle}
+							{...ariaProps}
+							{...registration}
+							{...inputProps}
+						/>
+					</div>
 				)}
 				{error && (
-					<p className="text-destructive text-sm font-medium">
+					<p
+						id={errorId}
+						role="alert"
+						className="text-destructive text-sm font-medium"
+					>
 						{error.message}
 					</p>
 				)}

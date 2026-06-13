@@ -343,3 +343,25 @@
 .hover-scale {
 	@apply transition-transform duration-200 hover:scale-105;
 }
+
+/* Skip-to-content link — visible only when focused via keyboard */
+.skip-link {
+	@apply bg-primary text-primary-foreground sr-only rounded-md px-4 py-2 font-medium;
+}
+
+.skip-link:focus {
+	@apply not-sr-only fixed top-4 left-4 z-[1001];
+}
+
+/* ── Reduced motion ──────────────────────────────────
+   Honour the user's OS-level "reduce motion" preference. */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

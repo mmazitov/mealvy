@@ -86,12 +86,15 @@ const DishItem = ({
 					variant="ghost"
 					size="icon"
 					className={cn(
-						'h-6 w-6 transition-all',
+						'shrink-0 transition-all',
+						// Touch devices have no hover, so the button stays visible there;
+						// hover-capable devices keep the reveal-on-hover affordance.
 						isCompact
-							? 'scale-75 opacity-0 group-hover/item:scale-100 group-hover/item:opacity-100'
-							: 'opacity-0 group-hover/item:opacity-100',
+							? 'h-8 w-8 [@media(hover:hover)]:scale-75 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/item:scale-100 [@media(hover:hover)]:group-hover/item:opacity-100'
+							: 'h-11 w-11 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/item:opacity-100',
 					)}
 					onClick={() => onRemove(meal, dish.id)}
+					aria-label={`Видалити ${dish.name}`}
 				>
 					<X className="h-3.5 w-3.5" />
 				</Button>

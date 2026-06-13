@@ -21,7 +21,7 @@ const Settings = () => {
 	});
 
 	return (
-		<main className="container mx-auto px-4 py-8">
+		<div className="container mx-auto px-4 py-8">
 			<Breadcrumb items={breadcrumbItems} />
 			<div className="mx-auto max-w-2xl space-y-6">
 				<MetaData
@@ -58,7 +58,7 @@ const Settings = () => {
 					<Button onClick={handleSave}>Зберегти налаштування</Button>
 				</div>
 			</div>
-		</main>
+		</div>
 	);
 };
 

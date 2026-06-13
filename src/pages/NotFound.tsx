@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
+
 import { MetaData } from '@/shared/components/metaData';
 import { METADATA_CONFIG } from '@/shared/lib/config/metaDataConfig';
 
 const NotFound = () => {
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-gray-100">
+		<div className="bg-background flex min-h-screen items-center justify-center">
 			<MetaData
 				noindex
 				title={METADATA_CONFIG.titles.notFound}
@@ -13,10 +15,15 @@ const NotFound = () => {
 			/>
 			<div className="text-center">
 				<h1 className="mb-4 text-4xl font-bold">404</h1>
-				<p className="mb-4 text-xl text-gray-600">Сторінка не знайдена</p>
-				<a href="/" className="text-blue-500 underline hover:text-blue-700">
+				<p className="text-muted-foreground mb-4 text-xl">
+					Сторінка не знайдена
+				</p>
+				<Link
+					to="/"
+					className="text-primary underline-offset-4 hover:underline"
+				>
 					Повернутись на головну сторінку
-				</a>
+				</Link>
 			</div>
 		</div>
 	);

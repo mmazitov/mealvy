@@ -32,7 +32,7 @@ const PlannerDay = ({
 						selectedCategory={selectedDay}
 						onCategoryChange={setSelectedDay}
 						categories={weekDaysForFilter}
-						tabListClassName="grid grid-cols-7 w-full gap-1 md:gap-2"
+						tabListClassName="grid h-auto w-full grid-cols-4 gap-1 md:grid-cols-7 md:gap-2"
 					/>
 				</CardContent>
 			</Card>

@@ -2,7 +2,13 @@ import {
 	ShoppingListContent,
 	useShoppingListPage,
 } from '@/features/shoppingList';
-import { Breadcrumb, Loader, MetaData, PageTitle } from '@/shared/components';
+import {
+	Breadcrumb,
+	ErrorState,
+	Loader,
+	MetaData,
+	PageTitle,
+} from '@/shared/components';
 import { useBreadcrumbs } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 
@@ -35,12 +41,7 @@ const ShoppingList = () => {
 
 	if (error) {
 		return (
-			<div className="container mx-auto px-4 py-8">
-				<div className="text-destructive text-center">
-					<p className="text-lg font-medium">Помилка завантаження даних</p>
-					<p className="text-muted-foreground mt-2">{error.message}</p>
-				</div>
-			</div>
+			<ErrorState message="Не вдалося завантажити дані. Спробуйте оновити сторінку." />
 		);
 	}
 

@@ -1,5 +1,6 @@
 export * from './breadcrumb';
 export * from './errorBoundary';
+export * from './errorState';
 export * from './daySummary';
 export * from './favoriteButton';
 export * from './filter';

@@ -166,6 +166,7 @@ const DishForm = ({ dish, products, isEditMode = false }: DishFormProps) => {
 						render={({ field }) => (
 							<Select onValueChange={field.onChange} value={field.value}>
 								<SelectTrigger
+									id="category"
 									aria-invalid={errors.category ? 'true' : 'false'}
 									aria-describedby={
 										errors.category ? 'category-error' : undefined
@@ -187,7 +188,7 @@ const DishForm = ({ dish, products, isEditMode = false }: DishFormProps) => {
 						<p
 							id="category-error"
 							role="alert"
-							className="text-destructive text-sm"
+							className="text-destructive text-sm font-medium"
 						>
 							{errors.category.message}
 						</p>

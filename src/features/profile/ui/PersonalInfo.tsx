@@ -51,7 +51,7 @@ const PersonalInfo = ({
 							onChange={(e) => onUpdate('name', e.target.value)}
 						/>
 					) : (
-						<h3>{user?.name}</h3>
+						<p className="font-medium">{user?.name}</p>
 					)}
 				</div>
 				<div className="space-y-2">
@@ -65,7 +65,7 @@ const PersonalInfo = ({
 							disabled
 						/>
 					) : (
-						<h3>{user?.email}</h3>
+						<p className="font-medium">{user?.email}</p>
 					)}
 				</div>
 				<div className="space-y-2">
@@ -79,7 +79,9 @@ const PersonalInfo = ({
 							onChange={(e) => onUpdate('phone', e.target.value)}
 						/>
 					) : (
-						<h3>{user?.phone ? formatPhone(user.phone) : '-'}</h3>
+						<p className="font-medium">
+							{user?.phone ? formatPhone(user.phone) : '-'}
+						</p>
 					)}
 				</div>
 			</CardContent>

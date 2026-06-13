@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import CardCompact from './cardCompact/CardCompact';
 
 import { useDishesQuery } from '@/shared/api/graphql/dish.gen';
+import { ErrorState } from '@/shared/components/errorState';
 import { Grid } from '@/shared/components/grid';
 import { Skeleton } from '@/shared/components/skeleton';
 import { Button } from '@/shared/components/ui/button';
@@ -21,11 +22,7 @@ const FeaturedDishes = () => {
 
 	if (error) {
 		return (
-			<div className="container mx-auto px-4 py-8">
-				<div className="bg-destructive/10 text-destructive rounded-lg p-4">
-					Помилка завантаження продуктів: {error.message}
-				</div>
-			</div>
+			<ErrorState message="Не вдалося завантажити страви. Спробуйте оновити сторінку." />
 		);
 	}
 

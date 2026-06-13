@@ -52,7 +52,11 @@ export const useMenuPlanner = () => {
 	const schedule = useSchedule();
 	const { startDate, endDate } = schedule;
 
-	const { data: plannerItemsData, loading } = useGetPlannerItemsQuery({
+	const {
+		data: plannerItemsData,
+		loading,
+		error,
+	} = useGetPlannerItemsQuery({
 		variables: { startDate, endDate },
 		fetchPolicy: 'cache-and-network',
 	});
@@ -272,6 +276,7 @@ export const useMenuPlanner = () => {
 		isDirty,
 		hasSavedData,
 		isLoading: loading,
+		error,
 		plannerItemsData: plannerItemsData?.getPlannerItems || [],
 	};
 };

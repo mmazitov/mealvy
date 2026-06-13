@@ -6,6 +6,7 @@ import {
 	Breadcrumb,
 	Card,
 	CardContent,
+	ErrorState,
 	Filter,
 	MetaData,
 	PageTitle,
@@ -40,22 +41,12 @@ const MenuDetail = () => {
 	if (error) {
 		console.error('[MenuDetail] Failed to load menu:', id, error.message);
 		return (
-			<div className="container mx-auto px-4 py-8">
-				<div className="rounded-lg bg-red-50 p-4 text-red-600">
-					Не вдалося завантажити меню. Спробуйте оновити сторінку.
-				</div>
-			</div>
+			<ErrorState message="Не вдалося завантажити меню. Спробуйте оновити сторінку." />
 		);
 	}
 
 	if (!menu) {
-		return (
-			<div className="container mx-auto px-4 py-8">
-				<div className="rounded-lg bg-red-50 p-4 text-red-600">
-					Меню не знайдено
-				</div>
-			</div>
-		);
+		return <ErrorState message="Меню не знайдено" />;
 	}
 
 	return (
@@ -80,7 +71,7 @@ const MenuDetail = () => {
 							selectedCategory={selectedDay}
 							onCategoryChange={setSelectedDay}
 							categories={weekDaysForFilter}
-							tabListClassName="grid grid-cols-7 w-full gap-1 md:gap-2"
+							tabListClassName="grid h-auto w-full grid-cols-4 gap-1 md:grid-cols-7 md:gap-2"
 						/>
 					</CardContent>
 				</Card>

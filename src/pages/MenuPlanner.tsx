@@ -14,6 +14,7 @@ import {
 } from '@/features/schedule';
 import {
 	Breadcrumb,
+	ErrorState,
 	FloatingMenu,
 	MetaData,
 	Modal,
@@ -54,6 +55,7 @@ const MenuPlanner = () => {
 		isDirty,
 		hasSavedData,
 		isLoading,
+		error,
 	} = useMenuPlanner();
 
 	const menuItems: FloatingMenuItem[] = [
@@ -70,6 +72,13 @@ const MenuPlanner = () => {
 			disabled: isLoading || isDirty || !hasSavedData,
 		},
 	];
+
+	if (error) {
+		return (
+			<ErrorState message="Не вдалося завантажити планувальник. Спробуйте оновити сторінку." />
+		);
+	}
+
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<Breadcrumb items={breadcrumbItems} />

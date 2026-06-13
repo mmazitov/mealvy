@@ -5,6 +5,7 @@ import { CardCompact } from '@/features/products';
 import { useProductsQuery } from '@/shared/api/graphql';
 import {
 	Breadcrumb,
+	ErrorState,
 	Filter,
 	Grid,
 	MetaData,
@@ -67,11 +68,7 @@ const Products = () => {
 
 	if (error) {
 		return (
-			<div className="container mx-auto px-4 py-8">
-				<div className="rounded-lg bg-red-50 p-4 text-red-600">
-					Помилка завантаження продуктів: {error.message}
-				</div>
-			</div>
+			<ErrorState message="Не вдалося завантажити продукти. Спробуйте оновити сторінку." />
 		);
 	}
 

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAuthContext } from '@/features/auth';
 import { CardFull } from '@/features/dishes';
 import { useDishByNameQuery } from '@/shared/api/graphql';
-import { Breadcrumb, Loader, MetaData } from '@/shared/components';
+import { Breadcrumb, ErrorState, Loader, MetaData } from '@/shared/components';
 import { useBreadcrumbs, useRecipeSchema } from '@/shared/hooks';
 import { fromSlug } from '@/shared/lib/utils/slug';
 
@@ -28,22 +28,12 @@ const DishDetail = () => {
 	if (error) {
 		console.error('[DishDetail] Failed to load dish:', id, error.message);
 		return (
-			<div className="container mx-auto px-4 py-8">
-				<div className="rounded-lg bg-red-50 p-4 text-red-600">
-					Не вдалося завантажити страву. Спробуйте оновити сторінку.
-				</div>
-			</div>
+			<ErrorState message="Не вдалося завантажити страву. Спробуйте оновити сторінку." />
 		);
 	}
 
 	if (!dish) {
-		return (
-			<div className="container mx-auto px-4 py-8">
-				<div className="rounded-lg bg-red-50 p-4 text-red-600">
-					Страву не знайдено
-				</div>
-			</div>
-		);
+		return <ErrorState message="Страву не знайдено" />;
 	}
 
 	return (
