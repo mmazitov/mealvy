@@ -61,7 +61,7 @@ const SocialList = ({ onOpenChange }: SocialListProps) => {
 	}, [login, onOpenChange]);
 
 	return (
-		<ul className="grid grid-cols-3 gap-3">
+		<ul className="grid grid-cols-1 gap-3">
 			{SOCIAL_ITEMS.map((item) => (
 				<li key={item.name}>
 					<Button
