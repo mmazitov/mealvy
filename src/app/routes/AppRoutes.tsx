@@ -32,9 +32,6 @@ const AppRoutes = () => {
 
 	return (
 		<div className="bg-background min-h-screen pb-16 lg:pb-0">
-			<a href="#main-content" className="skip-link">
-				Перейти до вмісту
-			</a>
 			<Header />
 			<main id="main-content" tabIndex={-1}>
 				<Suspense fallback={<Loader />}>
