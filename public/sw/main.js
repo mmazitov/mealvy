@@ -1,4 +1,3 @@
-// Install event - cache App Shell
 self.addEventListener('install', (event) => {
 	log('[Service Worker] Installing...');
 
@@ -14,7 +13,6 @@ self.addEventListener('install', (event) => {
 	self.skipWaiting();
 });
 
-// Activate event - cleanup old caches
 self.addEventListener('activate', (event) => {
 	log('[Service Worker] Activating...');
 
@@ -23,23 +21,19 @@ self.addEventListener('activate', (event) => {
 	self.clients.claim();
 });
 
-// Fetch event - routing strategies
 self.addEventListener('fetch', (event) => {
 	const { request } = event;
 	const url = new URL(request.url);
 
-	// Skip unsupported schemes and dev server
 	if (!isSupportedScheme(url.href) || isDevServerRequest(url.href)) {
 		return;
 	}
 
-	// GraphQL POST requests - need special handling
 	if (request.method === 'POST' && isGraphQLRequest(request)) {
 		event.respondWith(
 			(async () => {
 				const operation = await getGraphQLOperation(request);
 
-				// Auth queries - Network Only (no caching to prevent stale auth state)
 				if (
 					operation?.operationName === 'Me' ||
 					operation?.operationName === 'Logout' ||
@@ -49,7 +43,6 @@ self.addEventListener('fetch', (event) => {
 					return networkOnly(request);
 				}
 
-				// Products queries
 				if (
 					operation?.operationName === 'Products' ||
 					operation?.query?.includes('query Products')
@@ -57,7 +50,6 @@ self.addEventListener('fetch', (event) => {
 					return staleWhileRevalidate(request, CACHES.PRODUCTS);
 				}
 
-				// Product detail query
 				if (
 					operation?.operationName === 'Product' ||
 					operation?.query?.includes('query Product')
@@ -65,7 +57,6 @@ self.addEventListener('fetch', (event) => {
 					return staleWhileRevalidate(request, CACHES.PRODUCTS);
 				}
 
-				// Dishes queries
 				if (
 					operation?.operationName?.includes('Dish') ||
 					operation?.query?.includes('dishes')
@@ -73,7 +64,6 @@ self.addEventListener('fetch', (event) => {
 					return staleWhileRevalidate(request, CACHES.DISHES);
 				}
 
-				// Mutations - Network First with offline queue
 				if (operation?.query?.includes('mutation')) {
 					try {
 						const response = await fetch(request);
@@ -93,34 +83,28 @@ self.addEventListener('fetch', (event) => {
 					}
 				}
 
-				// Default - Network First
 				return networkFirst(request, CACHES.PLANS);
 			})(),
 		);
 		return;
 	}
 
-	// GET requests only for caching
 	if (request.method === 'GET') {
-		// App Shell - navigation requests
 		if (request.mode === 'navigate') {
 			event.respondWith(cacheFirst(request, CACHES.APP_SHELL));
 			return;
 		}
 
-		// Static assets - Cache First
 		if (shouldCacheAsset(url.href)) {
 			event.respondWith(cacheFirst(request, CACHES.STATIC));
 			return;
 		}
 
-		// Auth requests - Network Only
 		if (isAuthRequest(request)) {
 			event.respondWith(networkOnly(request));
 			return;
 		}
 
-		// Images - Cache First with long TTL
 		if (url.href.match(/\.(png|jpg|jpeg|gif|webp|svg)$/)) {
 			event.respondWith(cacheFirst(request, CACHES.IMAGES));
 			return;
@@ -128,7 +112,6 @@ self.addEventListener('fetch', (event) => {
 	}
 });
 
-// Background Sync - replay offline queue
 self.addEventListener('sync', (event) => {
 	if (event.tag === 'mealvy-sync') {
 		log('[Service Worker] Background sync triggered');
@@ -136,7 +119,6 @@ self.addEventListener('sync', (event) => {
 	}
 });
 
-// Message event - handle client messages
 self.addEventListener('message', (event) => {
 	// Only accept messages from trusted window clients (not SharedWorker or ServiceWorker)
 	if (!event.source || !(event.source instanceof WindowClient)) {
@@ -156,7 +138,6 @@ self.addEventListener('message', (event) => {
 	}
 });
 
-// Push notifications (for future)
 self.addEventListener('push', (event) => {
 	const data = event.data?.json() ?? {};
 

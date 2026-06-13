@@ -64,7 +64,6 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
 		});
 	}
 
-	// Network / HTTP 401
 	if (
 		!CombinedGraphQLErrors.is(error) &&
 		'statusCode' in error &&

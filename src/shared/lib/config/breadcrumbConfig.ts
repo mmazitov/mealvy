@@ -18,13 +18,10 @@ const BREADCRUMB_ROUTES: Record<string, BreadcrumbRouteConfig> = {
 	'/schedule': { label: 'Розклад', parentPattern: '/' },
 	'/shopping-list': { label: 'Список покупок', parentPattern: '/' },
 	'/menu-planner': { label: 'Планувальник меню', parentPattern: '/' },
-	// Static sub-routes before dynamic :id patterns
 	'/products/add': { label: 'Додати продукт', parentPattern: '/products' },
 	'/dishes/add': { label: 'Додати страву', parentPattern: '/dishes' },
-	// Edit routes — parent is the list page (no intermediate :title needed)
 	'/product/edit/:id': { label: 'Редагувати', parentPattern: '/products' },
 	'/dish/edit/:id': { label: 'Редагувати', parentPattern: '/dishes' },
-	// Dynamic detail routes
 	'/product/:id': { label: ':title', parentPattern: '/products' },
 	'/dish/:id': { label: ':title', parentPattern: '/dishes' },
 	'/menu/:id': { label: ':title', parentPattern: '/menus' },
@@ -90,7 +87,6 @@ export function buildBreadcrumbTrail(
 
 	const { pattern, params } = matched;
 
-	// Dish navigated from a menu detail page — override the default parent chain
 	if (pattern === '/dish/:id' && fromPath) {
 		const menuId = fromPath.match(/^\/menu\/([^/]+)/)?.[1];
 		if (menuId) {
@@ -125,7 +121,6 @@ export function buildBreadcrumbTrail(
 		isLeaf = false;
 	}
 
-	// Insert explicit parent before the leaf when provided
 	if (parent && trail.length >= 1) {
 		trail.splice(trail.length - 1, 0, parent);
 	}
