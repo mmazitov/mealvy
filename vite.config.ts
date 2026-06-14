@@ -94,6 +94,7 @@ export default defineConfig({
 		},
 	},
 	build: {
+		sourcemap: false,
 		rollupOptions: {
 			output: {
 				// Add content hash to chunk filenames

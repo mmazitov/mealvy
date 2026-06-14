@@ -21,6 +21,11 @@ export const useAuthState = () => {
 			// Logout is safe even on error — reset client state anyway
 		} finally {
 			await client.resetStore().catch(() => {});
+			// Evict cached per-user data from the Service Worker so the next
+			// user on a shared device can't read it from Cache Storage
+			navigator.serviceWorker?.controller?.postMessage({
+				type: 'CLEAR_DATA_CACHE',
+			});
 		}
 	}, [logoutMutation]);
 

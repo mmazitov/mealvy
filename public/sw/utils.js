@@ -22,10 +22,6 @@ async function trimCache(cacheName, maxEntries) {
 	);
 }
 
-function isApiRequest(request) {
-	return request.url.includes('/api/');
-}
-
 function isGraphQLRequest(request) {
 	return request.url.includes('/graphql');
 }
@@ -48,7 +44,7 @@ async function getGraphQLOperation(request) {
 }
 
 function isAuthRequest(request) {
-	return request.url.includes('/api/auth/');
+	return request.url.includes('/auth/');
 }
 
 function isSupportedScheme(url) {

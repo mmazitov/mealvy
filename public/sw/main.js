@@ -136,6 +136,17 @@ self.addEventListener('message', (event) => {
 			}),
 		);
 	}
+
+	// Drop per-user data caches on logout; app shell/static stay for fast reload
+	if (event.data?.type === 'CLEAR_DATA_CACHE') {
+		const dataCaches = [
+			CACHES.DISHES,
+			CACHES.PRODUCTS,
+			CACHES.PLANS,
+			CACHES.IMAGES,
+		];
+		event.waitUntil(Promise.all(dataCaches.map((key) => caches.delete(key))));
+	}
 });
 
 self.addEventListener('push', (event) => {

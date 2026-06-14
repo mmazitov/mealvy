@@ -84,7 +84,7 @@ export const useSavedMenuActions = () => {
 		try {
 			await deleteMutation({ variables: { id } });
 		} catch (error) {
-			console.error('Delete error:', error);
+			if (import.meta.env.DEV) console.error('Delete error:', error);
 		}
 	};
 
@@ -92,7 +92,7 @@ export const useSavedMenuActions = () => {
 		try {
 			await duplicateMutation({ variables: { id } });
 		} catch (error) {
-			console.error('Duplicate error:', error);
+			if (import.meta.env.DEV) console.error('Duplicate error:', error);
 		}
 	};
 
