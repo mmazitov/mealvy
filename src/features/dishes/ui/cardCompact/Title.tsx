@@ -18,7 +18,7 @@ const Title = ({ name, category, description }: TitleProps) => {
 				{name}
 			</h3>
 			{category && (
-				<Badge className={`shrink-0 text-xs hover:${badgeClass} ${badgeClass}`}>
+				<Badge variant="category" className={`shrink-0 text-xs ${badgeClass}`}>
 					{category}
 				</Badge>
 			)}

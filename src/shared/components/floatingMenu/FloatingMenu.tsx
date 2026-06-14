@@ -16,10 +16,9 @@ const BASE_BUTTON =
 	'fixed flex items-center justify-center w-[50px] h-[50px] rounded-full z-50 transition-all duration-300';
 
 const MAIN_BUTTON =
-	'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-lg cursor-pointer';
+	'bg-primary text-primary-foreground shadow-lg cursor-pointer';
 
-const MENU_ITEM =
-	'bg-[var(--color-accent)] text-[var(--color-accent-foreground)] shadow-md';
+const MENU_ITEM = 'bg-accent text-accent-foreground shadow-md';
 
 const POSITION_CLASSES = {
 	'bottom-right': 'bottom-17.5 md:bottom-4 right-4',

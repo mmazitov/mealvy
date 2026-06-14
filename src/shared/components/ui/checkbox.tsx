@@ -23,10 +23,10 @@ const Checkbox = ({ label, subLabel, className, ...props }: Props) => {
 			</div>
 			<CheckboxPrimitive.Root
 				className={clsx(
-					'peer border-input bg-background h-5 min-w-5 border',
-					'data-[state=checked]:bg-ring data-[state=checked]:border-ring',
+					'peer border-input bg-background h-5 min-w-5 rounded-sm border',
+					'data-[state=checked]:bg-primary data-[state=checked]:border-primary',
 					'data-[state=unchecked]:bg-background',
-					'transition-colors',
+					'focus-visible:ring-ring transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
 					className,
 				)}
 				{...props}

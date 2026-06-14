@@ -82,7 +82,7 @@ const Modal = ({
 						(onSearchChange as (query: string) => void) || (() => {}),
 					onDishSelect:
 						(onDishSelect as (
-							dish: Pick<Dish, 'id' | 'name' | 'calories'>,
+							dish: Pick<Dish, 'id' | 'name' | 'calories' | 'fat' | 'carbs'>,
 						) => void) || (() => {}),
 				};
 				return <AddDishModal {...dishProps} />;
@@ -102,13 +102,7 @@ const Modal = ({
 				}
 			>
 				<DialogHeader>
-					<DialogTitle
-						className={
-							modalType === ADD_DISH_MODAL
-								? ''
-								: 'text-center text-2xl font-bold'
-						}
-					>
+					<DialogTitle className="text-xl font-bold">
 						{getModalTitle()}
 					</DialogTitle>
 				</DialogHeader>

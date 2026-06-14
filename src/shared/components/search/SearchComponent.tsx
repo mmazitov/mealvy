@@ -31,7 +31,7 @@ const SearchComponent = ({
 			/>
 			{searchQuery && (
 				<button
-					className="text-muted-foreground hover:text-foreground cursor-pointerw absolute top-1/2 right-3 z-10 -translate-y-1/2 transform"
+					className="text-muted-foreground hover:text-foreground cursor-pointer absolute top-1/2 right-3 z-10 -translate-y-1/2 transform"
 					onClick={() => onSearchChange('')}
 					aria-label="Clear search"
 				>

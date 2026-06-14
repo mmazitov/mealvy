@@ -23,8 +23,8 @@ const FavoriteButton = ({
 			className={cn(
 				'transition-all',
 				variant === 'overlay' &&
-					'bg-background absolute top-2 right-2 z-100 rounded-full shadow-sm backdrop-blur-sm',
-				isFavorite && 'text-red-500 hover:text-red-600',
+					'bg-background absolute top-2 right-2 z-10 rounded-full shadow-sm backdrop-blur-sm',
+				isFavorite && 'text-destructive hover:text-destructive/90',
 				className,
 			)}
 			onClick={(e) => {

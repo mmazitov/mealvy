@@ -1,5 +1,5 @@
 export { CardCompact } from './ui/cardCompact';
-export { CardFull } from './ui/cardFull';
+export { CardFull, CardFullSkeleton } from './ui/cardFull';
 export { default as DishForm } from './ui/DishForm';
 export { default as FavoriteDishes } from './ui/FavoriteDishes';
 export { default as FeaturedDishes } from './ui/FeaturedDishes';

@@ -1,11 +1,11 @@
 import {
 	ShoppingListContent,
+	ShoppingListSkeleton,
 	useShoppingListPage,
 } from '@/features/shoppingList';
 import {
 	Breadcrumb,
 	ErrorState,
-	Loader,
 	MetaData,
 	PageTitle,
 } from '@/shared/components';
@@ -36,7 +36,17 @@ const ShoppingList = () => {
 	});
 
 	if (loading) {
-		return <Loader />;
+		return (
+			<div className="container mx-auto px-4 py-8">
+				<Breadcrumb items={breadcrumbItems} />
+				<PageTitle
+					title="Список покупок"
+					subtitle="Завантаження списку покупок…"
+					buttonVisible={false}
+				/>
+				<ShoppingListSkeleton />
+			</div>
+		);
 	}
 
 	if (error) {
