@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+import { logger } from '@/shared/lib/logger';
 import { useMeQuery, useUpdateProfileMutation } from '@/shared/api/graphql';
 import { normalizePhone, phoneValidate } from '@/shared/lib/utils';
 import { ProfileFormData } from '@/shared/types';
@@ -88,8 +89,7 @@ export const useProfile = () => {
 
 			setIsEditMode(false);
 		} catch (error) {
-			if (import.meta.env.DEV)
-				console.error('Failed to update profile:', error);
+			logger.error('Failed to update profile:', error);
 			toast.error('Помилка', {
 				description: 'Не вдалося оновити профіль',
 			});

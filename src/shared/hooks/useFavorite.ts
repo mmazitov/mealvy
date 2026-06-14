@@ -1,6 +1,8 @@
 import type { ApolloCache } from '@apollo/client';
 import { toast } from 'sonner';
 
+import { logger } from '@/shared/lib/logger';
+
 // Local callable type compatible with Apollo's useMutation return value.
 // Apollo Client v4 removed the top-level MutationFunction export; it is now a
 // namespace member of useMutation with required generics.  Using `(options: any)`
@@ -95,7 +97,7 @@ export const useFavorite = ({
 			toast.error(
 				`Помилка при оновленні улюблених ${entityName}, лише авторизовані користувачі можуть додавати улюблені ${entityName}`,
 			);
-			if (import.meta.env.DEV) console.error(error);
+			logger.error(error);
 		}
 	};
 

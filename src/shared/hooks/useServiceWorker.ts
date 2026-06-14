@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 
+import { logger } from '@/shared/lib/logger';
+
 const initServiceWorker = () => {
 	if ('serviceWorker' in navigator && import.meta.env.PROD) {
 		window.addEventListener('load', () => {
 			navigator.serviceWorker
 				.register('/sw.js', { scope: '/' })
 				.then((registration) => {
-					if (import.meta.env.DEV) {
-						console.log('[PWA] Service Worker registered:', registration);
-					}
+					logger.log('[PWA] Service Worker registered:', registration);
 
 					const updateIntervalId = setInterval(
 						() => {
@@ -30,9 +30,7 @@ const initServiceWorker = () => {
 									newWorker.state === 'installed' &&
 									navigator.serviceWorker.controller
 								) {
-									if (import.meta.env.DEV) {
-										console.log('[PWA] New Service Worker update available');
-									}
+									logger.log('[PWA] New Service Worker update available');
 
 									window.dispatchEvent(
 										new CustomEvent('pwa-update-available', {
@@ -47,17 +45,13 @@ const initServiceWorker = () => {
 					navigator.serviceWorker.addEventListener('message', (event) => {
 						if (event.data.type === 'PWA_INSTALLED') {
 							localStorage.setItem('pwa-installed', 'true');
-							if (import.meta.env.DEV) {
-								console.log('[PWA] PWA installation marker set');
-							}
+							logger.log('[PWA] PWA installation marker set');
 							window.dispatchEvent(new CustomEvent('pwa-installed'));
 						}
 					});
 				})
 				.catch((error) => {
-					if (import.meta.env.DEV) {
-						console.warn('[PWA] Service Worker registration failed:', error);
-					}
+					logger.warn('[PWA] Service Worker registration failed:', error);
 				});
 		});
 	}
@@ -68,9 +62,7 @@ const usePwaUpdateListener = (callback?: () => void) => {
 		if (typeof window === 'undefined') return;
 
 		const handler = () => {
-			if (import.meta.env.DEV) {
-				console.log('[PWA] Update available');
-			}
+			logger.log('[PWA] Update available');
 			if (callback) callback();
 		};
 

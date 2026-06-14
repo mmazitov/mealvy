@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 
+import { logger } from '@/shared/lib/logger';
 import { CardCompact } from '@/features/dishes';
 import { useMenuDetail } from '@/features/menus';
 import {
@@ -39,8 +40,7 @@ const MenuDetail = () => {
 	if (loading) return <Loader />;
 
 	if (error) {
-		if (import.meta.env.DEV)
-			console.error('[MenuDetail] Failed to load menu:', id, error.message);
+		logger.error('[MenuDetail] Failed to load menu:', id, error.message);
 		return (
 			<ErrorState message="Не вдалося завантажити меню. Спробуйте оновити сторінку." />
 		);

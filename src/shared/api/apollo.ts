@@ -7,6 +7,8 @@ import { Observable } from '@apollo/client/utilities';
 import { refreshAccessToken } from './refreshToken';
 import { hasSessionHint } from './sessionHint';
 
+import { logger } from '@/shared/lib/logger';
+
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/graphql';
 
 let onUnauthenticated: (() => void) | null = null;
@@ -74,14 +76,12 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
 		onUnauthenticated?.();
 	}
 
-	if (import.meta.env.DEV) {
-		if (CombinedGraphQLErrors.is(error)) {
-			error.errors.forEach((e) =>
-				console.error(`[GraphQL] ${e.message}`, e.extensions?.code),
-			);
-		} else {
-			console.error('[Network]', error);
-		}
+	if (CombinedGraphQLErrors.is(error)) {
+		error.errors.forEach((e) =>
+			logger.error(`[GraphQL] ${e.message}`, e.extensions?.code),
+		);
+	} else {
+		logger.error('[Network]', error);
 	}
 });
 

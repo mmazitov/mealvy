@@ -1,63 +1,47 @@
+import { logger } from '@/shared/lib/logger';
+
 const clearAllCaches = async (): Promise<void> => {
 	if (!('caches' in window)) {
-		if (import.meta.env.DEV) {
-			console.warn('[PWA] Caches API not available');
-		}
+		logger.warn('[PWA] Caches API not available');
 		return;
 	}
 
 	const cacheNames = await caches.keys();
-	if (import.meta.env.DEV) {
-		console.log('[PWA] Found caches:', cacheNames);
-	}
+	logger.log('[PWA] Found caches:', cacheNames);
 
 	await Promise.all(
 		cacheNames
 			.filter((name) => name.startsWith('mealvy-'))
 			.map((name) => {
-				if (import.meta.env.DEV) {
-					console.log(`[PWA] Clearing cache: ${name}`);
-				}
+				logger.log(`[PWA] Clearing cache: ${name}`);
 				return caches.delete(name);
 			}),
 	);
 
-	if (import.meta.env.DEV) {
-		console.log('[PWA] All caches cleared');
-	}
+	logger.log('[PWA] All caches cleared');
 };
 
 const unregisterAllServiceWorkers = async (): Promise<void> => {
 	if (!('serviceWorker' in navigator)) {
-		if (import.meta.env.DEV) {
-			console.warn('[PWA] Service Worker API not available');
-		}
+		logger.warn('[PWA] Service Worker API not available');
 		return;
 	}
 
 	const registrations = await navigator.serviceWorker.getRegistrations();
-	if (import.meta.env.DEV) {
-		console.log('[PWA] Found service workers:', registrations.length);
-	}
+	logger.log('[PWA] Found service workers:', registrations.length);
 
 	await Promise.all(
 		registrations.map((registration) => {
-			if (import.meta.env.DEV) {
-				console.log('[PWA] Unregistering service worker:', registration.scope);
-			}
+			logger.log('[PWA] Unregistering service worker:', registration.scope);
 			return registration.unregister();
 		}),
 	);
 
-	if (import.meta.env.DEV) {
-		console.log('[PWA] All service workers unregistered');
-	}
+	logger.log('[PWA] All service workers unregistered');
 };
 
 const fullPwaReset = async (): Promise<void> => {
-	if (import.meta.env.DEV) {
-		console.log('[PWA] Starting full PWA reset...');
-	}
+	logger.log('[PWA] Starting full PWA reset...');
 
 	try {
 		await clearAllCaches();
@@ -65,19 +49,13 @@ const fullPwaReset = async (): Promise<void> => {
 
 		localStorage.removeItem('pwa-installed');
 
-		if (import.meta.env.DEV) {
-			console.log(
-				'[PWA] Full reset complete. Reload the page to reinstall PWA',
-			);
-		}
+		logger.log('[PWA] Full reset complete. Reload the page to reinstall PWA');
 
 		setTimeout(() => {
 			window.location.reload();
 		}, 1000);
 	} catch (error) {
-		if (import.meta.env.DEV) {
-			console.error('[PWA] Reset failed:', error);
-		}
+		logger.error('[PWA] Reset failed:', error);
 	}
 };
 
@@ -107,9 +85,7 @@ const getPwaCacheInfo = async (): Promise<{
 					totalSize += blob.size;
 				}
 			} catch (error) {
-				if (import.meta.env.DEV) {
-					console.warn('[PWA] Could not get size of cached item:', error);
-				}
+				logger.warn('[PWA] Could not get size of cached item:', error);
 			}
 		}
 	}

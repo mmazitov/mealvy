@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
+import { logger } from '@/shared/lib/logger';
 import {
 	FavoriteProductsDocument,
 	FavoriteProductsQuery,
@@ -71,7 +72,7 @@ export const useAddProduct = () => {
 			navigate('/products');
 		} catch (error) {
 			toast.error('Помилка при додаванні продукту');
-			if (import.meta.env.DEV) console.error(error);
+			logger.error(error);
 		}
 	};
 	return {
@@ -140,7 +141,7 @@ export const useEditProduct = (
 			navigate('/products');
 		} catch (error) {
 			toast.error('Помилка при оновленні продукту');
-			if (import.meta.env.DEV) console.error(error);
+			logger.error(error);
 		}
 	};
 	return {
@@ -172,7 +173,7 @@ export const useDeleteProduct = (productId: string) => {
 			navigate('/products');
 		} catch (error) {
 			toast.error('Помилка при видаленні продукту');
-			if (import.meta.env.DEV) console.error(error);
+			logger.error(error);
 		}
 	};
 

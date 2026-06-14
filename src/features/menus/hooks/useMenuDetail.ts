@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 
+import { logger } from '@/shared/lib/logger';
 import { useSavedMenuQuery } from '@/shared/api/graphql';
 import { weekDays } from '@/shared/lib/utils';
 
@@ -34,23 +35,21 @@ export const useMenuDetail = (menuId: string | undefined) => {
 
 			const parsed = dayjs(finalDate);
 			if (!parsed.isValid()) {
-				if (import.meta.env.DEV)
-					console.error(
-						'[useMenuDetail] Invalid date on menu item:',
-						item.id,
-						item.date,
-					);
+				logger.error(
+					'[useMenuDetail] Invalid date on menu item:',
+					item.id,
+					item.date,
+				);
 				return;
 			}
 
 			const dayName = weekDays[parsed.isoWeekday() - 1];
 			if (!dayName) {
-				if (import.meta.env.DEV)
-					console.error(
-						'[useMenuDetail] Could not map date to weekday:',
-						item.id,
-						item.date,
-					);
+				logger.error(
+					'[useMenuDetail] Could not map date to weekday:',
+					item.id,
+					item.date,
+				);
 				return;
 			}
 
@@ -79,11 +78,10 @@ export const useMenuDetail = (menuId: string | undefined) => {
 
 		currentDayDishes.forEach((item) => {
 			if (!item.dish) {
-				if (import.meta.env.DEV)
-					console.error(
-						'[useMenuDetail] Menu item missing dish reference:',
-						item.id,
-					);
+				logger.error(
+					'[useMenuDetail] Menu item missing dish reference:',
+					item.id,
+				);
 				return;
 			}
 			if (!uniqueDishes.has(item.dishId)) {

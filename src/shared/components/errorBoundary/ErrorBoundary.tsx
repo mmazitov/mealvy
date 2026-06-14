@@ -1,5 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 
+import { logger } from '@/shared/lib/logger';
+
 interface Props {
 	children: ReactNode;
 	fallback?: ReactNode;
@@ -17,9 +19,7 @@ class ErrorBoundary extends Component<Props, State> {
 	}
 
 	componentDidCatch(error: Error, info: React.ErrorInfo): void {
-		if (import.meta.env.DEV) {
-			console.error('[ErrorBoundary] Caught error:', error, info);
-		}
+		logger.error('[ErrorBoundary] Caught error:', error, info);
 	}
 
 	render() {

@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import { logger } from '@/shared/lib/logger';
 import { useChangePasswordMutation } from '@/shared/api/graphql/profile.gen';
 import {
 	ChangePasswordFormData,
@@ -50,7 +51,7 @@ export const useChangePassword = () => {
 				toast.error('Помилка при зміні пароля');
 			}
 
-			if (import.meta.env.DEV) console.error(error);
+			logger.error(error);
 		}
 	};
 

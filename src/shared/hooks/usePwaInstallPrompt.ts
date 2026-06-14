@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { logger } from '@/shared/lib/logger';
+
 interface BeforeInstallPromptEvent extends Event {
 	prompt: () => Promise<void>;
 	userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
@@ -62,9 +64,7 @@ export const usePwaInstallPrompt = () => {
 
 		await deferredPrompt.prompt();
 		const { outcome } = await deferredPrompt.userChoice;
-		if (import.meta.env.DEV) {
-			console.log(`User response to the install prompt: ${outcome}`);
-		}
+		logger.log(`User response to the install prompt: ${outcome}`);
 
 		setDeferredPrompt(null);
 		setCanInstall(false);

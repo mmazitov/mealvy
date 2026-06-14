@@ -2,6 +2,7 @@ import type { Reference } from '@apollo/client';
 import { gql } from '@apollo/client';
 import { toast } from 'sonner';
 
+import { logger } from '@/shared/lib/logger';
 import {
 	useDeleteSavedMenuMutation,
 	useDuplicateSavedMenuMutation,
@@ -84,7 +85,7 @@ export const useSavedMenuActions = () => {
 		try {
 			await deleteMutation({ variables: { id } });
 		} catch (error) {
-			if (import.meta.env.DEV) console.error('Delete error:', error);
+			logger.error('Delete error:', error);
 		}
 	};
 
@@ -92,7 +93,7 @@ export const useSavedMenuActions = () => {
 		try {
 			await duplicateMutation({ variables: { id } });
 		} catch (error) {
-			if (import.meta.env.DEV) console.error('Duplicate error:', error);
+			logger.error('Duplicate error:', error);
 		}
 	};
 

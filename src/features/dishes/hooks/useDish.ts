@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 
 import { prepareDishFormData } from '../lib/dishHelpers';
 
+import { logger } from '@/shared/lib/logger';
 import {
 	DishesDocument,
 	FavoriteDishesDocument,
@@ -91,7 +92,7 @@ export const useAddDish = () => {
 			navigate('/dishes');
 		} catch (error) {
 			toast.error('Помилка при додаванні страви');
-			if (import.meta.env.DEV) console.error(error);
+			logger.error(error);
 		}
 	};
 
@@ -177,7 +178,7 @@ export const useEditDish = (
 			navigate('/dishes');
 		} catch (error) {
 			toast.error('Помилка при оновленні страви');
-			if (import.meta.env.DEV) console.error(error);
+			logger.error(error);
 		}
 	};
 
@@ -213,7 +214,7 @@ export const useDeleteDish = (dishId: string) => {
 			navigate('/dishes');
 		} catch (error) {
 			toast.error('Помилка при видаленні страви');
-			if (import.meta.env.DEV) console.error(error);
+			logger.error(error);
 		}
 	};
 

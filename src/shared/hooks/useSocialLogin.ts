@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 
+import { logger } from '@/shared/lib/logger';
+
 const API_BASE_URL =
 	import.meta.env.VITE_API_BASE_URL ||
 	import.meta.env.VITE_API_URL?.replace('/graphql', '') ||
@@ -75,8 +77,7 @@ export const useSocialLogin = ({
 				try {
 					await finishIfAuthenticated();
 				} catch (error) {
-					if (import.meta.env.DEV)
-						console.error('[OAuth] session poll failed:', error);
+					logger.error('[OAuth] session poll failed:', error);
 				}
 				if (attempts >= MAX_POLL_ATTEMPTS) stopPolling();
 			}, POLL_INTERVAL_MS);
@@ -99,13 +100,11 @@ export const useSocialLogin = ({
 				try {
 					await finishIfAuthenticated();
 				} catch (error) {
-					if (import.meta.env.DEV)
-						console.error('[OAuth] login() failed:', error);
+					logger.error('[OAuth] login() failed:', error);
 				}
 			} else if (event.data.type === 'OAUTH_ERROR') {
 				stopPolling();
-				if (import.meta.env.DEV)
-					console.error('[OAuth] Error:', event.data.error);
+				logger.error('[OAuth] Error:', event.data.error);
 			}
 		};
 

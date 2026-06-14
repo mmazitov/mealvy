@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 
+import { logger } from '@/shared/lib/logger';
 import { useAuthContext } from '@/features/auth';
 import { CardFull, CardFullSkeleton } from '@/features/dishes';
 import { useDishByNameQuery } from '@/shared/api/graphql';
@@ -33,8 +34,7 @@ const DishDetail = () => {
 	}
 
 	if (error) {
-		if (import.meta.env.DEV)
-			console.error('[DishDetail] Failed to load dish:', id, error.message);
+		logger.error('[DishDetail] Failed to load dish:', id, error.message);
 		return (
 			<ErrorState message="Не вдалося завантажити страву. Спробуйте оновити сторінку." />
 		);

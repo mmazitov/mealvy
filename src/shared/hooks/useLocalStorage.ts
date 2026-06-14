@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { logger } from '@/shared/lib/logger';
+
 // NOTE: localStorage is readable by any script on the page — never store auth
 // tokens, sessions, or PII here. Auth relies on httpOnly cookies (see apollo.ts).
 export const useLocalStorage = <T>(
@@ -15,8 +17,7 @@ export const useLocalStorage = <T>(
 			const item = window.localStorage.getItem(key);
 			return item ? (JSON.parse(item) as T) : initialValue;
 		} catch (error) {
-			if (import.meta.env.DEV)
-				console.warn(`Error reading localStorage key "${key}":`, error);
+			logger.warn(`Error reading localStorage key "${key}":`, error);
 			return initialValue;
 		}
 	};
@@ -34,8 +35,7 @@ export const useLocalStorage = <T>(
 				window.localStorage.setItem(key, JSON.stringify(valueToStore));
 			}
 		} catch (error) {
-			if (import.meta.env.DEV)
-				console.warn(`Error setting localStorage key "${key}":`, error);
+			logger.warn(`Error setting localStorage key "${key}":`, error);
 		}
 	};
 
@@ -46,8 +46,7 @@ export const useLocalStorage = <T>(
 				window.localStorage.removeItem(key);
 			}
 		} catch (error) {
-			if (import.meta.env.DEV)
-				console.warn(`Error removing localStorage key "${key}":`, error);
+			logger.warn(`Error removing localStorage key "${key}":`, error);
 		}
 	};
 
@@ -57,8 +56,7 @@ export const useLocalStorage = <T>(
 				try {
 					setStoredValue(JSON.parse(e.newValue) as T);
 				} catch (error) {
-					if (import.meta.env.DEV)
-						console.warn(`Error parsing localStorage key "${key}":`, error);
+					logger.warn(`Error parsing localStorage key "${key}":`, error);
 				}
 			}
 		};

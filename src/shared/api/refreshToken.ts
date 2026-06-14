@@ -1,3 +1,5 @@
+import { logger } from '@/shared/lib/logger';
+
 const API_BASE_URL =
 	import.meta.env.VITE_API_BASE_URL ||
 	import.meta.env.VITE_API_URL?.replace('/graphql', '') ||
@@ -12,15 +14,14 @@ export const refreshAccessToken = async (): Promise<boolean> => {
 		});
 
 		if (!response.ok) {
-			if (import.meta.env.DEV)
-				console.warn('[Token Refresh] Failed:', response.status);
+			logger.warn('[Token Refresh] Failed:', response.status);
 			return false;
 		}
 
-		if (import.meta.env.DEV) console.log('[Token Refresh] Success');
+		logger.log('[Token Refresh] Success');
 		return true;
 	} catch (error) {
-		if (import.meta.env.DEV) console.error('[Token Refresh] Error:', error);
+		logger.error('[Token Refresh] Error:', error);
 		return false;
 	}
 };

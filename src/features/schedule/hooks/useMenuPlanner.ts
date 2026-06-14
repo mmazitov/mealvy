@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import { toast } from 'sonner';
 
+import { logger } from '@/shared/lib/logger';
 import { useSaveMenuPlanMutation } from '@/shared/api/graphql';
 import {
 	useGetPlannerItemsQuery,
@@ -257,7 +258,7 @@ export const useMenuPlanner = () => {
 			toast.success('Меню успішно збережено!');
 			setIsDirty(false);
 		} catch (error) {
-			if (import.meta.env.DEV) console.error('Save error:', error);
+			logger.error('Save error:', error);
 			toast.error('Помилка при збереженні меню');
 		}
 	}, [menuPlan, savePlannerMutation, saveMenuPlanMutation, startDate, endDate]);
