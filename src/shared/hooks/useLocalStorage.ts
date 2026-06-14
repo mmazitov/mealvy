@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+// NOTE: localStorage is readable by any script on the page — never store auth
+// tokens, sessions, or PII here. Auth relies on httpOnly cookies (see apollo.ts).
 export const useLocalStorage = <T>(
 	key: string,
 	initialValue: T,

@@ -26,7 +26,8 @@ const DishDetail = () => {
 	if (loading) return <Loader />;
 
 	if (error) {
-		console.error('[DishDetail] Failed to load dish:', id, error.message);
+		if (import.meta.env.DEV)
+			console.error('[DishDetail] Failed to load dish:', id, error.message);
 		return (
 			<ErrorState message="Не вдалося завантажити страву. Спробуйте оновити сторінку." />
 		);

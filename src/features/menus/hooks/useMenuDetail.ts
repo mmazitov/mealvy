@@ -34,21 +34,23 @@ export const useMenuDetail = (menuId: string | undefined) => {
 
 			const parsed = dayjs(finalDate);
 			if (!parsed.isValid()) {
-				console.error(
-					'[useMenuDetail] Invalid date on menu item:',
-					item.id,
-					item.date,
-				);
+				if (import.meta.env.DEV)
+					console.error(
+						'[useMenuDetail] Invalid date on menu item:',
+						item.id,
+						item.date,
+					);
 				return;
 			}
 
 			const dayName = weekDays[parsed.isoWeekday() - 1];
 			if (!dayName) {
-				console.error(
-					'[useMenuDetail] Could not map date to weekday:',
-					item.id,
-					item.date,
-				);
+				if (import.meta.env.DEV)
+					console.error(
+						'[useMenuDetail] Could not map date to weekday:',
+						item.id,
+						item.date,
+					);
 				return;
 			}
 
@@ -77,10 +79,11 @@ export const useMenuDetail = (menuId: string | undefined) => {
 
 		currentDayDishes.forEach((item) => {
 			if (!item.dish) {
-				console.error(
-					'[useMenuDetail] Menu item missing dish reference:',
-					item.id,
-				);
+				if (import.meta.env.DEV)
+					console.error(
+						'[useMenuDetail] Menu item missing dish reference:',
+						item.id,
+					);
 				return;
 			}
 			if (!uniqueDishes.has(item.dishId)) {

@@ -244,7 +244,7 @@ export const useMenuPlanner = () => {
 			toast.success('Меню успішно збережено!');
 			setIsDirty(false);
 		} catch (error) {
-			console.error('Save error:', error);
+			if (import.meta.env.DEV) console.error('Save error:', error);
 			toast.error('Помилка при збереженні меню');
 		}
 	}, [menuPlan, savePlannerMutation, saveMenuPlanMutation, startDate, endDate]);

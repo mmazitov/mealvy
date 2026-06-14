@@ -39,7 +39,8 @@ const MenuDetail = () => {
 	if (loading) return <Loader />;
 
 	if (error) {
-		console.error('[MenuDetail] Failed to load menu:', id, error.message);
+		if (import.meta.env.DEV)
+			console.error('[MenuDetail] Failed to load menu:', id, error.message);
 		return (
 			<ErrorState message="Не вдалося завантажити меню. Спробуйте оновити сторінку." />
 		);
