@@ -5,6 +5,7 @@ import { HttpLink } from '@apollo/client/link/http';
 import { Observable } from '@apollo/client/utilities';
 
 import { refreshAccessToken } from './refreshToken';
+import { hasSessionHint } from './sessionHint';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/graphql';
 
@@ -34,7 +35,8 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
 		);
 
 	if (isUnauth) {
-		if (!onUnauthenticated || refreshFailed) {
+		// No prior session → no refresh cookie to use; skip the guaranteed 401
+		if (!onUnauthenticated || refreshFailed || !hasSessionHint()) {
 			return;
 		}
 

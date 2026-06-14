@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 import { client, setUnauthenticatedHandler } from '@/shared/api/apollo';
+import { clearSessionHint, markSessionActive } from '@/shared/api/sessionHint';
 import { useLogoutMutation, useMeQuery } from '@/shared/api/graphql';
 
 export const useAuthState = () => {
@@ -20,6 +21,7 @@ export const useAuthState = () => {
 		} catch {
 			// Logout is safe even on error — reset client state anyway
 		} finally {
+			clearSessionHint();
 			await client.resetStore().catch(() => {});
 			// Evict cached per-user data from the Service Worker so the next
 			// user on a shared device can't read it from Cache Storage
@@ -33,6 +35,10 @@ export const useAuthState = () => {
 		setUnauthenticatedHandler(logout);
 		return () => setUnauthenticatedHandler(null);
 	}, [logout]);
+
+	useEffect(() => {
+		if (user) markSessionActive();
+	}, [user]);
 
 	const login = useCallback(async () => {
 		const { data: refetched } = await refetch();
