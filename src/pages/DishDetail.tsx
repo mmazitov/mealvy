@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 
 import { useAuthContext } from '@/features/auth';
-import { CardFull } from '@/features/dishes';
+import { CardFull, CardFullSkeleton } from '@/features/dishes';
 import { useDishByNameQuery } from '@/shared/api/graphql';
-import { Breadcrumb, ErrorState, Loader, MetaData } from '@/shared/components';
+import { Breadcrumb, ErrorState, MetaData } from '@/shared/components';
 import { useBreadcrumbs, useRecipeSchema } from '@/shared/hooks';
 import { fromSlug } from '@/shared/lib/utils/slug';
 
@@ -23,7 +23,14 @@ const DishDetail = () => {
 	});
 	useRecipeSchema(dish);
 
-	if (loading) return <Loader />;
+	if (loading) {
+		return (
+			<div className="container mx-auto px-4 py-8">
+				<Breadcrumb items={breadcrumbItems} />
+				<CardFullSkeleton />
+			</div>
+		);
+	}
 
 	if (error) {
 		if (import.meta.env.DEV)

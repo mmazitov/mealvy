@@ -71,18 +71,18 @@ describe('FavoriteButton', () => {
 		expect(button).toHaveClass('custom-class');
 	});
 
-	it('should apply red color when isFavorite is true', () => {
+	it('should apply destructive color when isFavorite is true', () => {
 		render(<FavoriteButton isFavorite={true} onClick={vi.fn()} />);
 
 		const button = screen.getByRole('button');
-		expect(button).toHaveClass('text-red-500');
+		expect(button).toHaveClass('text-destructive');
 	});
 
-	it('should not apply red color when isFavorite is false', () => {
+	it('should not apply destructive color when isFavorite is false', () => {
 		render(<FavoriteButton isFavorite={false} onClick={vi.fn()} />);
 
 		const button = screen.getByRole('button');
-		expect(button).not.toHaveClass('text-red-500');
+		expect(button).not.toHaveClass('text-destructive');
 	});
 
 	it('should use overlay variant by default', () => {

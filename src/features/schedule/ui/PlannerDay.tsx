@@ -9,7 +9,7 @@ interface PlannerDayProps {
 	weekDaysForFilter: { id: string | number; name: string }[];
 	mealTimes: string[];
 	menuPlan: Record<string, Record<string, PlanningDish[]>>;
-	dailyStats: { calories: number; dishes: number };
+	dailyStats: { calories: number; dishes: number; fat: number; carbs: number };
 	openDialog: (meal: string) => void;
 	removeDishFromMenu: (day: string, meal: string, dishId: string) => void;
 }
@@ -65,6 +65,8 @@ const PlannerDay = ({
 				selectedDay={selectedDay}
 				calories={dailyStats.calories}
 				dishes={dailyStats.dishes}
+				fat={dailyStats.fat}
+				carbs={dailyStats.carbs}
 			/>
 		</div>
 	);

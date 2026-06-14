@@ -24,6 +24,8 @@ export type GetPlannerItemsQuery = {
 			category?: string | null;
 			imageUrl?: string | null;
 			calories?: number | null;
+			fat?: number | null;
+			carbs?: number | null;
 			description?: string | null;
 			ingredients: Array<{
 				__typename?: 'Ingredient';
@@ -135,6 +137,8 @@ export const GetPlannerItemsDocument = {
 												kind: 'Field',
 												name: { kind: 'Name', value: 'calories' },
 											},
+											{ kind: 'Field', name: { kind: 'Name', value: 'fat' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'carbs' } },
 											{
 												kind: 'Field',
 												name: { kind: 'Name', value: 'description' },

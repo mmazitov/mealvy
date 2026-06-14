@@ -32,7 +32,11 @@ const Header = ({
 	return (
 		<>
 			<div className="flex justify-between">
-				{category && <Badge className={`mb-3 ${badgeClass}`}>{category}</Badge>}
+				{category && (
+					<Badge variant="category" className={`mb-3 ${badgeClass}`}>
+						{category}
+					</Badge>
+				)}
 				{canEdit && (
 					<div className="flex flex-col gap-2 md:flex-row">
 						<Link to={`/dish/edit/${createSlug(name)}`}>

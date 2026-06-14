@@ -15,7 +15,9 @@ export interface AddDishModalProps {
 	selectedMeal: string | null;
 	searchQuery: string;
 	onSearchChange: (query: string) => void;
-	onDishSelect: (dish: Pick<Dish, 'id' | 'name' | 'calories'>) => void;
+	onDishSelect: (
+		dish: Pick<Dish, 'id' | 'name' | 'calories' | 'fat' | 'carbs'>,
+	) => void;
 }
 
 export interface BaseModalProps {

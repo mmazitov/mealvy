@@ -9,9 +9,17 @@ interface DaySummaryProps {
 	selectedDay: string;
 	calories: number;
 	dishes: number;
+	fat: number;
+	carbs: number;
 }
 
-const DaySummary = ({ selectedDay, calories, dishes }: DaySummaryProps) => {
+const DaySummary = ({
+	selectedDay,
+	calories,
+	dishes,
+	fat,
+	carbs,
+}: DaySummaryProps) => {
 	return (
 		<Card className="mt-6">
 			<CardHeader>
@@ -28,11 +36,11 @@ const DaySummary = ({ selectedDay, calories, dishes }: DaySummaryProps) => {
 						<div className="text-muted-foreground text-sm">Блюд</div>
 					</div>
 					<div>
-						<div className="text-accent text-2xl font-bold">0г</div>
+						<div className="text-accent text-2xl font-bold">{fat}г</div>
 						<div className="text-muted-foreground text-sm">Жири</div>
 					</div>
 					<div>
-						<div className="text-primary text-2xl font-bold">0г</div>
+						<div className="text-primary text-2xl font-bold">{carbs}г</div>
 						<div className="text-muted-foreground text-sm">Вуглеводи</div>
 					</div>
 				</div>

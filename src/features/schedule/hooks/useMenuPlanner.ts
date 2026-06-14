@@ -24,6 +24,8 @@ export interface DayMenuType {
 			id: string; // Dish ID
 			name: string;
 			calories: number;
+			fat: number;
+			carbs: number;
 		}>;
 	};
 }
@@ -82,6 +84,8 @@ export const useMenuPlanner = () => {
 						id: item.dish.id,
 						name: item.dish.name,
 						calories: item.dish.calories || 0,
+						fat: item.dish.fat || 0,
+						carbs: item.dish.carbs || 0,
 					});
 				}
 			});
@@ -115,7 +119,7 @@ export const useMenuPlanner = () => {
 	}, []);
 
 	const addDishToMenu = useCallback(
-		(dish: Pick<Dish, 'id' | 'name' | 'calories'>) => {
+		(dish: Pick<Dish, 'id' | 'name' | 'calories' | 'fat' | 'carbs'>) => {
 			if (!selectedMeal) return;
 
 			setMenuPlan((prev) => ({
@@ -129,6 +133,8 @@ export const useMenuPlanner = () => {
 							id: dish.id,
 							name: dish.name,
 							calories: dish.calories || 0,
+							fat: dish.fat || 0,
+							carbs: dish.carbs || 0,
 						},
 					],
 				},
@@ -164,7 +170,14 @@ export const useMenuPlanner = () => {
 			(sum, dish) => sum + dish.calories,
 			0,
 		);
-		return { dishes: allDishes.length, calories: totalCalories };
+		const totalFat = allDishes.reduce((sum, dish) => sum + dish.fat, 0);
+		const totalCarbs = allDishes.reduce((sum, dish) => sum + dish.carbs, 0);
+		return {
+			dishes: allDishes.length,
+			calories: totalCalories,
+			fat: Math.round(totalFat),
+			carbs: Math.round(totalCarbs),
+		};
 	}, [menuPlan, selectedDay]);
 
 	const weeklyTotalCalories = useMemo(

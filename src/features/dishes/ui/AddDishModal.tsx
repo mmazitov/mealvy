@@ -10,7 +10,9 @@ interface AddDishModalProps {
 	selectedMeal: string | null;
 	searchQuery: string;
 	onSearchChange: (query: string) => void;
-	onDishSelect: (dish: Pick<Dish, 'id' | 'name' | 'calories'>) => void;
+	onDishSelect: (
+		dish: Pick<Dish, 'id' | 'name' | 'calories' | 'fat' | 'carbs'>,
+	) => void;
 }
 
 const AddDishModal = ({
@@ -49,6 +51,8 @@ const AddDishModal = ({
 								id: dish.id,
 								name: dish.name,
 								calories: dish.calories ?? null,
+								fat: dish.fat ?? null,
+								carbs: dish.carbs ?? null,
 							})
 						}
 					>
