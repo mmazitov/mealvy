@@ -15,6 +15,7 @@ export {
 	usePwaUpdateListener,
 } from './useServiceWorker';
 export * from './useSettings';
+export * from './useSocialLogin';
 export * from './useSplashScreen';
 export * from './useToggle';
 export * from './useFavorite';

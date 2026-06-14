@@ -30,7 +30,8 @@ export const useAuthState = () => {
 	}, [logout]);
 
 	const login = useCallback(async () => {
-		await refetch();
+		const { data: refetched } = await refetch();
+		return !!refetched?.me;
 	}, [refetch]);
 
 	return {
