@@ -1,22 +1,11 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
-import dotenv from 'dotenv';
-
-// Load environment variables from .env.local (local dev only)
-dotenv.config({ path: '.env.local' });
-
-// Ensure URL always includes /graphql endpoint
-const getGraphQLUrl = () => {
-	const url =
-		process.env.API_URL ||
-		process.env.VITE_API_URL ||
-		'http://localhost:4000/graphql';
-	// If URL doesn't end with /graphql, append it
-	return url.endsWith('/graphql') ? url : `${url.replace(/\/$/, '')}/graphql`;
-};
 
 const config: CodegenConfig = {
 	overwrite: true,
-	schema: getGraphQLUrl(),
+	// Read the schema from the committed SDL file, not by introspecting the live server.
+	// Production introspection is disabled in the backend; refresh this file with `yarn schema:pull`
+	// after the backend schema changes.
+	schema: './schema.graphql',
 	documents: ['src/**/*.gql'],
 	hooks: {
 		afterOneFileWrite: ['prettier --write'],
