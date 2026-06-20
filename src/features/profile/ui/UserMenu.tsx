@@ -63,6 +63,10 @@ const UserMenu = ({
 						<img
 							src={userImage}
 							alt={userName}
+							width={16}
+							height={16}
+							loading="lazy"
+							decoding="async"
 							className="h-4 w-4 rounded-full object-cover"
 							referrerPolicy="no-referrer"
 						/>

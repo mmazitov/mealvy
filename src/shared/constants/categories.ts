@@ -58,7 +58,7 @@ export const CATEGORIES_PRODUCTS: Category[] = [
 	},
 	{
 		id: 6,
-		name: 'Молочні',
+		name: 'Молочні продукти',
 		badgeClass: 'bg-[var(--badge-dairy)] text-[var(--badge-dairy-fg)]',
 	},
 	{

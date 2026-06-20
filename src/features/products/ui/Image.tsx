@@ -42,6 +42,9 @@ const Image = ({
 				<img
 					src={imageUrl}
 					alt={name}
+					loading={isFull ? 'eager' : 'lazy'}
+					fetchPriority={isFull ? 'high' : 'auto'}
+					decoding="async"
 					className={cn(
 						'h-full w-full object-cover',
 						!isFull &&
@@ -51,6 +54,7 @@ const Image = ({
 			) : (
 				<div className="bg-muted flex h-full w-full items-center justify-center">
 					<span
+						aria-hidden="true"
 						className={cn(
 							'text-muted-foreground',
 							isFull ? 'text-9xl' : 'text-4xl',

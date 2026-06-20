@@ -71,7 +71,7 @@ const CardFull = ({
 
 				<Card>
 					<CardHeader>
-						<CardTitle className="flex items-center gap-2">
+						<CardTitle as="h2" className="flex items-center gap-2">
 							<Flame className="text-secondary h-5 w-5" aria-hidden="true" />
 							Поживна цінність (на 100г)
 						</CardTitle>

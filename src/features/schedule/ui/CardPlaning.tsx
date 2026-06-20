@@ -90,7 +90,7 @@ const DishItem = ({
 						// Touch devices have no hover, so the button stays visible there;
 						// hover-capable devices keep the reveal-on-hover affordance.
 						isCompact
-							? 'h-8 w-8 [@media(hover:hover)]:scale-75 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/item:scale-100 [@media(hover:hover)]:group-hover/item:opacity-100'
+							? 'h-8 w-8 pointer-coarse:h-11 pointer-coarse:w-11 [@media(hover:hover)]:scale-75 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/item:scale-100 [@media(hover:hover)]:group-hover/item:opacity-100'
 							: 'h-11 w-11 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/item:opacity-100',
 					)}
 					onClick={() => onRemove(meal, dish.id)}

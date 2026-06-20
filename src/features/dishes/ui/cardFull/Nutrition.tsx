@@ -19,7 +19,7 @@ const Nutrition = ({ calories, protein, fat, carbs }: NutritionProps) => {
 		<div className="space-y-6">
 			<Card>
 				<CardHeader>
-					<CardTitle>Поживна цінність</CardTitle>
+					<CardTitle as="h2">Поживна цінність</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="bg-muted rounded-lg p-4 text-center">

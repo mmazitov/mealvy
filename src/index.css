@@ -22,8 +22,8 @@
 	--color-popover: hsl(36 40% 99%);
 	--color-popover-foreground: hsl(20 15% 18%);
 
-	/* Terracotta primary */
-	--color-primary: hsl(16 75% 52%);
+	/* Terracotta primary — deepened for WCAG AA on white text (5.35:1) */
+	--color-primary: hsl(16 80% 41%);
 	--color-primary-foreground: hsl(0 0% 100%);
 
 	/* Forest green secondary */
@@ -32,40 +32,40 @@
 
 	/* Warm sand muted */
 	--color-muted: hsl(36 30% 92%);
-	--color-muted-foreground: hsl(20 10% 48%);
+	--color-muted-foreground: hsl(20 12% 40%);
 
 	/* Golden amber accent */
 	--color-accent: hsl(42 90% 58%);
 	--color-accent-foreground: hsl(20 15% 18%);
 
-	--color-destructive: hsl(0 72% 55%);
+	--color-destructive: hsl(0 72% 48%);
 	--color-destructive-foreground: hsl(0 0% 100%);
 
 	--color-border: hsl(36 25% 87%);
 	--color-input: hsl(36 25% 87%);
-	--color-ring: hsl(16 75% 52%);
+	--color-ring: hsl(16 80% 41%);
 
 	--color-sidebar-background: hsl(36 30% 97%);
 	--color-sidebar-foreground: hsl(20 15% 18%);
-	--color-sidebar-primary: hsl(16 75% 52%);
+	--color-sidebar-primary: hsl(16 80% 41%);
 	--color-sidebar-primary-foreground: hsl(0 0% 100%);
 	--color-sidebar-accent: hsl(36 30% 92%);
 	--color-sidebar-accent-foreground: hsl(20 15% 18%);
 	--color-sidebar-border: hsl(36 25% 87%);
-	--color-sidebar-ring: hsl(16 75% 52%);
+	--color-sidebar-ring: hsl(16 80% 41%);
 
 	/* ── Badge Colors ───────────────────────────────── */
-	--badge-meat: hsl(5 65% 55%);
+	--badge-meat: hsl(5 65% 50%);
 	--badge-meat-fg: hsl(0 0% 100%);
 
-	--badge-fish: hsl(200 65% 48%);
+	--badge-fish: hsl(200 65% 40%);
 	--badge-fish-fg: hsl(0 0% 100%);
 
-	--badge-vegetables: hsl(145 50% 40%);
+	--badge-vegetables: hsl(145 50% 34%);
 	--badge-vegetables-fg: hsl(0 0% 100%);
 
 	--badge-fruits: hsl(22 80% 58%);
-	--badge-fruits-fg: hsl(0 0% 100%);
+	--badge-fruits-fg: hsl(20 15% 18%);
 
 	--badge-dairy: hsl(36 30% 88%);
 	--badge-dairy-fg: hsl(20 15% 25%);
@@ -73,32 +73,32 @@
 	--badge-grains: hsl(42 75% 62%);
 	--badge-grains-fg: hsl(20 15% 20%);
 
-	--badge-drinks: hsl(205 65% 50%);
+	--badge-drinks: hsl(205 65% 43%);
 	--badge-drinks-fg: hsl(0 0% 100%);
 
 	--badge-canned: hsl(28 55% 58%);
 	--badge-canned-fg: hsl(20 15% 18%);
 
-	--badge-addons: hsl(275 55% 62%);
+	--badge-addons: hsl(275 55% 56%);
 	--badge-addons-fg: hsl(0 0% 100%);
 
 	--badge-other: hsl(30 15% 65%);
-	--badge-other-fg: hsl(0 0% 100%);
+	--badge-other-fg: hsl(20 15% 18%);
 
 	/* ── Meal Time Badges ───────────────────────────── */
 	--badge-breakfast: hsl(42 90% 60%);
 	--badge-breakfast-fg: hsl(20 15% 18%);
 
-	--badge-lunch: hsl(145 50% 40%);
+	--badge-lunch: hsl(145 50% 34%);
 	--badge-lunch-fg: hsl(0 0% 100%);
 
 	--badge-dinner: hsl(255 48% 58%);
 	--badge-dinner-fg: hsl(0 0% 100%);
 
-	--badge-snack: hsl(16 70% 52%);
+	--badge-snack: hsl(16 70% 45%);
 	--badge-snack-fg: hsl(0 0% 100%);
 
-	--badge-dessert: hsl(332 65% 58%);
+	--badge-dessert: hsl(332 65% 51%);
 	--badge-dessert-fg: hsl(0 0% 100%);
 
 	/* ── Animations ─────────────────────────────────── */
@@ -121,7 +121,7 @@
 	--color-popover-foreground: hsl(36 30% 94%);
 
 	/* Warm terracotta — slightly muted in dark */
-	--color-primary: hsl(16 68% 55%);
+	--color-primary: hsl(16 70% 46%);
 	--color-primary-foreground: hsl(0 0% 100%);
 
 	/* Forest green — warmer in dark mode */
@@ -140,27 +140,27 @@
 
 	--color-border: hsl(22 14% 22%);
 	--color-input: hsl(22 14% 22%);
-	--color-ring: hsl(16 68% 55%);
+	--color-ring: hsl(16 70% 46%);
 
 	--color-sidebar-background: hsl(22 18% 8%);
 	--color-sidebar-foreground: hsl(36 30% 90%);
-	--color-sidebar-primary: hsl(16 68% 55%);
+	--color-sidebar-primary: hsl(16 70% 46%);
 	--color-sidebar-primary-foreground: hsl(0 0% 100%);
 	--color-sidebar-accent: hsl(22 14% 18%);
 	--color-sidebar-accent-foreground: hsl(36 30% 90%);
 	--color-sidebar-border: hsl(22 14% 22%);
-	--color-sidebar-ring: hsl(16 68% 55%);
+	--color-sidebar-ring: hsl(16 70% 46%);
 
 	--badge-meat: hsl(5 55% 48%);
 	--badge-meat-fg: hsl(0 0% 100%);
 
-	--badge-fish: hsl(200 55% 44%);
+	--badge-fish: hsl(200 55% 41%);
 	--badge-fish-fg: hsl(0 0% 100%);
 
 	--badge-vegetables: hsl(145 42% 36%);
 	--badge-vegetables-fg: hsl(0 0% 100%);
 
-	--badge-fruits: hsl(22 70% 52%);
+	--badge-fruits: hsl(22 70% 43%);
 	--badge-fruits-fg: hsl(0 0% 100%);
 
 	--badge-dairy: hsl(36 18% 22%);
@@ -172,13 +172,13 @@
 	--badge-drinks: hsl(205 55% 44%);
 	--badge-drinks-fg: hsl(0 0% 100%);
 
-	--badge-canned: hsl(28 48% 48%);
+	--badge-canned: hsl(28 48% 42%);
 	--badge-canned-fg: hsl(0 0% 100%);
 
 	--badge-addons: hsl(275 48% 52%);
 	--badge-addons-fg: hsl(0 0% 100%);
 
-	--badge-other: hsl(30 12% 40%);
+	--badge-other: hsl(30 12% 37%);
 	--badge-other-fg: hsl(36 30% 90%);
 
 	--badge-breakfast: hsl(42 80% 52%);
@@ -190,7 +190,7 @@
 	--badge-dinner: hsl(255 42% 52%);
 	--badge-dinner-fg: hsl(0 0% 100%);
 
-	--badge-snack: hsl(16 62% 48%);
+	--badge-snack: hsl(16 62% 46%);
 	--badge-snack-fg: hsl(0 0% 100%);
 
 	--badge-dessert: hsl(332 58% 52%);
@@ -201,7 +201,7 @@
 	--gradient-hero:
 		radial-gradient(
 			ellipse at top right,
-			hsl(16 75% 52% / 0.12),
+			hsl(16 80% 41% / 0.12),
 			transparent 50%
 		),
 		linear-gradient(135deg, hsl(42 90% 58% / 0.08), hsl(155 42% 36% / 0.06));
@@ -222,7 +222,7 @@
 	--gradient-hero:
 		radial-gradient(
 			ellipse at top right,
-			hsl(16 68% 55% / 0.15),
+			hsl(16 70% 46% / 0.15),
 			transparent 50%
 		),
 		linear-gradient(135deg, hsl(42 80% 52% / 0.1), hsl(155 38% 42% / 0.12));

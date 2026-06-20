@@ -7,7 +7,7 @@ interface LoaderProps {
 
 export const Loader = ({ fullScreen = true, size = '100' }: LoaderProps) => {
 	const { theme } = useTheme();
-	const color = theme === 'dark' ? 'hsl(16 68% 55%)' : 'hsl(16 75% 52%)';
+	const color = theme === 'dark' ? 'hsl(16 70% 46%)' : 'hsl(16 80% 41%)';
 	if (fullScreen) {
 		return (
 			<div className="absolute inset-0 z-10 flex h-full items-center justify-center">

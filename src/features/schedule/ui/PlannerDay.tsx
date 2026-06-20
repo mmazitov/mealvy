@@ -26,7 +26,7 @@ const PlannerDay = ({
 }: PlannerDayProps) => {
 	return (
 		<div className="animate-fade-in space-y-6">
-			<Card className="border-border/60 bg-card/50 shadow-sm backdrop-blur-sm">
+			<Card className="border-border/60 shadow-sm">
 				<CardContent className="p-4 md:p-6">
 					<Filter
 						selectedCategory={selectedDay}

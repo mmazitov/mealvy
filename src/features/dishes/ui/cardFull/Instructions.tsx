@@ -14,7 +14,7 @@ const Instructions = ({ instructions }: InstructionsProps) => {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Приготування</CardTitle>
+				<CardTitle as="h2">Приготування</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<ol className="space-y-4">

@@ -41,7 +41,7 @@ const Image = ({
 
 			{!isFull && (
 				<div
-					className="bg-background/5 absolute inset-0 z-10 opacity-0 backdrop-blur-[2px] transition-opacity duration-500 group-hover:opacity-100"
+					className="bg-foreground/10 absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
 					aria-hidden="true"
 				/>
 			)}
@@ -50,6 +50,9 @@ const Image = ({
 				<img
 					src={imageUrl}
 					alt={name}
+					loading={isFull ? 'eager' : 'lazy'}
+					fetchPriority={isFull ? 'high' : 'auto'}
+					decoding="async"
 					className={cn(
 						'h-full w-full object-cover transition-transform duration-700 ease-out',
 						!isFull && 'group-hover:scale-110',
@@ -58,6 +61,7 @@ const Image = ({
 			) : (
 				<div className="bg-muted flex h-full w-full items-center justify-center transition-transform duration-700 ease-out group-hover:scale-110">
 					<span
+						aria-hidden="true"
 						className={cn(
 							'text-muted-foreground',
 							isFull ? 'text-9xl' : 'text-4xl',

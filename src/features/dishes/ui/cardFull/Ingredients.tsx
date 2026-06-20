@@ -14,7 +14,7 @@ const Ingredients = ({ ingredients }: IngredientsProps) => {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Інгредієнти</CardTitle>
+				<CardTitle as="h2">Інгредієнти</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<ol className="space-y-4">

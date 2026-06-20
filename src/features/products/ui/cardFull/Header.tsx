@@ -50,7 +50,7 @@ const Header = ({
 					{name}
 				</h1>
 				{category && (
-					<Badge className={`col-span-1 ${badgeClass} hover:${badgeClass}`}>
+					<Badge variant="category" className={`col-span-1 ${badgeClass}`}>
 						{category}
 					</Badge>
 				)}
