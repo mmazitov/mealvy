@@ -22,6 +22,19 @@ async function trimCache(cacheName, maxEntries) {
 	);
 }
 
+// Per-user data caches: dropped on logout or whenever the server reports the
+// session is gone. App shell/static caches persist for fast reloads.
+const DATA_CACHES = [
+	CACHES.DISHES,
+	CACHES.PRODUCTS,
+	CACHES.PLANS,
+	CACHES.IMAGES,
+];
+
+async function clearDataCaches() {
+	await Promise.all(DATA_CACHES.map((key) => caches.delete(key)));
+}
+
 function isGraphQLRequest(request) {
 	return request.url.includes('/graphql');
 }
