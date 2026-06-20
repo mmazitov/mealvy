@@ -21,6 +21,68 @@ self.addEventListener('activate', (event) => {
 	self.clients.claim();
 });
 
+// Route a GraphQL POST to the appropriate caching strategy based on its operation.
+async function routeGraphQLRequest(request) {
+	const operation = await getGraphQLOperation(request);
+
+	if (
+		operation?.operationName === 'Me' ||
+		operation?.operationName === 'Logout' ||
+		operation?.query?.includes('query Me') ||
+		operation?.query?.includes('mutation Logout')
+	) {
+		return networkOnly(request);
+	}
+
+	if (
+		operation?.operationName === 'Products' ||
+		operation?.query?.includes('query Products')
+	) {
+		return staleWhileRevalidate(request, CACHES.PRODUCTS);
+	}
+
+	if (
+		operation?.operationName === 'Product' ||
+		operation?.query?.includes('query Product')
+	) {
+		return staleWhileRevalidate(request, CACHES.PRODUCTS);
+	}
+
+	if (
+		operation?.operationName?.includes('Dish') ||
+		operation?.query?.includes('dishes')
+	) {
+		return staleWhileRevalidate(request, CACHES.DISHES);
+	}
+
+	if (operation?.query?.includes('mutation')) {
+		try {
+			return await fetch(request);
+		} catch (err) {
+			await enqueueRequest(request);
+			return new Response(
+				JSON.stringify({ offline: true, message: 'Mutation queued for sync' }),
+				{ status: 202, headers: { 'Content-Type': 'application/json' } },
+			);
+		}
+	}
+
+	return networkFirst(request, CACHES.PLANS);
+}
+
+// GraphQL auth errors come back as HTTP 200 with an UNAUTHENTICATED code in the
+// body, so a status check alone isn't enough — peek at a clone to detect them.
+async function purgeIfUnauthenticated(response) {
+	if (response.status === 401) {
+		await clearDataCaches();
+		return;
+	}
+	const body = await response.clone().text();
+	if (body.includes('UNAUTHENTICATED')) {
+		await clearDataCaches();
+	}
+}
+
 self.addEventListener('fetch', (event) => {
 	const { request } = event;
 	const url = new URL(request.url);
@@ -32,58 +94,13 @@ self.addEventListener('fetch', (event) => {
 	if (request.method === 'POST' && isGraphQLRequest(request)) {
 		event.respondWith(
 			(async () => {
-				const operation = await getGraphQLOperation(request);
-
-				if (
-					operation?.operationName === 'Me' ||
-					operation?.operationName === 'Logout' ||
-					operation?.query?.includes('query Me') ||
-					operation?.query?.includes('mutation Logout')
-				) {
-					return networkOnly(request);
+				const response = await routeGraphQLRequest(request);
+				// Self-heal on session loss: don't block the response, just purge
+				// per-user caches in the background if the server says we're out.
+				if (response) {
+					purgeIfUnauthenticated(response).catch(() => {});
 				}
-
-				if (
-					operation?.operationName === 'Products' ||
-					operation?.query?.includes('query Products')
-				) {
-					return staleWhileRevalidate(request, CACHES.PRODUCTS);
-				}
-
-				if (
-					operation?.operationName === 'Product' ||
-					operation?.query?.includes('query Product')
-				) {
-					return staleWhileRevalidate(request, CACHES.PRODUCTS);
-				}
-
-				if (
-					operation?.operationName?.includes('Dish') ||
-					operation?.query?.includes('dishes')
-				) {
-					return staleWhileRevalidate(request, CACHES.DISHES);
-				}
-
-				if (operation?.query?.includes('mutation')) {
-					try {
-						const response = await fetch(request);
-						return response;
-					} catch (error) {
-						await enqueueRequest(request);
-						return new Response(
-							JSON.stringify({
-								offline: true,
-								message: 'Mutation queued for sync',
-							}),
-							{
-								status: 202,
-								headers: { 'Content-Type': 'application/json' },
-							},
-						);
-					}
-				}
-
-				return networkFirst(request, CACHES.PLANS);
+				return response;
 			})(),
 		);
 		return;
@@ -139,13 +156,7 @@ self.addEventListener('message', (event) => {
 
 	// Drop per-user data caches on logout; app shell/static stay for fast reload
 	if (event.data?.type === 'CLEAR_DATA_CACHE') {
-		const dataCaches = [
-			CACHES.DISHES,
-			CACHES.PRODUCTS,
-			CACHES.PLANS,
-			CACHES.IMAGES,
-		];
-		event.waitUntil(Promise.all(dataCaches.map((key) => caches.delete(key))));
+		event.waitUntil(clearDataCaches());
 	}
 });
 
