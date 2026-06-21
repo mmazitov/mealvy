@@ -12,6 +12,7 @@ export type MeQuery = {
 		__typename?: 'User';
 		id: string;
 		email?: string | null;
+		isEmailVerified: boolean;
 		name?: string | null;
 		avatar?: string | null;
 		phone?: string | null;
@@ -69,6 +70,15 @@ export type ChangePasswordMutation = {
 	changePassword: boolean;
 };
 
+export type ResendVerificationEmailMutationVariables = Types.Exact<{
+	[key: string]: never;
+}>;
+
+export type ResendVerificationEmailMutation = {
+	__typename?: 'Mutation';
+	resendVerificationEmail: boolean;
+};
+
 export const MeDocument = {
 	kind: 'Document',
 	definitions: [
@@ -87,6 +97,10 @@ export const MeDocument = {
 							selections: [
 								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'isEmailVerified' },
+								},
 								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'avatar' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'phone' } },
@@ -396,4 +410,38 @@ export function useChangePasswordMutation(
 }
 export type ChangePasswordMutationHookResult = ReturnType<
 	typeof useChangePasswordMutation
+>;
+export const ResendVerificationEmailDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'ResendVerificationEmail' },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'resendVerificationEmail' },
+					},
+				],
+			},
+		},
+	],
+} as unknown as DocumentNode;
+export function useResendVerificationEmailMutation(
+	baseOptions?: ApolloReactHooks.MutationHookOptions<
+		ResendVerificationEmailMutation,
+		ResendVerificationEmailMutationVariables
+	>,
+) {
+	const options = { ...defaultOptions, ...baseOptions };
+	return ApolloReactHooks.useMutation<
+		ResendVerificationEmailMutation,
+		ResendVerificationEmailMutationVariables
+	>(ResendVerificationEmailDocument, options);
+}
+export type ResendVerificationEmailMutationHookResult = ReturnType<
+	typeof useResendVerificationEmailMutation
 >;

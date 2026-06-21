@@ -114,6 +114,7 @@ export type Mutation = {
 	removeFromFavoritesDish: User;
 	removeFromFavoritesMenu: User;
 	removeFromFavoritesProduct: User;
+	resendVerificationEmail: Scalars['Boolean']['output'];
 	saveMenuPlan: SavedMenu;
 	savePlanner: Scalars['Boolean']['output'];
 	updateDish: Dish;
@@ -426,6 +427,7 @@ export type User = {
 	favoriteMenus: Array<SavedMenu>;
 	favoriteProducts: Array<Product>;
 	id: Scalars['ID']['output'];
+	isEmailVerified: Scalars['Boolean']['output'];
 	name: Maybe<Scalars['String']['output']>;
 	phone: Maybe<Scalars['String']['output']>;
 	productsCount: Scalars['Int']['output'];

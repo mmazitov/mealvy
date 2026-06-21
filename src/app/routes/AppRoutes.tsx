@@ -2,6 +2,10 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { Header } from '@/app/components';
+import {
+	EmailVerificationBanner,
+	useEmailVerifiedNotice,
+} from '@/features/auth';
 import { Loader } from '@/shared/components/loader';
 import { ProtectedRoute } from '@/shared/lib/hoc';
 
@@ -26,6 +30,8 @@ const NotFound = lazy(() => import('@/pages/NotFound'));
 const AppRoutes = () => {
 	const { pathname } = useLocation();
 
+	useEmailVerifiedNotice();
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [pathname]);
@@ -33,6 +39,7 @@ const AppRoutes = () => {
 	return (
 		<div className="bg-background min-h-screen pb-16 lg:pb-0">
 			<Header />
+			<EmailVerificationBanner />
 			<main id="main-content" tabIndex={-1}>
 				<Suspense fallback={<Loader />}>
 					<Routes>
