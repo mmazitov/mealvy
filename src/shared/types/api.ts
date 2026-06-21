@@ -334,6 +334,7 @@ export type Query = {
 	products: Array<Product>;
 	savedMenu: Maybe<SavedMenu>;
 	savedMenus: Array<SavedMenu>;
+	sharedMenus: Array<SavedMenu>;
 };
 
 export type QueryDishArgs = {
@@ -383,6 +384,9 @@ export type SavedMenu = {
 	isFavorite: Scalars['Boolean']['output'];
 	items: Array<SavedMenuItem>;
 	name: Scalars['String']['output'];
+	ownerEmail: Maybe<Scalars['String']['output']>;
+	ownerId: Maybe<Scalars['ID']['output']>;
+	ownerName: Maybe<Scalars['String']['output']>;
 	startDate: Scalars['String']['output'];
 	totalCalories: Scalars['Int']['output'];
 	totalCarbs: Scalars['Float']['output'];

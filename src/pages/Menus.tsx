@@ -1,6 +1,11 @@
 import { useMemo } from 'react';
 
-import { SavedMenus, useSavedMenus } from '@/features/menus';
+import {
+	SavedMenus,
+	SharedMenus,
+	useSavedMenus,
+	useSharedMenus,
+} from '@/features/menus';
 import { MenuCardSkeleton } from '@/features/menus/ui/menuCard';
 import {
 	Breadcrumb,
@@ -24,6 +29,8 @@ import { type ItemListSchemaItem } from '@/shared/lib/utils';
 const Menus = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { menus, loading } = useSavedMenus();
+	const { menus: sharedMenus, loading: sharedLoading } = useSharedMenus();
+	const isLoading = loading || sharedLoading;
 
 	const menuItems = useMemo<ItemListSchemaItem[]>(
 		() =>
@@ -39,14 +46,15 @@ const Menus = () => {
 	const tabs = MENU_TABS.map((tab) => ({
 		...tab,
 		disabled:
-			!loading &&
-			((tab.value === 'my' && menus.length === 0) || tab.value === 'shared'), // TODO: shared menus not yet implemented
+			!isLoading &&
+			((tab.value === 'my' && menus.length === 0) ||
+				(tab.value === 'shared' && sharedMenus.length === 0)),
 	}));
 
 	const { activeTab, setActiveTab, isReady } = useTabsWithAutoSwitch({
 		tabs,
 		defaultTab: 'my',
-		isLoading: loading,
+		isLoading,
 	});
 
 	return (
@@ -94,14 +102,8 @@ const Menus = () => {
 					</TabsList>
 					{tabs.map((tab) => (
 						<TabsContent key={tab.value} value={tab.value} className="mt-0">
-							{tab.value === tabs[0].value && <SavedMenus />}
-							{tab.value === tabs[1].value && (
-								<div className="flex flex-col items-center justify-center py-12 text-center">
-									<p className="text-muted-foreground">
-										Функція shared меню буде доступна незабаром
-									</p>
-								</div>
-							)}
+							{tab.value === 'my' && <SavedMenus />}
+							{tab.value === 'shared' && <SharedMenus />}
 						</TabsContent>
 					))}
 				</Tabs>

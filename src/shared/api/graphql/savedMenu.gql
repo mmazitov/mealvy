@@ -12,6 +12,9 @@ fragment SavedMenuFields on SavedMenu {
 	isFavorite
 	createdAt
 	updatedAt
+	ownerId
+	ownerName
+	ownerEmail
 	items {
 		id
 		dishId
@@ -32,6 +35,12 @@ fragment SavedMenuFields on SavedMenu {
 
 query SavedMenus {
 	savedMenus {
+		...SavedMenuFields
+	}
+}
+
+query SharedMenus {
+	sharedMenus {
 		...SavedMenuFields
 	}
 }

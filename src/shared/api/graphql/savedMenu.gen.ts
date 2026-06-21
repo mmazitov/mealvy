@@ -19,6 +19,9 @@ export type SavedMenuFieldsFragment = {
 	isFavorite: boolean;
 	createdAt: string;
 	updatedAt: string;
+	ownerId?: string | null;
+	ownerName?: string | null;
+	ownerEmail?: string | null;
 	items: Array<{
 		__typename?: 'SavedMenuItem';
 		id: string;
@@ -44,6 +47,13 @@ export type SavedMenusQueryVariables = Types.Exact<{ [key: string]: never }>;
 export type SavedMenusQuery = {
 	__typename?: 'Query';
 	savedMenus: Array<{ __typename?: 'SavedMenu' } & SavedMenuFieldsFragment>;
+};
+
+export type SharedMenusQueryVariables = Types.Exact<{ [key: string]: never }>;
+
+export type SharedMenusQuery = {
+	__typename?: 'Query';
+	sharedMenus: Array<{ __typename?: 'SavedMenu' } & SavedMenuFieldsFragment>;
 };
 
 export type SavedMenuQueryVariables = Types.Exact<{
@@ -149,6 +159,9 @@ export const SavedMenuFieldsFragmentDoc = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerId' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerName' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerEmail' } },
 					{
 						kind: 'Field',
 						name: { kind: 'Name', value: 'items' },
@@ -245,6 +258,9 @@ export const SavedMenusDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerId' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerName' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerEmail' } },
 					{
 						kind: 'Field',
 						name: { kind: 'Name', value: 'items' },
@@ -321,6 +337,134 @@ export type SavedMenusQueryHookResult = ReturnType<typeof useSavedMenusQuery>;
 export type SavedMenusLazyQueryHookResult = ReturnType<
 	typeof useSavedMenusLazyQuery
 >;
+export const SharedMenusDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'query',
+			name: { kind: 'Name', value: 'SharedMenus' },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'sharedMenus' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'FragmentSpread',
+									name: { kind: 'Name', value: 'SavedMenuFields' },
+								},
+							],
+						},
+					},
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'SavedMenuFields' },
+			typeCondition: {
+				kind: 'NamedType',
+				name: { kind: 'Name', value: 'SavedMenu' },
+			},
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'startDate' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'endDate' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'weekNumber' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'totalDishes' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'totalCalories' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'totalProtein' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'totalFat' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'totalCarbs' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerId' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerName' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerEmail' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'items' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'dishId' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'date' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'mealTime' } },
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'dish' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'imageUrl' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'category' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'calories' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'protein' },
+											},
+											{ kind: 'Field', name: { kind: 'Name', value: 'fat' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'carbs' } },
+										],
+									},
+								},
+							],
+						},
+					},
+				],
+			},
+		},
+	],
+} as unknown as DocumentNode;
+export function useSharedMenusQuery(
+	baseOptions?: ApolloReactHooks.QueryHookOptions<
+		SharedMenusQuery,
+		SharedMenusQueryVariables
+	>,
+) {
+	const options = { ...defaultOptions, ...baseOptions };
+	return ApolloReactHooks.useQuery<SharedMenusQuery, SharedMenusQueryVariables>(
+		SharedMenusDocument,
+		options,
+	);
+}
+export function useSharedMenusLazyQuery(
+	baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+		SharedMenusQuery,
+		SharedMenusQueryVariables
+	>,
+) {
+	const options = { ...defaultOptions, ...baseOptions };
+	return ApolloReactHooks.useLazyQuery<
+		SharedMenusQuery,
+		SharedMenusQueryVariables
+	>(SharedMenusDocument, options);
+}
+// @ts-ignore
+export type SharedMenusQueryHookResult = ReturnType<typeof useSharedMenusQuery>;
+export type SharedMenusLazyQueryHookResult = ReturnType<
+	typeof useSharedMenusLazyQuery
+>;
 export const SavedMenuDocument = {
 	kind: 'Document',
 	definitions: [
@@ -390,6 +534,9 @@ export const SavedMenuDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerId' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerName' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerEmail' } },
 					{
 						kind: 'Field',
 						name: { kind: 'Name', value: 'items' },
@@ -600,6 +747,9 @@ export const DuplicateSavedMenuDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerId' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerName' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerEmail' } },
 					{
 						kind: 'Field',
 						name: { kind: 'Name', value: 'items' },
@@ -794,6 +944,9 @@ export const UpdateSavedMenuDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerId' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerName' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerEmail' } },
 					{
 						kind: 'Field',
 						name: { kind: 'Name', value: 'items' },
@@ -991,6 +1144,9 @@ export const SaveMenuPlanDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerId' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerName' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'ownerEmail' } },
 					{
 						kind: 'Field',
 						name: { kind: 'Name', value: 'items' },

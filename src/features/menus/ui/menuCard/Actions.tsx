@@ -23,6 +23,9 @@ interface ActionsProps {
 	onDelete: () => void;
 	onToggleFavorite: () => void;
 	isFavorite: boolean;
+	// Shared menus belong to a family member: only view, favorite and duplicate
+	// (which copies into the current user's own menus) are allowed.
+	isShared?: boolean;
 }
 
 const Actions = ({
@@ -32,6 +35,7 @@ const Actions = ({
 	onDelete,
 	onToggleFavorite,
 	isFavorite,
+	isShared = false,
 }: ActionsProps) => {
 	return (
 		<div className="flex w-full items-center justify-between">
@@ -62,15 +66,17 @@ const Actions = ({
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
-					<DropdownMenuItem
-						onClick={(e) => {
-							e.preventDefault();
-							onEdit();
-						}}
-					>
-						<Pencil className="mr-2 h-4 w-4" />
-						Редагувати
-					</DropdownMenuItem>
+					{!isShared && (
+						<DropdownMenuItem
+							onClick={(e) => {
+								e.preventDefault();
+								onEdit();
+							}}
+						>
+							<Pencil className="mr-2 h-4 w-4" />
+							Редагувати
+						</DropdownMenuItem>
+					)}
 					<DropdownMenuItem
 						onClick={(e) => {
 							e.preventDefault();
@@ -80,17 +86,21 @@ const Actions = ({
 						<Copy className="mr-2 h-4 w-4" />
 						Дублювати
 					</DropdownMenuItem>
-					<DropdownMenuSeparator />
-					<DropdownMenuItem
-						onClick={(e) => {
-							e.preventDefault();
-							onDelete();
-						}}
-						className="text-destructive hover:text-(--color-destructive-foreground)"
-					>
-						<Trash2 className="mr-2 h-4 w-4" />
-						Видалити
-					</DropdownMenuItem>
+					{!isShared && (
+						<>
+							<DropdownMenuSeparator />
+							<DropdownMenuItem
+								onClick={(e) => {
+									e.preventDefault();
+									onDelete();
+								}}
+								className="text-destructive hover:text-(--color-destructive-foreground)"
+							>
+								<Trash2 className="mr-2 h-4 w-4" />
+								Видалити
+							</DropdownMenuItem>
+						</>
+					)}
 				</DropdownMenuContent>
 			</DropdownMenu>
 		</div>

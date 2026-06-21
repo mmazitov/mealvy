@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PiUsersBold as Users } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 
 import { useFavoriteMenu } from '../../hooks/useFavoriteMenu';
@@ -23,9 +24,17 @@ interface MenuCardProps {
 	menu: SavedMenuFieldsFragment;
 	onDelete: (id: string) => void;
 	onDuplicate: (id: string) => void;
+	// Renders a read-only card for a family member's menu (Shared tab): shows the
+	// owner, hides editing and deletion, keeps view/favorite/duplicate.
+	isShared?: boolean;
 }
 
-const MenuCard = ({ menu, onDelete, onDuplicate }: MenuCardProps) => {
+const MenuCard = ({
+	menu,
+	onDelete,
+	onDuplicate,
+	isShared = false,
+}: MenuCardProps) => {
 	const navigate = useNavigate();
 	const { toggleFavorite } = useFavoriteMenu(menu.id, menu.isFavorite);
 	const { updateMenu, isUpdating } = useUpdateMenu();
@@ -33,6 +42,8 @@ const MenuCard = ({ menu, onDelete, onDuplicate }: MenuCardProps) => {
 	const [editName, setEditName] = useState(menu.name);
 	const [editStartDate, setEditStartDate] = useState(menu.startDate);
 	const [editEndDate, setEditEndDate] = useState(menu.endDate);
+
+	const ownerLabel = menu.ownerName || menu.ownerEmail;
 
 	const handleView = () => {
 		navigate(`/menu/${menu.id}`);
@@ -95,11 +106,19 @@ const MenuCard = ({ menu, onDelete, onDuplicate }: MenuCardProps) => {
 						/>
 					</div>
 				) : (
-					<Header
-						name={menu.name}
-						startDate={menu.startDate}
-						endDate={menu.endDate}
-					/>
+					<>
+						<Header
+							name={menu.name}
+							startDate={menu.startDate}
+							endDate={menu.endDate}
+						/>
+						{isShared && ownerLabel && (
+							<span className="text-muted-foreground inline-flex items-center gap-1 text-xs">
+								<Users className="h-3 w-3" />
+								від {ownerLabel}
+							</span>
+						)}
+					</>
 				)}
 			</CardHeader>
 
@@ -143,6 +162,7 @@ const MenuCard = ({ menu, onDelete, onDuplicate }: MenuCardProps) => {
 						onDelete={handleDelete}
 						onToggleFavorite={toggleFavorite}
 						isFavorite={menu.isFavorite}
+						isShared={isShared}
 					/>
 				)}
 			</CardFooter>
