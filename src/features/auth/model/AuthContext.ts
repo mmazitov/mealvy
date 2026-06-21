@@ -3,6 +3,7 @@ import { createContext } from 'react';
 export interface User {
 	id: string;
 	email?: string | null;
+	isEmailVerified?: boolean | null;
 	name?: string | null;
 	avatar?: string | null;
 	role?: string | null;

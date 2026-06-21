@@ -2,6 +2,7 @@ query Me {
 	me {
 		id
 		email
+		isEmailVerified
 		name
 		avatar
 		phone
@@ -54,4 +55,8 @@ mutation UpdateProfile(
 
 mutation ChangePassword($currentPassword: String!, $newPassword: String!) {
 	changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
+}
+
+mutation ResendVerificationEmail {
+	resendVerificationEmail
 }
