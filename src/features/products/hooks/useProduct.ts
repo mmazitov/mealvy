@@ -128,12 +128,12 @@ export const useEditProduct = (
 					id: productId,
 					name: data.name,
 					category: data.category,
-					imageUrl: data.imageUrl || undefined,
+					imageUrl: data.imageUrl || null,
 					calories: data.calories,
 					protein: data.protein,
 					fat: data.fat,
 					carbs: data.carbs,
-					description: data.description || undefined,
+					description: data.description || null,
 				},
 			});
 			clearDraft();
