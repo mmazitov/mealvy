@@ -1,6 +1,7 @@
 import { PiMinusBold as Minus, PiPlusBold as Plus } from 'react-icons/pi';
 
 import { ProductFieldsFragment } from '@/shared/api/graphql';
+import { FormInput } from '@/shared/components';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { Label } from '@/shared/components/ui/label';
@@ -97,11 +98,15 @@ const DishIngredientsSection = ({
 							</div>
 						</SelectContent>
 					</Select>
-					<Input
-						placeholder="Кількість"
-						value={ingredient.amount}
-						onChange={(e) => updateIngredient(index, { amount: e.target.value })}
-						aria-label={`Кількість інгредієнту ${index + 1}`}
+					<FormInput
+						id={`ingredient-amount-${index}`}
+						inputProps={{
+							placeholder: 'Кількість',
+							value: ingredient.amount,
+							onChange: (e) =>
+								updateIngredient(index, { amount: e.target.value }),
+							'aria-label': `Кількість інгредієнту ${index + 1}`,
+						}}
 					/>
 					{ingredients.length > 1 ? (
 						<Button
