@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import { ReactNode } from 'react';
 import {
 	PiCaretLeftBold as ChevronLeft,
 	PiCaretRightBold as ChevronRight,
@@ -25,7 +25,7 @@ const Pagination = ({
 	itemsPerPage,
 	totalItems,
 	className,
-}: PaginationProps): JSX.Element => {
+}: PaginationProps): ReactNode => {
 	const startItem = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
 	const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
