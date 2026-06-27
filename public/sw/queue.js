@@ -11,7 +11,11 @@ async function enqueueRequest(request) {
 		// Keys start with Date.now(), so name order == insertion order
 		const keys = await cache.keys();
 		if (keys.length >= QUEUE_MAX_SIZE) {
-			const oldest = keys.sort((a, b) => (a.url < b.url ? -1 : 1))[0];
+			// Find the oldest (smallest url) in one O(n) pass instead of sorting
+			let oldest = keys[0];
+			for (const key of keys) {
+				if (key.url < oldest.url) oldest = key;
+			}
 			await cache.delete(oldest);
 			log('[Queue] Queue full, dropped oldest entry');
 		}
@@ -51,6 +55,8 @@ async function replayQueue() {
 
 	log(`[Queue] Replaying ${keys.length} queued requests`);
 
+	// NOTE: replay is intentionally sequential — queued mutations can be causally
+	// ordered (e.g. create-then-edit), so they must reach the server in insertion order.
 	for (const key of keys) {
 		try {
 			const entry = await cache.match(key);

@@ -1,9 +1,10 @@
-import { PiXBold as X } from 'react-icons/pi';
 import { useEffect, useMemo } from 'react';
 import { Controller } from 'react-hook-form';
-import { PiMinusBold as Minus, PiPlusBold as Plus } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
+import DishIngredientsSection from './DishIngredientsSection';
+import DishInstructionsSection from './DishInstructionsSection';
+import DishNutritionCard from './DishNutritionCard';
 import { useAddDish, useEditDish } from '../hooks/useDish';
 
 import { useProductSearch } from '@/features/products';
@@ -13,13 +14,6 @@ import {
 } from '@/shared/api/graphql';
 import { FormInput } from '@/shared/components';
 import { Button } from '@/shared/components/ui/button';
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CardTitle,
-} from '@/shared/components/ui/card';
-import { Input } from '@/shared/components/ui/input';
 import { Label } from '@/shared/components/ui/label';
 import {
 	Select,
@@ -28,7 +22,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/shared/components/ui/select';
-import { Textarea } from '@/shared/components/ui/textarea';
 import { CATEGORIES_DISHES } from '@/shared/constants';
 import {
 	calculateNutrition,
@@ -228,173 +221,27 @@ const DishForm = ({ dish, products, isEditMode = false }: DishFormProps) => {
 				}}
 			/>
 
-			<Card>
-				<CardHeader className="pb-3">
-					<CardTitle className="text-base">
-						Поживна цінність (розраховується автоматично)
-					</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-						<div className="bg-muted rounded-lg p-3 text-center">
-							<div className="text-primary text-2xl font-bold">
-								{calculatedNutrition.calories}
-							</div>
-							<div className="text-muted-foreground text-xs">Калорії</div>
-						</div>
-						<div className="bg-muted rounded-lg p-3 text-center">
-							<div className="text-secondary text-2xl font-bold">
-								{calculatedNutrition.protein}г
-							</div>
-							<div className="text-muted-foreground text-xs">Білки</div>
-						</div>
-						<div className="bg-muted rounded-lg p-3 text-center">
-							<div className="text-accent text-2xl font-bold">
-								{calculatedNutrition.fat}г
-							</div>
-							<div className="text-muted-foreground text-xs">Жири</div>
-						</div>
-						<div className="bg-muted rounded-lg p-3 text-center">
-							<div className="text-primary text-2xl font-bold">
-								{calculatedNutrition.carbs}г
-							</div>
-							<div className="text-muted-foreground text-xs">Вуглеводи</div>
-						</div>
-					</div>
-					<p className="text-muted-foreground mt-3 text-xs">
-						💡 Підтримувані одиниці: г, шт, ст.л., ч.л., склянка, мл, кг
-						(наприклад: 100г, 2 шт, 1 ст.л.)
-					</p>
-				</CardContent>
-			</Card>
+			<DishNutritionCard nutrition={calculatedNutrition} />
 
-			<div className="space-y-4">
-				<div className="flex items-center justify-between">
-					<Label>Інгредієнти</Label>
-					<Button
-						type="button"
-						variant="outline"
-						size="sm"
-						onClick={addIngredient}
-						aria-label="Додати інгредієнт"
-					>
-						<Plus className="mr-1 h-4 w-4" aria-hidden="true" />
-						Додати
-					</Button>
-				</div>
-				{ingredients.map((ingredient: FormIngredient, index: number) => (
-					<div
-						key={ingredientIds[index]}
-						className="grid gap-2"
-						style={{
-							gridTemplateColumns: '1fr 128px 40px',
-						}}
-					>
-						<Select
-							value={ingredient.name}
-							onValueChange={(value) => handleProductSelect(index, value)}
-						>
-							<SelectTrigger>
-								<SelectValue placeholder="Виберіть продукт" />
-							</SelectTrigger>
-							<SelectContent>
-								<div className="px-2 pb-2">
-									<Input
-										placeholder="Пошук продукту..."
-										value={getSearchQuery(index)}
-										onChange={(e) => handleSearchChange(index, e.target.value)}
-										className="h-8"
-										onClick={(e) => e.stopPropagation()}
-										onKeyDown={(e) => e.stopPropagation()}
-										onKeyUp={(e) => e.stopPropagation()}
-										autoFocus
-										aria-label="Пошук продукту"
-									/>
-								</div>
-								<div className="max-h-50 overflow-y-auto">
-									{getFilteredProducts(index).length > 0 ? (
-										getFilteredProducts(index).map(
-											(product: ProductFieldsFragment) => (
-												<SelectItem key={product.id} value={product.name}>
-													{product.name}
-												</SelectItem>
-											),
-										)
-									) : (
-										<div className="text-muted-foreground px-2 py-6 text-center text-sm">
-											Продукт не знайдено
-										</div>
-									)}
-								</div>
-							</SelectContent>
-						</Select>
-						<Input
-							placeholder="Кількість"
-							value={ingredient.amount}
-							onChange={(e) =>
-								updateIngredient(index, { amount: e.target.value })
-							}
-							aria-label={`Кількість інгредієнту ${index + 1}`}
-						/>
-						{ingredients.length > 1 ? (
-							<Button
-								type="button"
-								variant="ghost"
-								size="icon"
-								onClick={() => removeIngredient(index)}
-								aria-label={`Видалити інгредієнт ${index + 1}`}
-							>
-								<Minus className="h-4 w-4" aria-hidden="true" />
-							</Button>
-						) : (
-							<div />
-						)}
-					</div>
-				))}
-			</div>
+			<DishIngredientsSection
+				ingredients={ingredients}
+				ingredientIds={ingredientIds}
+				addIngredient={addIngredient}
+				removeIngredient={removeIngredient}
+				getSearchQuery={getSearchQuery}
+				handleSearchChange={handleSearchChange}
+				handleProductSelect={handleProductSelect}
+				getFilteredProducts={getFilteredProducts}
+				updateIngredient={updateIngredient}
+			/>
 
-			<div className="space-y-4">
-				<div className="flex items-center justify-between">
-					<Label>Кроки приготування</Label>
-					<Button
-						type="button"
-						variant="outline"
-						size="sm"
-						onClick={addInstruction}
-						aria-label="Додати крок приготування"
-					>
-						<Plus className="mr-1 h-4 w-4" aria-hidden="true" />
-						Додати крок
-					</Button>
-				</div>
-				{instructions.map((instruction: string, index: number) => (
-					<div key={instructionIds[index]} className="flex items-start gap-2">
-						<span className="bg-primary text-primary-foreground mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold">
-							{index + 1}
-						</span>
-						<Textarea
-							placeholder="Опишіть крок приготування..."
-							value={instruction}
-							onChange={(e) => updateInstruction(index, e.target.value)}
-							rows={2}
-							className="flex-1"
-							aria-label={`Крок ${index + 1}`}
-						/>
-						{instructions.length > 1 && (
-							<Button
-								type="button"
-								variant="ghost"
-								size="icon"
-								onClick={() => removeInstruction(index)}
-								className="mt-2"
-								aria-label={`Видалити крок ${index + 1}`}
-							>
-								<X className="h-4 w-4" aria-hidden="true" />
-							</Button>
-						)}
-					</div>
-				))}
-			</div>
+			<DishInstructionsSection
+				instructions={instructions}
+				instructionIds={instructionIds}
+				addInstruction={addInstruction}
+				removeInstruction={removeInstruction}
+				updateInstruction={updateInstruction}
+			/>
 
 			<div className="flex flex-col gap-2 md:flex-row">
 				<Button type="submit" size="lg" className="w-full" disabled={loading}>
