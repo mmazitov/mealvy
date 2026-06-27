@@ -57,6 +57,7 @@ export type DishesQueryVariables = Types.Exact<{
 
 export type DishesQuery = {
 	__typename?: 'Query';
+	dishesCount: number;
 	dishes: Array<{ __typename?: 'Dish' } & DishFieldsFragment>;
 };
 
@@ -525,6 +526,28 @@ export const DishesDocument = {
 								},
 							],
 						},
+					},
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'dishesCount' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'category' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'category' },
+								},
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'search' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'search' },
+								},
+							},
+						],
 					},
 				],
 			},

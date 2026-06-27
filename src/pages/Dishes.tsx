@@ -22,7 +22,7 @@ import {
 import {
 	useBreadcrumbs,
 	useDebounce,
-	usePagination,
+	useServerPagination,
 	useItemListSchema,
 } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
@@ -34,16 +34,24 @@ const Dishes = () => {
 	const [selectedCategory, setSelectedCategory] = useState('Усі');
 	const debouncedSearch = useDebounce(searchQuery);
 
+	const { currentPage, offset, limit, handlePageChange } = useServerPagination({
+		itemsPerPage: ITEMS_PER_PAGE,
+		resetKey: `${debouncedSearch}-${selectedCategory}`,
+	});
+
 	const { data, loading, error } = useDishesQuery({
 		variables: {
 			search: debouncedSearch || undefined,
 			category: selectedCategory !== 'Усі' ? selectedCategory : undefined,
-			limit: 100,
+			limit,
+			offset,
 		},
 		fetchPolicy: 'cache-and-network',
 	});
 
 	const dishes = data?.dishes ?? [];
+	const totalItems = data?.dishesCount ?? 0;
+	const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
 
 	const dishItems = useMemo<ItemListSchemaItem[]>(
 		() =>
@@ -56,13 +64,6 @@ const Dishes = () => {
 		[dishes],
 	);
 	useItemListSchema(dishItems, 'Recipe');
-
-	const { currentPage, totalPages, paginatedItems, handlePageChange } =
-		usePagination({
-			items: dishes,
-			itemsPerPage: ITEMS_PER_PAGE,
-			resetKey: `${debouncedSearch}-${selectedCategory}`,
-		});
 
 	const showPagination = !loading && totalPages > 1;
 
@@ -105,7 +106,7 @@ const Dishes = () => {
 			</div>
 
 			<Grid
-				items={paginatedItems}
+				items={dishes}
 				itemComponent={CardCompact}
 				emptyMessage="Страви не знайдено"
 				showEmpty={true}
@@ -120,7 +121,7 @@ const Dishes = () => {
 					totalPages={totalPages}
 					onPageChange={handlePageChange}
 					itemsPerPage={ITEMS_PER_PAGE}
-					totalItems={dishes.length}
+					totalItems={totalItems}
 					className="mt-8"
 				/>
 			)}

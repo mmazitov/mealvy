@@ -38,6 +38,7 @@ query Dishes($category: String, $search: String, $limit: Int, $offset: Int) {
 	dishes(category: $category, search: $search, limit: $limit, offset: $offset) {
 		...DishFields
 	}
+	dishesCount(category: $category, search: $search)
 }
 
 query FavoriteDishes {

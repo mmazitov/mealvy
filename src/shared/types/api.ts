@@ -324,6 +324,7 @@ export type Query = {
 	dish: Maybe<Dish>;
 	dishByName: Maybe<Dish>;
 	dishes: Array<Dish>;
+	dishesCount: Scalars['Int']['output'];
 	familyMembers: Array<FamilyMember>;
 	favoriteDishes: Array<Dish>;
 	favoriteProducts: Array<Product>;
@@ -350,6 +351,11 @@ export type QueryDishesArgs = {
 	category?: InputMaybe<Scalars['String']['input']>;
 	limit?: InputMaybe<Scalars['Int']['input']>;
 	offset?: InputMaybe<Scalars['Int']['input']>;
+	search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type QueryDishesCountArgs = {
+	category?: InputMaybe<Scalars['String']['input']>;
 	search?: InputMaybe<Scalars['String']['input']>;
 };
 
