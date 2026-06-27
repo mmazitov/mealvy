@@ -2,10 +2,11 @@ import { PiClockBold as Clock } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
 import { Badge, Button } from '@/shared/components';
-import { createSlug } from '@/shared/lib/utils';
+import { toEntityPath } from '@/shared/lib/utils';
 import { categoryBadgeMap } from '@/shared/lib/utils/categoryBadge';
 
 interface HeaderProps {
+	id: string;
 	name: string;
 	category?: string | null;
 	description?: string | null;
@@ -16,6 +17,7 @@ interface HeaderProps {
 }
 
 const Header = ({
+	id,
 	name,
 	category,
 	description,
@@ -39,7 +41,7 @@ const Header = ({
 				)}
 				{canEdit && (
 					<div className="flex flex-col gap-2 md:flex-row">
-						<Link to={`/dish/edit/${createSlug(name)}`}>
+						<Link to={`/dish/edit/${toEntityPath(name, id)}`}>
 							<Button variant="outline" size="sm">
 								Редагувати страву
 							</Button>

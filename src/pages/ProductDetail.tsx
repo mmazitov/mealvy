@@ -2,22 +2,22 @@ import { useParams } from 'react-router-dom';
 
 import { useAuthContext } from '@/features/auth';
 import { CardFull } from '@/features/products';
-import { useProductByNameQuery } from '@/shared/api/graphql';
+import { useProductQuery } from '@/shared/api/graphql';
 import { Breadcrumb, ErrorState, Loader, MetaData } from '@/shared/components';
 import { useBreadcrumbs, useProductSchema } from '@/shared/hooks';
-import { fromSlug } from '@/shared/lib/utils/slug';
+import { extractId } from '@/shared/lib/utils/slug';
 
 const ProductDetail = () => {
 	const { isAdmin, user } = useAuthContext();
 	const { id } = useParams<{ id: string }>();
-	const productName = id ? fromSlug(id) : '';
+	const productId = id ? extractId(id) : '';
 
-	const { data, loading, error } = useProductByNameQuery({
-		variables: { name: productName },
-		skip: !productName,
+	const { data, loading, error } = useProductQuery({
+		variables: { id: productId },
+		skip: !productId,
 	});
 
-	const product = data?.productByName ?? null;
+	const product = data?.product ?? null;
 	const breadcrumbItems = useBreadcrumbs({
 		title: loading ? undefined : (product?.name ?? undefined),
 	});

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 
 import { Badge, Button } from '@/shared/components';
-import { createSlug } from '@/shared/lib/utils';
+import { toEntityPath } from '@/shared/lib/utils';
 import { categoryBadgeMap } from '@/shared/lib/utils/categoryBadge';
 
 interface HeaderProps {
+	id: string;
 	name: string;
 	category?: string | null;
 	description?: string | null;
@@ -14,6 +15,7 @@ interface HeaderProps {
 }
 
 const Header = ({
+	id,
 	name,
 	category,
 	description,
@@ -30,7 +32,7 @@ const Header = ({
 		<div className="flex flex-col gap-2">
 			{canEdit && (
 				<div className="flex flex-col justify-end gap-2 md:flex-row">
-					<Link to={`/product/edit/${createSlug(name)}`}>
+					<Link to={`/product/edit/${toEntityPath(name, id)}`}>
 						<Button variant="outline" size="sm">
 							Редагувати продукт
 						</Button>

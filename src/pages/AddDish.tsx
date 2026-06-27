@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import { DishForm } from '@/features/dishes';
-import { useDishByNameQuery, useProductsQuery } from '@/shared/api/graphql';
+import { useDishQuery, useProductsQuery } from '@/shared/api/graphql';
 import {
 	Breadcrumb,
 	Card,
@@ -12,18 +12,18 @@ import {
 	MetaData,
 } from '@/shared/components';
 import { METADATA_CONFIG } from '@/shared/lib/config';
-import { fromSlug } from '@/shared/lib/utils/slug';
+import { extractId } from '@/shared/lib/utils/slug';
 import { useBreadcrumbs } from '@/shared/hooks';
 
 const AddDish = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { id } = useParams<{ id: string }>();
 	const isEditMode = !!id;
-	const dishName = id ? fromSlug(id) : '';
+	const dishId = id ? extractId(id) : '';
 
-	const { data: dishData, loading: dishLoading } = useDishByNameQuery({
-		variables: { name: dishName },
-		skip: !dishName,
+	const { data: dishData, loading: dishLoading } = useDishQuery({
+		variables: { id: dishId },
+		skip: !dishId,
 	});
 
 	const { data: productsData, loading: productsLoading } = useProductsQuery();
@@ -34,7 +34,7 @@ const AddDish = () => {
 		return <Loader />;
 	}
 
-	const dish = dishData?.dishByName;
+	const dish = dishData?.dish;
 	const products = productsData?.products || [];
 
 	return (

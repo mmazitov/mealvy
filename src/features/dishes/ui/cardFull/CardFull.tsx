@@ -64,6 +64,7 @@ const CardFull = ({
 					/>
 
 					<Header
+						id={id}
 						name={name}
 						category={category}
 						description={description}

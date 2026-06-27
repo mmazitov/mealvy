@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import { ProductForm } from '@/features/products';
-import { useProductByNameQuery } from '@/shared/api/graphql';
+import { useProductQuery } from '@/shared/api/graphql';
 import {
 	Breadcrumb,
 	Card,
@@ -12,25 +12,25 @@ import {
 	MetaData,
 } from '@/shared/components';
 import { METADATA_CONFIG } from '@/shared/lib/config';
-import { fromSlug } from '@/shared/lib/utils/slug';
+import { extractId } from '@/shared/lib/utils/slug';
 import { useBreadcrumbs } from '@/shared/hooks';
 
 const AddProduct = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const { id } = useParams<{ id: string }>();
 	const isEditMode = !!id;
-	const productName = id ? fromSlug(id) : '';
+	const productId = id ? extractId(id) : '';
 
-	const { data, loading } = useProductByNameQuery({
-		variables: { name: productName },
-		skip: !productName,
+	const { data, loading } = useProductQuery({
+		variables: { id: productId },
+		skip: !productId,
 	});
 
 	if (loading && isEditMode) {
 		return <Loader />;
 	}
 
-	const product = data?.productByName;
+	const product = data?.product;
 
 	return (
 		<div className="container mx-auto max-w-3xl px-4 py-8">

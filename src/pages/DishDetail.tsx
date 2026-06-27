@@ -3,22 +3,22 @@ import { useParams } from 'react-router-dom';
 import { logger } from '@/shared/lib/logger';
 import { useAuthContext } from '@/features/auth';
 import { CardFull, CardFullSkeleton } from '@/features/dishes';
-import { useDishByNameQuery } from '@/shared/api/graphql';
+import { useDishQuery } from '@/shared/api/graphql';
 import { Breadcrumb, ErrorState, MetaData } from '@/shared/components';
 import { useBreadcrumbs, useRecipeSchema } from '@/shared/hooks';
-import { fromSlug } from '@/shared/lib/utils/slug';
+import { extractId } from '@/shared/lib/utils/slug';
 
 const DishDetail = () => {
 	const { isAdmin, user } = useAuthContext();
 	const { id } = useParams<{ id: string }>();
-	const dishName = id ? fromSlug(id) : '';
+	const dishId = id ? extractId(id) : '';
 
-	const { data, loading, error } = useDishByNameQuery({
-		variables: { name: dishName },
-		skip: !dishName,
+	const { data, loading, error } = useDishQuery({
+		variables: { id: dishId },
+		skip: !dishId,
 	});
 
-	const dish = data?.dishByName ?? null;
+	const dish = data?.dish ?? null;
 	const breadcrumbItems = useBreadcrumbs({
 		title: loading ? undefined : (dish?.name ?? undefined),
 	});

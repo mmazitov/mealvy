@@ -26,7 +26,7 @@ import {
 	useItemListSchema,
 } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
-import { type ItemListSchemaItem, createSlug } from '@/shared/lib/utils';
+import { type ItemListSchemaItem, toEntityPath } from '@/shared/lib/utils';
 
 const Products = () => {
 	const breadcrumbItems = useBreadcrumbs();
@@ -57,7 +57,7 @@ const Products = () => {
 		() =>
 			(data?.products ?? []).map((product) => ({
 				name: product.name,
-				url: `${METADATA_CONFIG.site.url}/products/${createSlug(product.name)}`,
+				url: `${METADATA_CONFIG.site.url}/product/${toEntityPath(product.name, product.id)}`,
 				image: product.imageUrl ?? undefined,
 				description: product.description ?? undefined,
 			})),

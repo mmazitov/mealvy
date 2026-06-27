@@ -5,7 +5,7 @@ import Footer from './Footer';
 import Title from './Title';
 
 import { Card, CardContent, CardFooter } from '@/shared/components/ui/card';
-import { createSlug } from '@/shared/lib/utils';
+import { toEntityPath } from '@/shared/lib/utils';
 
 interface CardCompactProps {
 	id: string;
@@ -36,7 +36,7 @@ const CardCompact = ({
 
 	return (
 		<Link
-			to={`/product/${createSlug(name)}`}
+			to={`/product/${toEntityPath(name, id)}`}
 			state={{ from: location.pathname }}
 			aria-label={`Переглянути продукт ${name}${category ? `, категорія ${category}` : ''}${calories ? `, ${calories} калорій` : ''}`}
 		>

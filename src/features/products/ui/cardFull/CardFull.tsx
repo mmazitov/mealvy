@@ -61,6 +61,7 @@ const CardFull = ({
 
 			<div className="space-y-6">
 				<Header
+					id={id}
 					name={name}
 					category={category}
 					description={description}

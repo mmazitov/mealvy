@@ -5,7 +5,7 @@ import Footer from './Footer';
 import Title from './Title';
 
 import { Card, CardContent, CardFooter } from '@/shared/components';
-import { createSlug } from '@/shared/lib/utils';
+import { toEntityPath } from '@/shared/lib/utils';
 
 interface CardCompactProps {
 	id: string;
@@ -34,7 +34,7 @@ const CardCompact = ({
 
 	return (
 		<Link
-			to={`/dish/${createSlug(name)}`}
+			to={`/dish/${toEntityPath(name, id)}`}
 			state={{ from: location.pathname }}
 			aria-label={`Переглянути рецепт ${name}${category ? `, категорія ${category}` : ''}${calories ? `, ${calories} калорій` : ''}`}
 		>

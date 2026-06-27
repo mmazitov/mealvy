@@ -8,7 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/shared/components/ui';
-import { cn, createSlug } from '@/shared/lib/utils';
+import { cn, toEntityPath } from '@/shared/lib/utils';
 import { PlanningDish } from '@/shared/types';
 
 interface CardPlaningProps {
@@ -74,7 +74,7 @@ const DishItem = ({
 				<div className="min-w-0 flex-1">{dishContent}</div>
 			) : (
 				<Link
-					to={`/dish/${createSlug(dish.name)}`}
+					to={`/dish/${toEntityPath(dish.name, dish.id)}`}
 					state={{ from: sourcePage }}
 					className="hover:text-primary min-w-0 flex-1 transition-colors"
 				>

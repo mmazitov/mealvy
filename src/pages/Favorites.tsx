@@ -20,7 +20,7 @@ import {
 	useItemListSchema,
 } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
-import { type ItemListSchemaItem, createSlug } from '@/shared/lib/utils';
+import { type ItemListSchemaItem, toEntityPath } from '@/shared/lib/utils';
 
 const Favorites = () => {
 	const breadcrumbItems = useBreadcrumbs();
@@ -31,7 +31,7 @@ const Favorites = () => {
 		() =>
 			dishes.map((dish) => ({
 				name: dish.name,
-				url: `${METADATA_CONFIG.site.url}/dishes/${createSlug(dish.name)}`,
+				url: `${METADATA_CONFIG.site.url}/dish/${toEntityPath(dish.name, dish.id)}`,
 				image: dish.imageUrl ?? undefined,
 				description: dish.description ?? undefined,
 			})),
@@ -41,7 +41,7 @@ const Favorites = () => {
 		() =>
 			products.map((product) => ({
 				name: product.name,
-				url: `${METADATA_CONFIG.site.url}/products/${createSlug(product.name)}`,
+				url: `${METADATA_CONFIG.site.url}/product/${toEntityPath(product.name, product.id)}`,
 				image: product.imageUrl ?? undefined,
 				description: product.description ?? undefined,
 			})),

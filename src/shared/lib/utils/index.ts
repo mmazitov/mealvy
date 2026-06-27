@@ -27,5 +27,5 @@ export {
 	generateRecipeSchema,
 	generateWebSiteSchema,
 } from './schemaOrg';
-export { createSlug, fromSlug } from './slug';
+export { createSlug, extractId, toEntityPath } from './slug';
 export { formatPhone, normalizePhone, phoneValidate } from './validate';
