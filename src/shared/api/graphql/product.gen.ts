@@ -48,6 +48,7 @@ export type ProductsQueryVariables = Types.Exact<{
 
 export type ProductsQuery = {
 	__typename?: 'Query';
+	productsCount: number;
 	products: Array<{ __typename?: 'Product' } & ProductFieldsFragment>;
 };
 
@@ -463,6 +464,28 @@ export const ProductsDocument = {
 								},
 							],
 						},
+					},
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'productsCount' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'category' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'category' },
+								},
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'search' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'search' },
+								},
+							},
+						],
 					},
 				],
 			},

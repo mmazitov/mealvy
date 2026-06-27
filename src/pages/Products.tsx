@@ -22,7 +22,7 @@ import {
 import {
 	useBreadcrumbs,
 	useDebounce,
-	usePagination,
+	useServerPagination,
 	useItemListSchema,
 } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
@@ -34,16 +34,24 @@ const Products = () => {
 	const [selectedCategory, setSelectedCategory] = useState('Усі');
 	const debouncedSearch = useDebounce(searchQuery);
 
+	const { currentPage, offset, limit, handlePageChange } = useServerPagination({
+		itemsPerPage: ITEMS_PER_PAGE,
+		resetKey: `${debouncedSearch}-${selectedCategory}`,
+	});
+
 	const { data, loading, error } = useProductsQuery({
 		variables: {
 			search: debouncedSearch || undefined,
 			category: selectedCategory !== 'Усі' ? selectedCategory : undefined,
-			limit: 100,
+			limit,
+			offset,
 		},
 		fetchPolicy: 'cache-and-network',
 	});
 
 	const products = data?.products ?? [];
+	const totalItems = data?.productsCount ?? 0;
+	const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
 
 	const productItems = useMemo<ItemListSchemaItem[]>(
 		() =>
@@ -56,13 +64,6 @@ const Products = () => {
 		[products],
 	);
 	useItemListSchema(productItems, 'Product');
-
-	const { currentPage, totalPages, paginatedItems, handlePageChange } =
-		usePagination({
-			items: products,
-			itemsPerPage: ITEMS_PER_PAGE,
-			resetKey: `${debouncedSearch}-${selectedCategory}`,
-		});
 
 	const showPagination = !loading && totalPages > 1;
 
@@ -105,7 +106,7 @@ const Products = () => {
 			</div>
 
 			<Grid
-				items={paginatedItems}
+				items={products}
 				itemComponent={CardCompact}
 				emptyMessage="Продукти не знайдено"
 				showEmpty={true}
@@ -120,7 +121,7 @@ const Products = () => {
 					totalPages={totalPages}
 					onPageChange={handlePageChange}
 					itemsPerPage={ITEMS_PER_PAGE}
-					totalItems={products.length}
+					totalItems={totalItems}
 					className="mt-8"
 				/>
 			)}

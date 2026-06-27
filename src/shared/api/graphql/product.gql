@@ -35,6 +35,7 @@ query Products($category: String, $search: String, $limit: Int, $offset: Int) {
 	) {
 		...ProductFields
 	}
+	productsCount(category: $category, search: $search)
 }
 
 query FavoriteProducts {

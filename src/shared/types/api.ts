@@ -332,6 +332,7 @@ export type Query = {
 	product: Maybe<Product>;
 	productByName: Maybe<Product>;
 	products: Array<Product>;
+	productsCount: Scalars['Int']['output'];
 	savedMenu: Maybe<SavedMenu>;
 	savedMenus: Array<SavedMenu>;
 	sharedMenus: Array<SavedMenu>;
@@ -369,6 +370,11 @@ export type QueryProductsArgs = {
 	category?: InputMaybe<Scalars['String']['input']>;
 	limit?: InputMaybe<Scalars['Int']['input']>;
 	offset?: InputMaybe<Scalars['Int']['input']>;
+	search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type QueryProductsCountArgs = {
+	category?: InputMaybe<Scalars['String']['input']>;
 	search?: InputMaybe<Scalars['String']['input']>;
 };
 
