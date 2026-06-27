@@ -55,13 +55,13 @@ const Dishes = () => {
 
 	const dishItems = useMemo<ItemListSchemaItem[]>(
 		() =>
-			dishes.map((dish) => ({
+			(data?.dishes ?? []).map((dish) => ({
 				name: dish.name,
 				url: `${METADATA_CONFIG.site.url}/dishes/${createSlug(dish.name)}`,
 				image: dish.imageUrl ?? undefined,
 				description: dish.description ?? undefined,
 			})),
-		[dishes],
+		[data?.dishes],
 	);
 	useItemListSchema(dishItems, 'Recipe');
 

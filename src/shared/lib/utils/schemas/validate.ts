@@ -1,22 +1,18 @@
 import { z } from 'zod';
 
 export const LoginSchema = z.object({
-	email: z.string().email('Некоректна електронна пошта'),
+	email: z.email('Некоректна електронна пошта'),
 	password: z.string().min(6, 'Пароль повинен містити щонайменше 6 символів'),
 });
 
 export const RegisterSchema = z.object({
 	name: z.string().min(3, { message: "Будь ласка, введіть ваше ім'я" }),
-	email: z
-		.string()
-		.email({ message: 'Будь ласка, введіть дійсну електронну адресу' }),
+	email: z.email({ message: 'Будь ласка, введіть дійсну електронну адресу' }),
 	password: z
 		.string()
 		.min(8, { message: 'Пароль повинен містити щонайменше 8 символів' }),
 });
 
 export const InviteMemberSchema = z.object({
-	email: z
-		.string()
-		.email({ message: 'Будь ласка, введіть дійсну електронну адресу' }),
+	email: z.email({ message: 'Будь ласка, введіть дійсну електронну адресу' }),
 });

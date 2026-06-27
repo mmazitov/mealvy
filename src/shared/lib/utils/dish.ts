@@ -1,6 +1,6 @@
 import { FormIngredient } from '@/shared/types';
 
-export const parseIngredient = (ingredient: {
+const parseIngredient = (ingredient: {
 	name: string;
 	amount: string;
 }): FormIngredient => ({

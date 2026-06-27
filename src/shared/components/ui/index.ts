@@ -1,5 +1,7 @@
-export { Badge, badgeVariants } from './badge';
-export { Button, buttonVariants } from './button';
+export { Badge } from './badge';
+export { badgeVariants } from './badge-variants';
+export { Button } from './button';
+export { buttonVariants } from './button-variants';
 export {
 	Card,
 	CardContent,
@@ -52,7 +54,8 @@ export {
 	SelectValue,
 } from './select';
 export { Separator } from './separator';
-export { Toaster as Sonner, toast } from './sonner';
+export { toast } from 'sonner';
+export { Toaster as Sonner } from './sonner';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 export { Textarea } from './textarea';
 export { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';

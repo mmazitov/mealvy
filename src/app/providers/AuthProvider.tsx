@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { AuthContext } from '@/features/auth/model/AuthContext';
 import { useAuthState } from '@/features/auth/hooks/useAuthState';
 
@@ -10,18 +12,24 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const authState = useAuthState();
 
-	return (
-		<AuthContext.Provider
-			value={{
-				user: authState.user,
-				login: authState.login,
-				logout: authState.logout,
-				isLoading: authState.isLoading,
-				isAuthenticated: authState.isAuthenticated,
-				isAdmin: authState.isAdmin,
-			}}
-		>
-			{children}
-		</AuthContext.Provider>
+	const value = useMemo(
+		() => ({
+			user: authState.user,
+			login: authState.login,
+			logout: authState.logout,
+			isLoading: authState.isLoading,
+			isAuthenticated: authState.isAuthenticated,
+			isAdmin: authState.isAdmin,
+		}),
+		[
+			authState.user,
+			authState.login,
+			authState.logout,
+			authState.isLoading,
+			authState.isAuthenticated,
+			authState.isAdmin,
+		],
 	);
+
+	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

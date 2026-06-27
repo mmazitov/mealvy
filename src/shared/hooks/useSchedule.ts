@@ -14,7 +14,7 @@ export const useSchedule = () => {
 	const weekParam = searchParams.get('week');
 	const initialWeekDiff = weekParam ? parseInt(weekParam, 10) : 0;
 
-	const [currentWeek, setCurrentWeek] = useState(
+	const [currentWeek, setCurrentWeek] = useState(() =>
 		dayjs().add(initialWeekDiff, 'week'),
 	);
 

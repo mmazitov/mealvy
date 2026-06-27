@@ -13,6 +13,11 @@ interface DateRangePickerProps {
 	onDateChange: (startDate: string, endDate: string) => void;
 }
 
+const formatWeekRange = (start: Dayjs, end: string) => {
+	const endDay = dayjs(end).subtract(1, 'day');
+	return `${start.format('D MMMM')} - ${endDay.format('D MMMM YYYY')}`;
+};
+
 export const DateRangePicker = ({
 	startDate,
 	endDate,
@@ -37,11 +42,6 @@ export const DateRangePicker = ({
 		const newStart = dayjs().startOf('isoWeek');
 		const newEnd = newStart.add(rangeDays, 'day');
 		onDateChange(newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'));
-	};
-
-	const formatWeekRange = (start: Dayjs, end: string) => {
-		const endDay = dayjs(end).subtract(1, 'day');
-		return `${start.format('D MMMM')} - ${endDay.format('D MMMM YYYY')}`;
 	};
 
 	const isCurrentWeek = currentStart.isSame(dayjs().startOf('isoWeek'), 'day');

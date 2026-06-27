@@ -1,6 +1,6 @@
 import { MealTime } from '@/shared/types/api';
 
-export const MEAL_TIME_UI_NAMES: Record<MealTime, string> = {
+const MEAL_TIME_UI_NAMES: Record<MealTime, string> = {
 	[MealTime.Breakfast]: 'Сніданок',
 	[MealTime.Lunch]: 'Обід',
 	[MealTime.Dinner]: 'Вечеря',

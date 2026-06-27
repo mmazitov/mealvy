@@ -53,6 +53,7 @@ export const ShoppingListContent = ({
 					<div key={categoryName} className="space-y-3">
 						<div className="flex items-center">
 							<button
+								type="button"
 								onClick={() => toggleCategory(categoryName)}
 								className="transition-opacity hover:opacity-80"
 								aria-label={

@@ -6,16 +6,16 @@ interface HeaderProps {
 	endDate: string;
 }
 
+const formatDate = (dateString: string) => {
+	return dayjs(dateString).format('D MMMM');
+};
+
+const getWeekday = (dateString: string) => {
+	return dayjs(dateString).format('dddd');
+};
+
 const Header = ({ name, startDate, endDate }: HeaderProps) => {
 	const actualEndDate = dayjs(endDate).subtract(1, 'day');
-
-	const formatDate = (dateString: string) => {
-		return dayjs(dateString).format('D MMMM');
-	};
-
-	const getWeekday = (dateString: string) => {
-		return dayjs(dateString).format('dddd');
-	};
 
 	return (
 		<div className="space-y-1">

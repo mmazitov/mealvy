@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 interface UseServerPaginationOptions {
 	itemsPerPage?: number;
@@ -24,10 +24,7 @@ export const useServerPagination = ({
 		setCurrentPage(1);
 	}
 
-	const offset = useMemo(
-		() => (currentPage - 1) * itemsPerPage,
-		[currentPage, itemsPerPage],
-	);
+	const offset = (currentPage - 1) * itemsPerPage;
 
 	const handlePageChange = (page: number): void => {
 		setCurrentPage(page);

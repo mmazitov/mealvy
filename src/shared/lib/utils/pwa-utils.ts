@@ -10,12 +10,11 @@ const clearAllCaches = async (): Promise<void> => {
 	logger.log('[PWA] Found caches:', cacheNames);
 
 	await Promise.all(
-		cacheNames
-			.filter((name) => name.startsWith('mealvy-'))
-			.map((name) => {
-				logger.log(`[PWA] Clearing cache: ${name}`);
-				return caches.delete(name);
-			}),
+		cacheNames.flatMap((name) => {
+			if (!name.startsWith('mealvy-')) return [];
+			logger.log(`[PWA] Clearing cache: ${name}`);
+			return [caches.delete(name)];
+		}),
 	);
 
 	logger.log('[PWA] All caches cleared');
@@ -71,24 +70,31 @@ const getPwaCacheInfo = async (): Promise<{
 	const cacheNames = await caches.keys();
 	const mealvynCaches = cacheNames.filter((name) => name.startsWith('mealvy-'));
 
-	let totalSize = 0;
+	const cacheSizes = await Promise.all(
+		mealvynCaches.map(async (cacheName) => {
+			const cache = await caches.open(cacheName);
+			const keys = await cache.keys();
 
-	for (const cacheName of mealvynCaches) {
-		const cache = await caches.open(cacheName);
-		const keys = await cache.keys();
+			const requestSizes = await Promise.all(
+				keys.map(async (request) => {
+					try {
+						const response = await cache.match(request);
+						if (response) {
+							const blob = await response.blob();
+							return blob.size;
+						}
+					} catch (error) {
+						logger.warn('[PWA] Could not get size of cached item:', error);
+					}
+					return 0;
+				}),
+			);
 
-		for (const request of keys) {
-			try {
-				const response = await cache.match(request);
-				if (response) {
-					const blob = await response.blob();
-					totalSize += blob.size;
-				}
-			} catch (error) {
-				logger.warn('[PWA] Could not get size of cached item:', error);
-			}
-		}
-	}
+			return requestSizes.reduce((sum, size) => sum + size, 0);
+		}),
+	);
+
+	const totalSize = cacheSizes.reduce((sum, size) => sum + size, 0);
 
 	return {
 		cacheCount: mealvynCaches.length,

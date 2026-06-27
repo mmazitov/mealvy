@@ -3,10 +3,14 @@ import * as React from 'react';
 import { cn } from '@/shared/lib/utils/cn';
 
 /* eslint-disable react/prop-types */
-const Textarea = React.forwardRef<
-	HTMLTextAreaElement,
-	React.TextareaHTMLAttributes<HTMLTextAreaElement>
->(({ className, placeholder, ...props }, ref) => {
+const Textarea = ({
+	className,
+	placeholder,
+	ref,
+	...props
+}: React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
+	ref?: React.Ref<HTMLTextAreaElement>;
+}) => {
 	return (
 		<textarea
 			className={cn(
@@ -18,7 +22,7 @@ const Textarea = React.forwardRef<
 			{...props}
 		/>
 	);
-});
+};
 Textarea.displayName = 'Textarea';
 
 export { Textarea };

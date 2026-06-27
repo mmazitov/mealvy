@@ -33,6 +33,7 @@ class ErrorBoundary extends Component<Props, State> {
 								Сторінку не вдалося завантажити. Спробуйте оновити.
 							</p>
 							<button
+								type="button"
 								className="bg-primary text-primary-foreground rounded px-4 py-2 text-sm"
 								onClick={() => window.location.reload()}
 							>

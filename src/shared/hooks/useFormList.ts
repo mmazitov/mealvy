@@ -16,15 +16,18 @@ export const useFormList = <T extends object | string>(
 		initialItems && initialItems.length > 0 ? initialItems : [initialItem],
 	);
 
-	const idsRef = useRef<string[]>(makeIds(initialCount));
+	const idsRef = useRef<string[] | null>(null);
+	if (idsRef.current === null) {
+		idsRef.current = makeIds(initialCount);
+	}
 
 	const addItem = useCallback(() => {
-		idsRef.current = [...idsRef.current, nextId()];
+		idsRef.current = [...idsRef.current!, nextId()];
 		setItems((prev) => [...prev, initialItem]);
 	}, [initialItem]);
 
 	const removeItem = useCallback((index: number) => {
-		idsRef.current = idsRef.current.filter((_, i) => i !== index);
+		idsRef.current = idsRef.current!.filter((_, i) => i !== index);
 		setItems((prev) => prev.filter((_, i) => i !== index));
 	}, []);
 
@@ -53,7 +56,7 @@ export const useFormList = <T extends object | string>(
 
 	return {
 		items,
-		ids: idsRef.current,
+		ids: idsRef.current!,
 		addItem,
 		removeItem,
 		updateItem,

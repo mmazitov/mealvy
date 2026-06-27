@@ -109,6 +109,7 @@ const AddDishButton = ({ isCompact, meal, onAdd }: AddDishButtonProps) => {
 	if (isCompact) {
 		return (
 			<button
+				type="button"
 				onClick={() => onAdd(meal)}
 				className="text-muted-foreground/20 hover:text-primary/40 hover:bg-primary/5 flex w-full items-center justify-center rounded-lg border border-dashed py-3 transition-all"
 			>

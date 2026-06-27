@@ -41,6 +41,3 @@ export const UNIT_WEIGHTS: Record<string, number> = {
 	щіпки: 1,
 	щепотка: 1,
 };
-
-export const NUTRITION_UNITS_HINT =
-	'💡 Підтримувані одиниці: г, шт, ст.л., ч.л., склянка, мл, кг (наприклад: 100г, 2 шт, 1 ст.л.)';

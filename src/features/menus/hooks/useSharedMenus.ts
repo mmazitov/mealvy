@@ -11,7 +11,7 @@ export const useSharedMenus = () => {
 	const sortedMenus = useMemo(() => {
 		if (!data?.sharedMenus) return [];
 
-		return [...data.sharedMenus].sort((a, b) => {
+		return data.sharedMenus.toSorted((a, b) => {
 			const diffA = Math.abs(getWeekDiff(a.startDate));
 			const diffB = Math.abs(getWeekDiff(b.startDate));
 

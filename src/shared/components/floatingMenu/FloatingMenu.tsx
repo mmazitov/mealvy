@@ -6,7 +6,7 @@ import { FloatingMenuItem } from '@/shared/types';
 interface FloatingMenuProps {
 	icon?: React.ReactNode;
 	position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-	items?: FloatingMenuItem[];
+	items?: readonly FloatingMenuItem[];
 	className?: string;
 	mobileVisible?: boolean;
 	closeOnClick?: boolean;
@@ -30,6 +30,8 @@ const POSITION_CLASSES = {
 const ITEM_SPACING = 55;
 const TRANSITION_DELAY = 50;
 
+const EMPTY_ITEMS: readonly FloatingMenuItem[] = [];
+
 const getItemPosition = (index: number, isTop: boolean) => {
 	const offset = (index + 1) * ITEM_SPACING * (isTop ? 1 : -1);
 	return { x: 0, y: offset };
@@ -48,7 +50,7 @@ const getItemClasses = (position: string) => {
 const FloatingMenu = ({
 	position = 'bottom-right',
 	icon = '+',
-	items = [],
+	items = EMPTY_ITEMS,
 	className,
 	mobileVisible = true,
 	closeOnClick = true,
@@ -67,10 +69,16 @@ const FloatingMenu = ({
 	return (
 		<>
 			{isOpen && (
-				<div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+				<button
+					type="button"
+					aria-label="Закрити меню"
+					className="fixed inset-0 z-40"
+					onClick={() => setIsOpen(false)}
+				/>
 			)}
 
 			<button
+				type="button"
 				onClick={() => setIsOpen(!isOpen)}
 				className={cn(
 					BASE_BUTTON,
@@ -88,6 +96,7 @@ const FloatingMenu = ({
 
 				return (
 					<button
+						type="button"
 						key={`${item.label}-${index}`}
 						onClick={() => !item.disabled && handleItemClick(item.onClick)}
 						disabled={item.disabled}

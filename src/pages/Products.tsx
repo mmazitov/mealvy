@@ -55,13 +55,13 @@ const Products = () => {
 
 	const productItems = useMemo<ItemListSchemaItem[]>(
 		() =>
-			products.map((product) => ({
+			(data?.products ?? []).map((product) => ({
 				name: product.name,
 				url: `${METADATA_CONFIG.site.url}/products/${createSlug(product.name)}`,
 				image: product.imageUrl ?? undefined,
 				description: product.description ?? undefined,
 			})),
-		[products],
+		[data?.products],
 	);
 	useItemListSchema(productItems, 'Product');
 

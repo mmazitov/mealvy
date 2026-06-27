@@ -11,7 +11,7 @@ export const useSavedMenus = () => {
 	const sortedMenus = useMemo(() => {
 		if (!data?.savedMenus) return [];
 
-		return [...data.savedMenus].sort((a, b) => {
+		return data.savedMenus.toSorted((a, b) => {
 			const diffA = Math.abs(getWeekDiff(a.startDate));
 			const diffB = Math.abs(getWeekDiff(b.startDate));
 

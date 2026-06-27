@@ -5,7 +5,7 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from '../../components/ui';
+} from '../../components/ui/card';
 
 import { QUICK_ACTIONS } from '@/shared/constants';
 

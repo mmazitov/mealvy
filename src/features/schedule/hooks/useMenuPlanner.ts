@@ -38,7 +38,7 @@ export const useMenuPlanner = () => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const [selectedMeal, setSelectedMeal] = useState<string | null>(null);
 	const [searchQuery, setSearchQuery] = useState('');
-	const [menuPlan, setMenuPlan] = useState<DayMenuType>(
+	const [menuPlan, setMenuPlan] = useState<DayMenuType>(() =>
 		Object.fromEntries(
 			weekDays.map((day) => [
 				day,

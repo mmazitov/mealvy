@@ -13,29 +13,25 @@ declare global {
 	}
 }
 
+const PWA_INSTALLED_MARKER = 'pwa-install-prompt';
+
+const isMobileDevice = () => {
+	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+		navigator.userAgent,
+	);
+};
+
 export const usePwaInstallPrompt = () => {
 	const [canInstall, setCanInstall] = useState(false);
 	const [deferredPrompt, setDeferredPrompt] =
 		useState<BeforeInstallPromptEvent | null>(null);
-	const [showPrompt, setShowPrompt] = useState(true);
-	const pwaInstalledMarker = 'pwa-install-prompt';
-
-	useEffect(() => {
-		const isDismissed = localStorage.getItem(pwaInstalledMarker) === 'true';
-		if (isDismissed) {
-			setShowPrompt(false);
-		}
-	}, []);
-
-	const isMobileDevice = () => {
-		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-			navigator.userAgent,
-		);
-	};
+	const [showPrompt, setShowPrompt] = useState(
+		() => localStorage.getItem(PWA_INSTALLED_MARKER) !== 'true',
+	);
 
 	useEffect(() => {
 		const handleBeforeInstall = (e: BeforeInstallPromptEvent) => {
-			if (localStorage.getItem(pwaInstalledMarker) === 'true') {
+			if (localStorage.getItem(PWA_INSTALLED_MARKER) === 'true') {
 				return;
 			}
 
@@ -70,7 +66,7 @@ export const usePwaInstallPrompt = () => {
 		setCanInstall(false);
 
 		if (outcome === 'accepted') {
-			localStorage.setItem(pwaInstalledMarker, 'true');
+			localStorage.setItem(PWA_INSTALLED_MARKER, 'true');
 			setShowPrompt(false);
 		}
 	};
@@ -78,7 +74,7 @@ export const usePwaInstallPrompt = () => {
 	const handleDismiss = () => {
 		setCanInstall(false);
 		setShowPrompt(false);
-		localStorage.setItem(pwaInstalledMarker, 'true');
+		localStorage.setItem(PWA_INSTALLED_MARKER, 'true');
 	};
 
 	return {

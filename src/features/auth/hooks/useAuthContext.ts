@@ -1,9 +1,9 @@
-import { useCallback, useContext } from 'react';
+import { use, useCallback } from 'react';
 
 import { AuthContext } from '@/features/auth/model/AuthContext';
 
 export const useAuthContext = () => {
-	const context = useContext(AuthContext);
+	const context = use(AuthContext);
 
 	if (!context) {
 		throw new Error('useAuthContext must be used within AuthProvider');

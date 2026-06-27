@@ -15,13 +15,17 @@ export const prepareDishFormData = (
 	ingredientsList: { items: FormIngredient[] },
 	instructionsList: { items: string[] },
 ): PreparedFormData | null => {
-	const filteredIngredients = ingredientsList.items
-		.filter((i) => i.name.trim())
-		.map((i) => ({
-			name: i.name,
-			amount: i.amount || '',
-			productId: i.productId,
-		}));
+	const filteredIngredients = ingredientsList.items.flatMap((i) =>
+		i.name.trim()
+			? [
+					{
+						name: i.name,
+						amount: i.amount || '',
+						productId: i.productId,
+					},
+				]
+			: [],
+	);
 
 	const filteredInstructions = instructionsList.items.filter((i) => i.trim());
 

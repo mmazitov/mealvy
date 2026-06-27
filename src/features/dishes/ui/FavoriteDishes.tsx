@@ -1,7 +1,7 @@
 import { PiMagnifyingGlassMinusBold as SearchX } from 'react-icons/pi';
 
 import { useFavoriteDishes } from '../hooks/useFavoriteDishes';
-import { CardCompact } from './cardCompact';
+import CardCompact from './cardCompact/CardCompact';
 
 import { Grid } from '@/shared/components';
 import { Skeleton } from '@/shared/components/skeleton';

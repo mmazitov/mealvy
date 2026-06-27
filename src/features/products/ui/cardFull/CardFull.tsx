@@ -1,6 +1,6 @@
 import { PiFireBold as Flame } from 'react-icons/pi';
 
-import { useDeleteProduct } from '../../hooks';
+import { useDeleteProduct } from '../../hooks/useProduct';
 import Image from '../Image';
 import Header from './Header';
 import Nutrition from './Nutrition';

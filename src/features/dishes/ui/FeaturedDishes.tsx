@@ -17,7 +17,7 @@ const FeaturedDishes = () => {
 
 	const randomDishes = useMemo(() => {
 		if (!data?.dishes) return [];
-		return [...data.dishes].sort(() => 0.5 - Math.random()).slice(0, 5);
+		return data.dishes.toSorted(() => 0.5 - Math.random()).slice(0, 5);
 	}, [data?.dishes]);
 
 	if (error) {

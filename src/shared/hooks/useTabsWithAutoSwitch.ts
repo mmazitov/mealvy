@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface Tab {
 	title: string;
@@ -27,22 +27,21 @@ export const useTabsWithAutoSwitch = <T extends Tab>({
 
 	const setActiveTab = (value: string) => _setActiveTab(value);
 
-	useEffect(() => {
-		if (isLoading) return;
-
-		_setActiveTab((prev) => {
-			if (prev !== null) {
-				const current = tabs.find((t) => t.value === prev);
-				if (current && !current.disabled) return prev;
-			}
+	// Derive the resolved tab during render: keep the current selection while it
+	// stays valid, otherwise fall back to the first enabled tab (or the default).
+	let resolvedTab = activeTab;
+	if (!isLoading) {
+		const current =
+			activeTab !== null ? tabs.find((t) => t.value === activeTab) : undefined;
+		if (!current || current.disabled) {
 			const firstAvailable = tabs.find((tab) => !tab.disabled);
-			return firstAvailable?.value ?? defaultTab;
-		});
-	}, [isLoading, tabs, defaultTab]);
+			resolvedTab = firstAvailable?.value ?? defaultTab;
+		}
+	}
 
 	return {
-		activeTab: activeTab ?? defaultTab,
+		activeTab: resolvedTab ?? defaultTab,
 		setActiveTab,
-		isReady: !isLoading && activeTab !== null,
+		isReady: !isLoading && resolvedTab !== null,
 	};
 };

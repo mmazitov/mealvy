@@ -17,28 +17,15 @@ export function formatDateToISO(date: Date | string): string {
 	return date.toISOString().split('T')[0];
 }
 
-export function formatDateOrKeep(
-	date: Date | string | undefined,
-): string | undefined {
-	if (!date) return undefined;
-	return formatDateToISO(date);
-}
-
 export function formatDayjsToISO(date: Dayjs): string {
 	return date.format('YYYY-MM-DD');
 }
 
-export function getToday(): string {
+function getToday(): string {
 	return dayjs().format('D MMMM, YYYY');
 }
 
-export function getTodayWeek(): string {
-	const startOfWeek = dayjs().startOf('isoWeek');
-	const endOfWeek = dayjs().endOf('isoWeek');
-	return `${startOfWeek.format('D MMMM')} – ${endOfWeek.format('D MMMM')}`;
-}
-
-export function getWeekDays(): string[] {
+function getWeekDays(): string[] {
 	return Array.from({ length: 7 }, (_, i) =>
 		dayjs()
 			.isoWeekday(i + 1)
@@ -52,14 +39,5 @@ export function getWeekDiff(startDate: string): number {
 	return weekStart.diff(currentWeekStart, 'week');
 }
 
-export function getWeekLabel(startDate: string): string {
-	const weekDiff = getWeekDiff(startDate);
-
-	if (weekDiff === 0) return 'Поточний тиждень';
-	if (weekDiff > 0) return `Тиждень +${weekDiff}`;
-	return `Тиждень ${weekDiff}`;
-}
-
 export const today = getToday();
-export const todayWeek = getTodayWeek();
 export const weekDays = getWeekDays();

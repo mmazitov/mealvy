@@ -57,18 +57,18 @@ export const useProfile = () => {
 
 			const allergyArray =
 				typeof formData.allergy === 'string'
-					? formData.allergy
-							.split(',')
-							.map((item) => item.trim())
-							.filter(Boolean)
+					? formData.allergy.split(',').flatMap((item) => {
+							const trimmed = item.trim();
+							return trimmed ? [trimmed] : [];
+						})
 					: formData.allergy || [];
 
 			const dislikeArray =
 				typeof formData.dislike === 'string'
-					? formData.dislike
-							.split(',')
-							.map((item) => item.trim())
-							.filter(Boolean)
+					? formData.dislike.split(',').flatMap((item) => {
+							const trimmed = item.trim();
+							return trimmed ? [trimmed] : [];
+						})
 					: formData.dislike || [];
 
 			await updateProfile({

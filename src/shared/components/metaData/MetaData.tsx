@@ -9,10 +9,12 @@ interface MetaDataProps {
 	url?: string;
 	type?: 'website' | 'article' | 'product';
 	author?: string;
-	keywords?: string[];
+	keywords?: readonly string[];
 	/** Pages behind auth must not be indexed by search engines */
 	noindex?: boolean;
 }
+
+const EMPTY_KEYWORDS: readonly string[] = [];
 
 const truncateDescription = (text: string, maxLength: number = 160): string => {
 	if (!text) return '';
@@ -34,7 +36,7 @@ export const MetaData = ({
 	url = defaultCanonicalUrl(),
 	type = 'website',
 	author,
-	keywords = [],
+	keywords = EMPTY_KEYWORDS,
 	noindex = false,
 }: MetaDataProps) => {
 	const siteTitle = 'Mealvy';

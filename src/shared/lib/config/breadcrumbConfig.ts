@@ -53,7 +53,7 @@ function extractParams(
 	return params;
 }
 
-export function matchRoutePattern(pathname: string): MatchResult | null {
+function matchRoutePattern(pathname: string): MatchResult | null {
 	const normalized =
 		pathname.endsWith('/') && pathname.length > 1
 			? pathname.slice(0, -1)
@@ -69,7 +69,7 @@ export function matchRoutePattern(pathname: string): MatchResult | null {
 	return null;
 }
 
-export function resolvePatternUrl(
+function resolvePatternUrl(
 	pattern: string,
 	params: Record<string, string>,
 ): string {

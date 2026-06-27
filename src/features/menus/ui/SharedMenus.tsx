@@ -3,7 +3,8 @@ import { PiHeartBold as Heart, PiUsersBold as Users } from 'react-icons/pi';
 
 import { useSavedMenuActions } from '../hooks/useSavedMenuActions';
 import { useSharedMenus } from '../hooks/useSharedMenus';
-import { MenuCard, MenuCardSkeleton } from './menuCard';
+import MenuCard from './menuCard/MenuCard';
+import MenuCardSkeleton from './menuCard/MenuCardSkeleton';
 
 import { Button } from '@/shared/components';
 import { ITEMS_PER_PAGE } from '@/shared/constants';

@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSavedMenuActions } from '../hooks/useSavedMenuActions';
 import { useSavedMenus } from '../hooks/useSavedMenus';
-import { MenuCard, MenuCardSkeleton } from './menuCard';
+import MenuCard from './menuCard/MenuCard';
+import MenuCardSkeleton from './menuCard/MenuCardSkeleton';
 
 import { Button } from '@/shared/components';
 import { ITEMS_PER_PAGE } from '@/shared/constants';

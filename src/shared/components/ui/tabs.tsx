@@ -5,19 +5,18 @@ import { cn } from '@/shared/lib/utils/cn';
 
 const Tabs = TabsPrimitive.Root;
 
-const TabsList = React.forwardRef<
-	React.ElementRef<typeof TabsPrimitive.List>,
-	React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
+const TabsList = ({
+	className,
+	...props
+}: React.ComponentPropsWithRef<typeof TabsPrimitive.List>) => (
 	<TabsPrimitive.List
-		ref={ref}
 		className={cn(
 			'bg-muted text-muted-foreground inline-flex h-10 items-center justify-center rounded-md p-1',
 			className,
 		)}
 		{...props}
 	/>
-));
+);
 TabsList.displayName = TabsPrimitive.List.displayName;
 
 const defaultStyles =
@@ -30,12 +29,11 @@ const focusStyles =
 	'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
 const disabledStyles = 'disabled:pointer-events-none disabled:opacity-50';
 
-const TabsTrigger = React.forwardRef<
-	React.ElementRef<typeof TabsPrimitive.Trigger>,
-	React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
+const TabsTrigger = ({
+	className,
+	...props
+}: React.ComponentPropsWithRef<typeof TabsPrimitive.Trigger>) => (
 	<TabsPrimitive.Trigger
-		ref={ref}
 		className={cn(
 			defaultStyles,
 			activeStyles,
@@ -46,22 +44,21 @@ const TabsTrigger = React.forwardRef<
 		)}
 		{...props}
 	/>
-));
+);
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
-const TabsContent = React.forwardRef<
-	React.ElementRef<typeof TabsPrimitive.Content>,
-	React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
+const TabsContent = ({
+	className,
+	...props
+}: React.ComponentPropsWithRef<typeof TabsPrimitive.Content>) => (
 	<TabsPrimitive.Content
-		ref={ref}
 		className={cn(
 			'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
 			className,
 		)}
 		{...props}
 	/>
-));
+);
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
 export { Tabs, TabsContent, TabsList, TabsTrigger };

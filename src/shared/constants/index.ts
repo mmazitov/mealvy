@@ -7,7 +7,7 @@ export {
 export * from './app';
 export { MODAL_TYPES, type ModalTypes } from './modals';
 export { NAVIGATION_ITEMS, type NavigationItem } from './navigation';
-export { NUTRITION_UNITS_HINT, UNIT_WEIGHTS } from './nutrition';
+export { UNIT_WEIGHTS } from './nutrition';
 export { PAGE_TITLE } from './pageTitle';
 export { QUICK_ACTIONS, type QuickAction } from './quickActions';
 export { SOCIAL_ITEMS, type SocialItem } from './social';

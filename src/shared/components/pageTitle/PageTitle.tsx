@@ -1,4 +1,4 @@
-import { ActionButton } from '../actionButton';
+import ActionButton from '../actionButton/ActionButton';
 
 import { useAuthContext } from '@/features/auth';
 

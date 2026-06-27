@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 import { Input } from '@/shared/components/ui/input';
@@ -16,78 +15,73 @@ export interface FormInputProps extends React.HTMLAttributes<HTMLDivElement> {
 	id: string;
 	showToggle?: boolean;
 	icon?: React.ReactNode;
+	ref?: React.Ref<HTMLDivElement>;
 }
 
-const FormInput = forwardRef<HTMLDivElement, FormInputProps>(
-	(
-		{
-			className,
-			label,
-			error,
-			registration,
-			inputProps,
-			textareaProps,
-			itemType = 'input',
-			id,
-			showToggle,
-			icon,
-			...props
-		},
-		ref,
-	) => {
-		const errorId = `${id}-error`;
-		const ariaProps = {
-			'aria-invalid': error ? true : undefined,
-			'aria-describedby': error ? errorId : undefined,
-		};
+const FormInput = ({
+	className,
+	label,
+	error,
+	registration,
+	inputProps,
+	textareaProps,
+	itemType = 'input',
+	id,
+	showToggle,
+	icon,
+	ref,
+	...props
+}: FormInputProps) => {
+	const errorId = `${id}-error`;
+	const ariaProps = {
+		'aria-invalid': error ? true : undefined,
+		'aria-describedby': error ? errorId : undefined,
+	};
 
-		return (
-			<div ref={ref} className={cn('space-y-2', className)} {...props}>
-				{label && (
-					<Label htmlFor={id} className={error ? 'text-destructive' : ''}>
-						{label}
-					</Label>
-				)}
-				{itemType === 'textarea' ? (
-					<Textarea
+	return (
+		<div ref={ref} className={cn('space-y-2', className)} {...props}>
+			{label && (
+				<Label htmlFor={id} className={error ? 'text-destructive' : ''}>
+					{label}
+				</Label>
+			)}
+			{itemType === 'textarea' ? (
+				<Textarea
+					id={id}
+					className={cn(
+						error && 'border-destructive focus-visible:ring-destructive',
+					)}
+					{...ariaProps}
+					{...registration}
+					{...textareaProps}
+				/>
+			) : (
+				<div className={icon ? 'relative' : undefined}>
+					{icon}
+					<Input
 						id={id}
 						className={cn(
+							icon && 'pl-10',
 							error && 'border-destructive focus-visible:ring-destructive',
 						)}
+						showToggle={showToggle}
 						{...ariaProps}
 						{...registration}
-						{...textareaProps}
+						{...inputProps}
 					/>
-				) : (
-					<div className={icon ? 'relative' : undefined}>
-						{icon}
-						<Input
-							id={id}
-							className={cn(
-								icon && 'pl-10',
-								error && 'border-destructive focus-visible:ring-destructive',
-							)}
-							showToggle={showToggle}
-							{...ariaProps}
-							{...registration}
-							{...inputProps}
-						/>
-					</div>
-				)}
-				{error && (
-					<p
-						id={errorId}
-						role="alert"
-						className="text-destructive text-sm font-medium"
-					>
-						{error.message}
-					</p>
-				)}
-			</div>
-		);
-	},
-);
-
-FormInput.displayName = 'FormInput';
+				</div>
+			)}
+			{error && (
+				<p
+					id={errorId}
+					role="alert"
+					className="text-destructive text-sm font-medium"
+				>
+					{error.message}
+				</p>
+			)}
+		</div>
+	);
+};
 
 export default FormInput;

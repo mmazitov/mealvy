@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 import { PiMinusBold as Minus, PiPlusBold as Plus } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
-import { useAddDish, useEditDish } from '../hooks';
+import { useAddDish, useEditDish } from '../hooks/useDish';
 
 import { useProductSearch } from '@/features/products';
 import {

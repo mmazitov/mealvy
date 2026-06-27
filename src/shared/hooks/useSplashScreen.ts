@@ -1,28 +1,21 @@
 import { useEffect, useState } from 'react';
 
+const getIsPWA = () => {
+	const isStandalone =
+		window.matchMedia('(display-mode: standalone)').matches ||
+		(window.navigator as unknown as { standalone?: boolean }).standalone ===
+			true;
+
+	const isPWAInstalled = localStorage.getItem('pwa-installed') === 'true';
+
+	return isStandalone || isPWAInstalled;
+};
+
 export const useSplashScreen = () => {
-	const [showSplash, setShowSplash] = useState(false);
-	const [isPWA, setIsPWA] = useState(false);
+	const [isPWA, setIsPWA] = useState(getIsPWA);
+	const [showSplash, setShowSplash] = useState(isPWA);
 
 	useEffect(() => {
-		const checkIfPWA = () => {
-			const isStandalone =
-				window.matchMedia('(display-mode: standalone)').matches ||
-				(window.navigator as unknown as { standalone?: boolean }).standalone ===
-					true;
-
-			const isPWAInstalled = localStorage.getItem('pwa-installed') === 'true';
-
-			const isPWAMode = isStandalone || isPWAInstalled;
-			setIsPWA(isPWAMode);
-
-			if (isPWAMode) {
-				setShowSplash(true);
-			}
-		};
-
-		checkIfPWA();
-
 		const mediaQuery = window.matchMedia('(display-mode: standalone)');
 		const listener = (e: MediaQueryListEvent) => {
 			setIsPWA(e.matches);

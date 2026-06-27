@@ -1,4 +1,4 @@
-import { useDeleteDish } from '../../hooks';
+import { useDeleteDish } from '../../hooks/useDish';
 import Image from '../Image';
 import Header from './Header';
 import Ingredients from './Ingredients';
