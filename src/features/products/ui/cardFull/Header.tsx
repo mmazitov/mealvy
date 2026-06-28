@@ -47,8 +47,8 @@ const Header = ({
 					</Button>
 				</div>
 			)}
-			<div className="grid grid-cols-2 grid-rows-2">
-				<h1 className="text-foreground col-span-1 text-4xl font-bold">
+			<div className="grid grid-cols-2">
+				<h1 className="text-foreground col-span-1 text-4xl font-bold capitalize">
 					{name}
 				</h1>
 				{category && (
