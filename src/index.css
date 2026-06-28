@@ -80,6 +80,9 @@
 	--badge-canned: hsl(28 55% 58%);
 	--badge-canned-fg: hsl(20 15% 18%);
 
+	--badge-spices: hsl(42 75% 62%);
+	--badge-spices-fg: hsl(20 15% 20%);
+
 	--badge-addons: hsl(275 55% 56%);
 	--badge-addons-fg: hsl(0 0% 100%);
 
@@ -175,6 +178,9 @@
 
 	--badge-canned: hsl(28 48% 42%);
 	--badge-canned-fg: hsl(0 0% 100%);
+
+	--badge-spices: hsl(42 65% 52%);
+	--badge-spices-fg: hsl(20 15% 12%);
 
 	--badge-addons: hsl(275 48% 52%);
 	--badge-addons-fg: hsl(0 0% 100%);

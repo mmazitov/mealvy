@@ -78,11 +78,16 @@ export const CATEGORIES_PRODUCTS: Category[] = [
 	},
 	{
 		id: 10,
+		name: 'Спеції',
+		badgeClass: 'bg-[var(--badge-spices)] text-[var(--badge-spices-fg)]',
+	},
+	{
+		id: 11,
 		name: 'Додатки',
 		badgeClass: 'bg-[var(--badge-addons)] text-[var(--badge-addons-fg)]',
 	},
 	{
-		id: 11,
+		id: 12,
 		name: 'Інше',
 		badgeClass: 'bg-[var(--badge-other)] text-[var(--badge-other-fg)]',
 	},
