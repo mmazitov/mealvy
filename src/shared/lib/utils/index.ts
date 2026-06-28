@@ -29,3 +29,8 @@ export {
 } from './schemaOrg';
 export { createSlug, extractId, toEntityPath } from './slug';
 export { formatPhone, normalizePhone, phoneValidate } from './validate';
+export {
+	truncateDescription,
+	capitalizeFirstLetter,
+	defaultCanonicalUrl,
+} from './metaText';

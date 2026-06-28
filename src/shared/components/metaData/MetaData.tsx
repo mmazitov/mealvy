@@ -1,6 +1,11 @@
 import { Link, Meta, Title } from 'react-head';
 
 import { METADATA_CONFIG } from '@/shared/lib/config';
+import {
+	capitalizeFirstLetter,
+	defaultCanonicalUrl,
+	truncateDescription,
+} from '@/shared/lib/utils';
 
 interface MetaDataProps {
 	title: string;
@@ -15,23 +20,6 @@ interface MetaDataProps {
 }
 
 const EMPTY_KEYWORDS: readonly string[] = [];
-
-const truncateDescription = (text: string, maxLength: number = 160): string => {
-	if (!text) return '';
-	if (text.length <= maxLength) return text;
-	return text.substring(0, maxLength - 3).trim() + '...';
-};
-
-const capitalizeFirstLetter = (string: string) => {
-	return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-// Canonical must not include query params or fragments — search engines
-// would treat every filter/pagination variant as a separate page
-const defaultCanonicalUrl = (): string =>
-	typeof window !== 'undefined'
-		? window.location.origin + window.location.pathname
-		: '';
 
 export const MetaData = ({
 	title,
