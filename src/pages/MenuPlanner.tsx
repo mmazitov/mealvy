@@ -28,10 +28,14 @@ import { MODAL_TYPES, PAGE_TITLE } from '@/shared/constants';
 import { useBreadcrumbs } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
 import { FloatingMenuItem } from '@/shared/types';
+import { useAuthContext } from '@/features/auth';
+import { AuthRequiredNotice } from '@/features/auth/ui/AuthRequiredNotice';
 
 const MenuPlanner = () => {
 	const breadcrumbItems = useBreadcrumbs();
 	const navigate = useNavigate();
+
+	const { user } = useAuthContext();
 
 	const {
 		selectedDay,
@@ -72,6 +76,10 @@ const MenuPlanner = () => {
 			disabled: isLoading || isDirty || !hasSavedData,
 		},
 	];
+
+	if (!user) {
+		return <AuthRequiredNotice />;
+	}
 
 	if (error) {
 		return (

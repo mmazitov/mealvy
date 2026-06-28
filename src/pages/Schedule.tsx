@@ -16,9 +16,17 @@ import {
 import { PAGE_TITLE } from '@/shared/constants';
 import { useBreadcrumbs } from '@/shared/hooks';
 import { METADATA_CONFIG } from '@/shared/lib/config';
+import { useAuthContext } from '@/features/auth';
+import { AuthRequiredNotice } from '@/features/auth/ui/AuthRequiredNotice';
 
 const Schedule = () => {
 	const breadcrumbItems = useBreadcrumbs();
+	const { user } = useAuthContext();
+
+	if (!user) {
+		return <AuthRequiredNotice />;
+	}
+
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<Breadcrumb items={breadcrumbItems} />
