@@ -22,6 +22,10 @@ const truncateDescription = (text: string, maxLength: number = 160): string => {
 	return text.substring(0, maxLength - 3).trim() + '...';
 };
 
+const capitalizeFirstLetter = (string: string) => {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 // Canonical must not include query params or fragments — search engines
 // would treat every filter/pagination variant as a separate page
 const defaultCanonicalUrl = (): string =>
@@ -40,7 +44,9 @@ export const MetaData = ({
 	noindex = false,
 }: MetaDataProps) => {
 	const siteTitle = 'Mealvy';
-	const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
+	const fullTitle = title
+		? `${capitalizeFirstLetter(title)} | ${siteTitle}`
+		: siteTitle;
 	const truncatedDescription = truncateDescription(description);
 
 	return (
