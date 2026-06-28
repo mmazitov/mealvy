@@ -33,4 +33,4 @@ export {
 	truncateDescription,
 	capitalizeFirstLetter,
 	defaultCanonicalUrl,
-} from './metaText';
+} from './metaData';
